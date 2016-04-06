@@ -1,0 +1,21 @@
+---
+title: Dan Negrey
+output:
+    html_document:
+        toc: false
+        fig_width: 10
+        theme: spacelab
+        highlight: haddock
+        css: assets/css/styles.css
+        includes:
+            in_header: assets/html/header.html
+            after_body: assets/html/footer.html
+---
+
+<img id="dnegrey" src="assets/img/dnegrey.jpg" alt="Dan Negrey"/>
+
+# Home
+
+Welcome to my personal website and blog!
+
+\  
