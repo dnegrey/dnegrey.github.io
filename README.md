@@ -1,6 +1,5 @@
 # dnegrey.github.io
 
-*version 0.0.0.9002*
+*version 1.0.0*
 
-My personal blog, generated using [Jekyll](https://github.com/jekyll/jekyll) and made easier through [Jekyll Now](https://github.com/barryclark/jekyll-now) from [Barry Clark](https://github.com/barryclark).
-
+My personal website/blog.
