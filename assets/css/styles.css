@@ -10,13 +10,16 @@
     margin-left: 10px;
     float: right;
 }
+#technologies {
+    width: 800px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
 #navbar-collapse-1,
 #navbar-collapse-2 {
     width: 1020px;
     max-width: 100%;
-}
-.sourceCode {
-    background-color: #E0E0E0;
 }
 p code {
     color: #FF3005;
