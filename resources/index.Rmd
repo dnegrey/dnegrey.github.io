@@ -16,6 +16,43 @@ output:
 
 # Resources
 
-Welcome to my personal website and blog!
+### Helpful links
+
+Check out the following sites for more information on each topic. *Coursera* and *Codecademy* both offer excellent programs for learning various data science tools. 
+
+**R**
+
+  * **[R](https://www.r-project.org/)**: The R project for statistical computing
+  * **[CRAN](https://cran.r-project.org/)**: The Comprehensive R Archive Network
+  * **[RStudio](https://www.rstudio.com/)**: Open source and enterprise-ready professional software for R
+
+**Git**
+
+  * **[Git](https://git-scm.com/)**: Free and open source distributed version control system
+  * **[GitHub](https://github.com/)**: Awesome web-based Git repository hosting service
+  * **[GitLab](https://about.gitlab.com/)**: Another web-based Git repository hosting service (need to host your own non-GitHub solution? look no further...)
+
+**Web**
+
+  * **[W3Schools](http://www.w3schools.com/)**: Learn the languages behing building web pages
+  * **[Markdown](https://daringfireball.net/projects/markdown/)**: Popular plain text to HTML conversion tool (used all over the place)
+  
+**Learning**
+
+  * **[Coursera](https://www.coursera.org/)**: Take the world's best classes, online (and in many cases, free)
+  * **[Codecademy](https://www.codecademy.com/)**: Teaching the world how to code
+
+### Reading list
+
+I highly recommend each of the following books for anyone interested in data science. These have been (and continue to be) tremendously helpful for me! A great one to start with is *The Linux Command Line*. So much of what I do is dependent on (or enchanced, or made A LOT easier by) working from a Unix-like command line. Shotts does a great job of explaining fundamental and advanced topics both clearly and concisely.
+
+```{r, echo=FALSE}
+source("reading_list.R")
+reading_list("reading_list.txt")
+```
+
+\  
+
+\  
 
 \  

@@ -28,7 +28,7 @@ This is the central hub for my professional portfolio. My goal is that visitors 
 
 ### Technology approach
 
-I consider myself "technology agnostic". Fortunately, the nature of my work lends itself to using a variety of tools. I generally prefer open-source technologies and as my work greatly emphasizes analytics and visualization, I am a very enthusiastic **[R](https://www.r-project.org/)** user! I use **[git](https://git-scm.com/)** for version control and honestly don't know how I ever lived without it (I refer to this earlier period in my life as "b.g." - before git). Below is a snapshot of the tools and technologies that I commonly use:
+I consider myself "technology agnostic". Fortunately, the nature of my work lends itself to using a variety of tools. I generally prefer open-source technologies and as my work greatly emphasizes analytics and visualization, I am a very enthusiastic **[R](https://www.r-project.org/)** user! I use **[git](https://git-scm.com/)** for version control and honestly don't know how I ever lived without it (I refer to this earlier period in my life as "b.g." - before git). Below is a snapshot of some of the tools and technologies that I commonly use:
 
 <img id="technologies" src="assets/img/technologies.png" alt="Technologies"/>
 

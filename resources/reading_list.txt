@@ -1,0 +1,11 @@
+Advanced R|Hadley Wickham|http://www.amazon.com/Advanced-Chapman-Hall-Hadley-Wickham/dp/1466586966/ref=asap_bc?ie=UTF8|R
+R Packages|Hadley Wickham|http://www.amazon.com/R-Packages-Hadley-Wickham/dp/1491910593/ref=asap_bc?ie=UTF8|R
+R Graphics Cookbook|Winston Chang|http://www.amazon.com/R-Graphics-Cookbook-Winston-Chang/dp/1449316956/ref=asap_bc?ie=UTF8|R
+The Linux Command Line|William E. Shotts, Jr.|http://www.amazon.com/Linux-Command-Line-Complete-Introduction/dp/1593273894/ref=sr_1_1?s=books&ie=UTF8&qid=1460135183&sr=1-1|Linux
+Hadoop: The Definitive Guide|Tom White|http://www.amazon.com/Hadoop-Definitive-Guide-Tom-White/dp/1491901632/ref=sr_1_1?s=books&ie=UTF8&qid=1460135277&sr=1-1|Hadoop
+Learning Spark|Karau, Konwinski, Wendell & Zaharia|http://www.amazon.com/Learning-Spark-Lightning-Fast-Data-Analysis/dp/1449358624/ref=asap_bc?ie=UTF8|Hadoop
+Programming Pig|Alan Gates|http://www.amazon.com/Programming-Pig-Alan-Gates/dp/1449302645/ref=asap_bc?ie=UTF8|Hadoop
+The Pragmatic Programmer|Hunt & Thomas|http://www.amazon.com/Pragmatic-Programmer-Journeyman-Master/dp/020161622X/ref=sr_1_2?s=books&ie=UTF8&qid=1460135568&sr=1-2|Programming
+Graph Databases|Robinson, Webber & Eifrem|http://www.amazon.com/Graph-Databases-Opportunities-Connected-Data/dp/1491930896/ref=sr_1_1?s=books&ie=UTF8&qid=1460135670&sr=1-1|Neo4j
+Applied Predictive Modeling|Kuhn & Johnson|http://www.amazon.com/Applied-Predictive-Modeling-Max-Kuhn/dp/1461468485/ref=asap_bc?ie=UTF8|Analytics
+Doing Bayesian Data Analysis|John K. Kruschke|http://www.amazon.com/Doing-Bayesian-Data-Analysis-Tutorial/dp/0123814855/ref=asap_bc?ie=UTF8|Analytics
