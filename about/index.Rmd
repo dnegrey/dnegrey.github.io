@@ -16,6 +16,13 @@ output:
 
 # About
 
-Welcome to my personal website and blog!
+So who am I, you ask?
+
+Father, husband, brother, son, slacker, employee, citizen, occasional beard grower, <span style="text-decoration: line-through">former?</span> athlete, critical thinker, [Star Wars](http://www.starwars.com/) fan, [Futurama](http://www.cc.com/shows/futurama) fan, [Back to the Future](http://www.backtothefuture.com/) fan, (basically anything involving flying vehicles set in the distant past or future) fan, gamer (long time [Nintendo](http://www.nintendo.com/) loyalist), Cleveland native, one-time kicker of a 50 yard field goal (off a tee with nobody around, but it still counts), [Ohio University](https://www.ohio.edu/) graduate, animal lover, minor league hockey partial season ticket holder (go [Monsters!](http://www.lakeeriemonsters.com/)), competitive [Wiffle Ball](http://www.wiffle.com/) player (inactive), data scientist, someone who envies good bowlers, Pine Elementary School 1992-93 [Four Square](http://www.squarefour.org/home) tournament finalist, [moviegoer](http://www.merriam-webster.com/dictionary/moviegoer), [Risk](https://en.wikipedia.org/wiki/Risk_(game)) player, [webmaster](https://www.google.com/search?q=webmaster&oq=webmaster&aqs=chrome..69i57j69i59j69i60j69i65j69i60l2.1022j0j4&sourceid=chrome&ie=UTF-8) (apparently) ... to name a few roles.
+
+### Fun fact
+
+I botched one of my earliest attempts at predicting outcomes when, in the spring of 1991, I bet my brother that Joel Skinner, not Sandy Alomar, would be the Indians starting catcher for the next several years. The Tribe went 57-105 that year with Skinner behind the dish, while the rest of the 90s belonged to Alomar and some great Cleveland baseball teams.
+
 
 \  
