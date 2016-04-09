@@ -16,6 +16,6 @@ output:
 
 # Projects
 
-Welcome to my personal website and blog!
+Coming soon!
 
 \  
