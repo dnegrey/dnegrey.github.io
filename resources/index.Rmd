@@ -34,7 +34,7 @@ Check out the following sites for more information on each topic. *Coursera* and
 
 **Web**
 
-  * **[W3Schools](http://www.w3schools.com/)**: Learn the languages behing building web pages
+  * **[W3Schools](http://www.w3schools.com/)**: Learn the languages behind building web pages
   * **[Markdown](https://daringfireball.net/projects/markdown/)**: Popular plain text to HTML conversion tool (used all over the place)
   
 **Learning**
