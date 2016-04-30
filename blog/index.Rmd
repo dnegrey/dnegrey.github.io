@@ -12,10 +12,16 @@ output:
             after_body: ../assets/html/footer.html
 ---
 
-<img id="dnegrey" src="../assets/img/dnegrey.jpg" alt="Dan Negrey"/>
-
 # Blog
 
 Coming soon!
+
+```{r, echo=FALSE}
+post_search(".")
+```
+
+\  
+
+\  
 
 \  
