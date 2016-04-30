@@ -16,10 +16,6 @@ output:
 
 Coming soon!
 
-```{r, echo=FALSE}
-post_search(".")
-```
-
 \  
 
 \  
