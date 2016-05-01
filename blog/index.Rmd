@@ -18,12 +18,6 @@ output:
 
 Coming soon!
 
-Welcome to the blog!
-
-```{r, echo=FALSE}
-post_search()
-```
-
 \  
 
 \  
