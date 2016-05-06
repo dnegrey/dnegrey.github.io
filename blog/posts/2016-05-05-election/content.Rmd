@@ -14,6 +14,8 @@
 library(maptools)
 library(httr)
 library(XML)
+library(dplyr)
+library(leaflet)
 ```
 
 ### Download U.S. state shape data
@@ -54,5 +56,36 @@ names(x) <- c(
     "PopularOther",
     "PopularTotal"
 )
-DT::datatable(x)
+x$Winner <- ifelse(is.na(x$ElectoralBush), "Gore", "Bush")
+stateResults <- x
+rm(x)
 ```
+
+### Construct Map
+
+```{r}
+x <- subset(stateMap, stateMap$STUSPS %in% stateResults$StateAbbrev)
+x$StateAbbrev <- as.character(x$STUSPS)
+x@data <- x@data %>% 
+    inner_join(stateResults, "StateAbbrev")
+pal <- colorFactor(palette = c("Red", "Blue"), domain = c("Bush", "Gore"))
+leaflet() %>% 
+    addProviderTiles("OpenStreetMap.BlackAndWhite") %>% 
+    setView(lng = -98.35,
+            lat = 39.50,
+            zoom = 4) %>% 
+    addPolygons(data = x,
+                color = "#FFFFFF",
+                weight = 2,
+                fillColor = ~ pal(Winner),
+                fillOpacity = 0.80,
+                popup = ~ paste0(
+                    "<b>", NAME, "</b>",
+                    "<br>", "Abbreviation: ", StateAbbrev
+                )) %>% 
+    addLegend(position = "bottomleft",
+              pal = pal,
+              values = c("Bush", "Gore"),
+              title =)
+```
+
