@@ -1,0 +1,58 @@
+# Leaflet by Example: Election 2000 {.tabset}
+
+*May 05, 2016*
+
+## Article
+
+
+
+## Code
+
+### Load necessary packages
+
+```{r}
+library(maptools)
+library(httr)
+library(XML)
+```
+
+### Download U.S. state shape data
+
+```{r}
+download.file(
+    "http://www2.census.gov/geo/tiger/GENZ2014/shp/cb_2014_us_state_20m.zip",
+    "cb_2014_us_state_20m.zip"
+)
+unzip(
+    "cb_2014_us_state_20m.zip",
+    exdir = "cb_2014_us_state_20m"
+)
+```
+
+### Import U.S. state shape data
+
+```{r}
+stateMap <- readShapePoly(fn = "cb_2014_us_state_20m/cb_2014_us_state_20m")
+```
+
+### Pull election results
+
+```{r}
+x <- GET("http://www.fec.gov/pubrec/fe2000/elecpop.htm")
+x <- readHTMLTable(rawToChar(x$content), stringsAsFactors = FALSE)
+x <- x[[1]]
+x <- x[2:(nrow(x) - 1), ]
+for (i in 2:7) {
+    x[, i] <- as.integer(gsub("[^0-9]", "", x[, i]))
+}
+names(x) <- c(
+    "StateAbbrev",
+    "ElectoralBush",
+    "ElectoralGore",
+    "PopularBush",
+    "PopularGore",
+    "PopularOther",
+    "PopularTotal"
+)
+DT::datatable(x)
+```
