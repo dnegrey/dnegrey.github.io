@@ -4,9 +4,14 @@
 
 ## Article
 
+### Overview
 
+If you've kept your finger on the pulse of the R community lately, you'd likely agree that innovation has been on a tear! A foundation built on extensibility combined with a growing user base amount to daily announcements of new products, new packages, new features and new ideas. One of the more impressive items to arrive in the past year or two is the [htmlwidgets](http://www.htmlwidgets.org/) package. If you're not already familiar, this package provides a framework for bringing interactive JavaScript visualizations to R, where they can then be easily embedded into R Markdown documents and Shiny web applications.
 
-## Code
+Using this framework, developers can create new widgets that bind R and JavaScript in amazingly seamless ways. Many such R packages already exist, and while each provides useful and unique tools for presenting and visualizing data, one in particular stands out for its geospatial capabilities. [Leaflet](https://rstudio.github.io/leaflet/) gives users the ability to create interactive maps that can span the entire globe. With a variety of different base maps (tiles) and the ability to overlay multiple layers of content (including markers, popups, lines, shapes, etc...), the number of applications for this tool is endless.
+
+This article is focused on demonstrating a handful of leaflet's many great features using real world data. In the United States, a [Clinton (D)](https://www.hillaryclinton.com/) vs. [Trump (R)](https://www.donaldjtrump.com/) showdown is all but certain for the upcoming presidential election in November. There has been a lot of rhetoric tossed around during the primaries, and if those debates were any indication, we are in for some very enteraining months ahead. During election years, I'm often reminded of the 2000 presidential election that pitted incumbent vice president [Al Gore (D)](https://www.algore.com/) vs. incumbent Texas governor [George W. Bush (R)](http://www.georgewbush.com/). One of the closest presidential elections in U.S. history, and certainly the most publicized one, 2000 saw Bush defeat gore by only 5 electoral votes despite Gore winning the popular vote by roughly 0.5%.
+
 
 ### Load necessary packages
 
@@ -89,3 +94,18 @@ leaflet() %>%
               title =)
 ```
 
+## Notes
+
+### System info
+
+* **Operating system**: ubuntu 15.10 (64-bit)
+* **R version**: 3.2.2 (2015-08-14) -- "Fire Safety"
+* **Platform**: x86_64-pc-linux-gnu (64-bit)
+
+### Package info
+
+* **maptools**: version 0.8-39
+* **httr**: version 1.1.0
+* **XML**: version 3.98-1.4
+* **dplyr**: version 0.4.3
+* **leaflet**: version 1.0.1

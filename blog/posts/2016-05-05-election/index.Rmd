@@ -3,6 +3,7 @@ title: Dan Negrey
 output:
     html_document:
         toc: false
+        code_folding: hide
         fig_width: 10
         theme: spacelab
         highlight: haddock
@@ -14,6 +15,10 @@ output:
 
 ```{r child="content.Rmd"}
 ```
+
+# 
+
+### Discussion
 
 <div id="disqus_thread"></div>
 <script>
