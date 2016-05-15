@@ -15,6 +15,10 @@ output:
 ```{r child="content.Rmd"}
 ```
 
+# 
+
+### Discussion
+
 <div id="disqus_thread"></div>
 <script>
 /**
