@@ -16,7 +16,15 @@ output:
 
 # Blog
 
-Coming soon!
+<img style="width: 64px; height: 64px; margin: 10px 0 10px 0;" src="../assets/img/blog.png"/>
+
+Welcome to my blog! Here you will find articles I have written on a variety of data science related topics. Please join the conversation by contributing to the discussion boards trailing each post. Commenting is powered by [Disqus](https://disqus.com/).
+
+\  
+
+```{r, echo=FALSE}
+post_search()
+```
 
 \  
 
