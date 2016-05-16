@@ -16,6 +16,8 @@ output:
 
 # Resources
 
+<img style="width: 64px; height: 64px; margin: 10px 0 10px 0;" src="../assets/img/resources.png"/>
+
 ### Helpful links
 
 Check out the following sites for more information on each topic. *Coursera* and *Codecademy* both offer excellent programs for learning various data science tools. 

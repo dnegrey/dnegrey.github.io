@@ -16,6 +16,8 @@ output:
 
 # Projects
 
+<img style="width: 64px; height: 64px; margin: 10px 0 10px 0;" src="../assets/img/projects.png"/>
+
 Coming soon!
 
 \  
