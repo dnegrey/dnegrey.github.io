@@ -20,6 +20,7 @@ My name is Dan Negrey, and I am a **[Data Scientist](https://en.wikipedia.org/wi
 
 ### Latest news
 
+* *March 4, 2017*: new project - [Data Days CLE 2017: Introducing R](/projects/dataDaysCLE.html)
 * *May 15, 2016*: blog post - [Leaflet by Example: Election 2000
 ](/blog/posts/2016-05-15-election)
 * *April 4, 2016*: new site launched, built using [R Markdown](http://rmarkdown.rstudio.com/)!
