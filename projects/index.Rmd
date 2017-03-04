@@ -41,6 +41,10 @@ I am an advocate of [massive open online courses (MOOCs)](https://en.wikipedia.o
 
 ### Miscellaneous
 
+**Presentations**
+
+* **[Data Days CLE 2017: Introducing R](./dataDaysCLE.html)**
+
 **Publications**
 
 * **[Describing Your Data: Understanding Distributions](https://www.linkedin.com/pulse/describing-your-data-understanding-distributions-dan-negrey)**
