@@ -58,6 +58,44 @@
 </nav>
 
 
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #0000ff; } /* Keyword */
+code > span.ch { color: #008080; } /* Char */
+code > span.st { color: #008080; } /* String */
+code > span.co { color: #008000; } /* Comment */
+code > span.ot { color: #ff4000; } /* Other */
+code > span.al { color: #ff0000; } /* Alert */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #008000; font-weight: bold; } /* Warning */
+code > span.cn { } /* Constant */
+code > span.sc { color: #008080; } /* SpecialChar */
+code > span.vs { color: #008080; } /* VerbatimString */
+code > span.ss { color: #008080; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { } /* Variable */
+code > span.cf { color: #0000ff; } /* ControlFlow */
+code > span.op { } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #ff4000; } /* Preprocessor */
+code > span.do { color: #008000; } /* Documentation */
+code > span.an { color: #008000; } /* Annotation */
+code > span.cv { color: #008000; } /* CommentVar */
+code > span.at { } /* Attribute */
+code > span.in { color: #008000; } /* Information */
+</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
 
 
 <style type="text/css">
@@ -164,7 +202,61 @@ $(document).ready(function () {
 <li><code>ls</code>: list directory contents</li>
 <li><code>rm</code>: remove files or directories</li>
 </ul>
-<p>For brevity, I use <code>echo</code> with redirection (<code>&gt;</code>) to write files. In reality, you’d be using a visual editor such as <code>vi</code> to write and edit files.</p>
+<p>For brevity, I am using <code>echo</code> with redirection (<code>&gt;</code>) to write files. In reality, you’d be using a visual editor such as <code>vi</code> to write and edit files.</p>
+</div>
+<div id="create-a-local-git-repository" class="section level3">
+<h3>Create a Local Git Repository</h3>
+<p>Before we can do anything with Git, we must initialize a directory as a Git repository. Let’s do so in a brand new directory that we’ll create underneath our home directory (<code>~</code>) called <code>fundamentals</code>:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">cd</span> ~
+<span class="kw">mkdir</span> fundamentals
+<span class="kw">cd</span> fundamentals
+<span class="kw">git</span> init</code></pre></div>
+<pre><code>Initialized empty Git repository in /home/dnegrey/fundamentals/.git/</code></pre>
+</div>
+<div id="add-a-readme-file" class="section level3">
+<h3>Add a README File</h3>
+<p>The first thing you’ll want to do with any new Git repository is add a <strong>README.md</strong> file to the project root. As a plain text file, it will be the easiest place to save and read notes about your project. The “.md” extension indicates that it is a <a href="https://daringfireball.net/projects/markdown/">markdown</a> file. Markdown is a text-to-HTML conversion tool that allows you to create easy-to-read and easy-to-write plain text files which get converted to HTML. Hosting services like GitHub and GitLab will automatically render your README.md file to HTML at the main repository site (for example: <a href="https://github.com/dnegrey/blogr" class="uri">https://github.com/dnegrey/blogr</a>). Here is a brief primer on some more commonly used markdown syntax:</p>
+<hr />
+<div>
+<div style="float: left; width: 48%; margin-left: 0; margin-right: 2%;">
+<h5 id="headers"><strong>Headers</strong></h5>
+<pre class="text"><code># is an h1 header
+## is an h2 header
+### is an h3 header (and so on)</code></pre>
+<h5 id="regular-writing"><strong>Regular Writing</strong></h5>
+<pre class="text"><code>Regular writing becomes a &lt;p&gt; tag</code></pre>
+<h5 id="inline-code"><strong>Inline Code</strong></h5>
+<pre class="text"><code>Enclose inline code in `single ticks`</code></pre>
+<h5 id="unordered-lists"><strong>Unordered Lists</strong></h5>
+<pre class="text"><code>* item one in unordered list
+* item two in unordered list
+* item three in unordered list</code></pre>
+</div>
+<div style="float: right; width: 48%; margin-left: 2%; margin-right: 0;">
+<h5 id="italics-and-bold"><strong>Italics and Bold</strong></h5>
+<pre class="text"><code>*italics*
+**bold**
+***bold-and-italics***</code></pre>
+<h5 id="hyperlinks"><strong>Hyperlinks</strong></h5>
+<pre class="text"><code>[hyperlink-alt-text](hyperlink-href)</code></pre>
+<h5 id="code-chunks"><strong>Code Chunks</strong></h5>
+<pre class="text"><code>    Indent four spaces for a code block</code></pre>
+<h5 id="ordered-lists"><strong>Ordered Lists</strong></h5>
+<pre class="text"><code>1 item one in ordered list
+2 item two in ordered list
+3 item three in ordered list</code></pre>
+</div>
+<p><br style="clear:both;" /></p>
+</div>
+<hr />
+<p>Now let’s actually create our README.md file. A popular convention (and one that I use) is to have the first line of your README.md file be an <code>&lt;h1&gt;</code> header with the name of your repository:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">echo</span> \# fundamentals <span class="kw">&gt;</span> README.md
+<span class="kw">cat</span> README.md</code></pre></div>
+<pre><code># fundamentals</code></pre>
+</div>
+<div id="git-status" class="section level3">
+<h3>Git Status</h3>
+<p>     </p>
 </div>
 </div>
 <div id="notes" class="section level2">

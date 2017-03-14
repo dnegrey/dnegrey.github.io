@@ -23,7 +23,119 @@ A basic understanding of Linux (Unix-like) commands is assumed. Specifically, th
 * `ls`: list directory contents
 * `rm`: remove files or directories
 
-For brevity, I use `echo` with redirection (`>`) to write files. In reality, you'd be using a visual editor such as `vi` to write and edit files.
+For brevity, I am using `echo` with redirection (`>`) to write files. In reality, you'd be using a visual editor such as `vi` to write and edit files.
+
+### Create a Local Git Repository
+
+Before we can do anything with Git, we must initialize a directory as a Git repository. Let's do so in a brand new directory that we'll create underneath our home directory (`~`) called `fundamentals`:
+
+```{r, echo=FALSE}
+knitr::opts_chunk$set(comment=NA)
+knitr::opts_knit$set(root.dir='/home/dnegrey')
+```
+
+```{bash}
+cd ~
+mkdir fundamentals
+cd fundamentals
+git init
+```
+
+### Add a README File
+
+The first thing you'll want to do with any new Git repository is add a **README.md** file to the project root. As a plain text file, it will be the easiest place to save and read notes about your project. The ".md" extension indicates that it is a [markdown](https://daringfireball.net/projects/markdown/) file. Markdown is a text-to-HTML conversion tool that allows you to create easy-to-read and easy-to-write plain text files which get converted to HTML. Hosting services like GitHub and GitLab will automatically render your README.md file to HTML at the main repository site (for example: [https://github.com/dnegrey/blogr](https://github.com/dnegrey/blogr)). Here is a brief primer on some more commonly used markdown syntax:
+
+---
+
+<div>
+<div style="float: left; width: 48%; margin-left: 0; margin-right: 2%;">
+
+##### **Headers**
+
+```{bash, eval=FALSE, highlight=FALSE}
+# is an h1 header
+## is an h2 header
+### is an h3 header (and so on)
+```
+
+##### **Regular Writing**
+
+```{bash, eval=FALSE, highlight=FALSE}
+Regular writing becomes a <p> tag
+```
+
+##### **Inline Code**
+
+```{bash, eval=FALSE, highlight=FALSE}
+Enclose inline code in `single ticks`
+```
+
+##### **Unordered Lists**
+
+```{bash, eval=FALSE, highlight=FALSE}
+* item one in unordered list
+* item two in unordered list
+* item three in unordered list
+```
+
+</div>
+<div style="float: right; width: 48%; margin-left: 2%; margin-right: 0;">
+
+##### **Italics and Bold**
+
+```{bash, eval=FALSE, highlight=FALSE}
+*italics*
+**bold**
+***bold-and-italics***
+```
+
+##### **Hyperlinks**
+
+```{bash, eval=FALSE, highlight=FALSE}
+[hyperlink-alt-text](hyperlink-href)
+```
+
+##### **Code Chunks**
+
+```{bash, eval=FALSE, highlight=FALSE}
+    Indent four spaces for a code block
+```
+
+##### **Ordered Lists**
+
+```{bash, eval=FALSE, highlight=FALSE}
+1 item one in ordered list
+2 item two in ordered list
+3 item three in ordered list
+```
+
+</div>
+<br style="clear:both;"/>
+</div>
+
+---
+
+Now let's actually create our README.md file. A popular convention (and one that I use) is to have the first line of your README.md file be an `<h1>` header with the name of your repository:
+
+```{bash}
+echo \# fundamentals > README.md
+cat README.md
+```
+
+
+### Git Status
+
+
+```{r, echo=FALSE}
+knitr::opts_knit$set(root.dir='/home/dnegrey')
+```
+```{bash, echo=FALSE}
+rm -rf fundamentals
+```
+
+\  
+\  
+\  
 
 ## Notes
 
