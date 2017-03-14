@@ -290,7 +290,7 @@ Changes to be committed:
 <p>When you are ready to officially record (“commit”) your staged changes, use the <code>git commit</code> command. Doing so will prompt you for a commit message (all commits get accompanied by a message), however, you can avoid the prompt and supply the message while requesting the commit by using the <code>-m</code> option:</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> commit -m <span class="st">&quot;initial commit&quot;</span>
 <span class="kw">git</span> status</code></pre></div>
-<pre><code>[master (root-commit) e85e53a] initial commit
+<pre><code>[master (root-commit) bb31b19] initial commit
  1 file changed, 1 insertion(+)
  create mode 100644 README.md
 On branch master
@@ -301,13 +301,13 @@ nothing to commit, working directory clean</code></pre>
 <h3>Git Log</h3>
 <p>Use the <code>git log</code> command to print a summary of all the commits that you’ve made. This will include the full commit hash, author, date and message. For a more abbreviated result, use the <code>--oneline</code> option which will only print out the commit message and the first 7 characters from the commit hash:</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> log</code></pre></div>
-<pre><code>commit e85e53a22547e3fb7169077d0e16a4ea3ec5c6b9
+<pre><code>commit bb31b193156c67a940b6fc651791e25305d9e98d
 Author: dnegrey &lt;dnegrey@gmail.com&gt;
-Date:   Tue Mar 14 15:56:02 2017 -0400
+Date:   Tue Mar 14 16:53:29 2017 -0400
 
     initial commit</code></pre>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> log --oneline</code></pre></div>
-<pre><code>e85e53a initial commit</code></pre>
+<pre><code>bb31b19 initial commit</code></pre>
 </div>
 <div id="gitignore" class="section level3">
 <h3>.gitignore</h3>
@@ -315,7 +315,7 @@ Date:   Tue Mar 14 15:56:02 2017 -0400
 <p>Let’s confirm a clean working directory:</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">ls</span> -l</code></pre></div>
 <pre><code>total 12
--rw-r--r-- 1 dnegrey dnegrey 15 Mar 14 15:56 README.md</code></pre>
+-rw-r--r-- 1 dnegrey dnegrey 15 Mar 14 16:53 README.md</code></pre>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> status</code></pre></div>
 <pre><code>On branch master
 nothing to commit, working directory clean</code></pre>
@@ -325,10 +325,10 @@ nothing to commit, working directory clean</code></pre>
 <span class="kw">done</span>
 <span class="kw">ls</span> -l</code></pre></div>
 <pre><code>total 36
--rw-r--r-- 1 dnegrey dnegrey  0 Mar 14 15:56 data1.csv
--rw-r--r-- 1 dnegrey dnegrey  0 Mar 14 15:56 data2.csv
--rw-r--r-- 1 dnegrey dnegrey  0 Mar 14 15:56 data3.csv
--rw-r--r-- 1 dnegrey dnegrey 15 Mar 14 15:56 README.md</code></pre>
+-rw-r--r-- 1 dnegrey dnegrey  0 Mar 14 16:53 data1.csv
+-rw-r--r-- 1 dnegrey dnegrey  0 Mar 14 16:53 data2.csv
+-rw-r--r-- 1 dnegrey dnegrey  0 Mar 14 16:53 data3.csv
+-rw-r--r-- 1 dnegrey dnegrey 15 Mar 14 16:53 README.md</code></pre>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> status</code></pre></div>
 <pre><code>On branch master
 Untracked files:
@@ -353,26 +353,133 @@ Untracked files:
 nothing added to commit but untracked files present (use &quot;git add&quot; to track)</code></pre>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">ls</span> -la</code></pre></div>
 <pre><code>total 68
-drwxr-xr-x  3 dnegrey dnegrey  4096 Mar 14 15:56 .
-drwx------ 37 dnegrey dnegrey 12288 Mar 14 15:56 ..
--rw-r--r--  1 dnegrey dnegrey     0 Mar 14 15:56 data1.csv
--rw-r--r--  1 dnegrey dnegrey     0 Mar 14 15:56 data2.csv
--rw-r--r--  1 dnegrey dnegrey     0 Mar 14 15:56 data3.csv
-drwxr-xr-x  8 dnegrey dnegrey  4096 Mar 14 15:56 .git
--rw-r--r--  1 dnegrey dnegrey    10 Mar 14 15:56 .gitignore
--rw-r--r--  1 dnegrey dnegrey    15 Mar 14 15:56 README.md</code></pre>
+drwxr-xr-x  3 dnegrey dnegrey  4096 Mar 14 16:53 .
+drwx------ 37 dnegrey dnegrey 12288 Mar 14 16:53 ..
+-rw-r--r--  1 dnegrey dnegrey     0 Mar 14 16:53 data1.csv
+-rw-r--r--  1 dnegrey dnegrey     0 Mar 14 16:53 data2.csv
+-rw-r--r--  1 dnegrey dnegrey     0 Mar 14 16:53 data3.csv
+drwxr-xr-x  8 dnegrey dnegrey  4096 Mar 14 16:53 .git
+-rw-r--r--  1 dnegrey dnegrey    10 Mar 14 16:53 .gitignore
+-rw-r--r--  1 dnegrey dnegrey    15 Mar 14 16:53 README.md</code></pre>
 <p>Great! Git will now ignore any file that fits the pattern <code>data*.csv</code>. However, it does recognize that we’ve now introduced a new file - namely, the <code>.gitignore</code> file. So we simply add <code>.gitignore</code> to the staging area and commit:</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> add .gitignore
 <span class="kw">git</span> commit -m <span class="st">&quot;added .gitignore&quot;</span>
 <span class="kw">git</span> status</code></pre></div>
-<pre><code>[master 88e5cdc] added .gitignore
+<pre><code>[master d3b6c3c] added .gitignore
  1 file changed, 1 insertion(+)
  create mode 100644 .gitignore
 On branch master
 nothing to commit, working directory clean</code></pre>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> log --oneline</code></pre></div>
-<pre><code>88e5cdc added .gitignore
-e85e53a initial commit</code></pre>
+<pre><code>d3b6c3c added .gitignore
+bb31b19 initial commit</code></pre>
+</div>
+<div id="discard-changes" class="section level3">
+<h3>Discard Changes</h3>
+<p>Let’s add a new file to our project:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">echo</span> <span class="st">&quot;Hello, world!&quot;</span> <span class="kw">&gt;</span> file1
+<span class="kw">cat</span> file1</code></pre></div>
+<pre><code>Hello, world!</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> add file1
+<span class="kw">git</span> commit -m <span class="st">&quot;added file1&quot;</span></code></pre></div>
+<pre><code>[master f90dfe5] added file1
+ 1 file changed, 1 insertion(+)
+ create mode 100644 file1</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> log --oneline</code></pre></div>
+<pre><code>f90dfe5 added file1
+d3b6c3c added .gitignore
+bb31b19 initial commit</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> status</code></pre></div>
+<pre><code>On branch master
+nothing to commit, working directory clean</code></pre>
+<p>Now, this is where things start to heat up! Let’s make a change to <code>file</code>:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">echo</span> <span class="st">&quot;Goodbye, world:(&quot;</span> <span class="kw">&gt;</span> file1
+<span class="kw">cat</span> file1</code></pre></div>
+<pre><code>Goodbye, world:(</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> status</code></pre></div>
+<pre><code>On branch master
+Changes not staged for commit:
+  (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)
+  (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)
+
+    modified:   file1
+
+no changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&quot;)</code></pre>
+<p>Based on the above response from <code>git status</code>, Git is aware that <code>file1</code> has changed! But, recall <strong>staging</strong>! This change has not yet been staged. Sometimes, changes like this might occur by accident or they may simply no longer be desired. To roll back unstaged changes to a file, use the <code>git checkout --</code> command:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> checkout -- file1
+<span class="kw">cat</span> file1</code></pre></div>
+<pre><code>Hello, world!</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> status</code></pre></div>
+<pre><code>On branch master
+nothing to commit, working directory clean</code></pre>
+<p><strong>Voila!</strong> Everything is back to the way it was before we changed <code>file1</code>.</p>
+</div>
+<div id="git-revert" class="section level3">
+<h3>Git Revert</h3>
+<p>In some cases, it will be necessary to undo an entire commit. To do so, use the <code>git revert</code> command and supply it with the SHA-1 hash of the commit that you would like to revert. Suppose we didn’t want a <code>.gitignore</code> file. We would want to revert our second commit:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> log --oneline</code></pre></div>
+<pre><code>f90dfe5 added file1
+d3b6c3c added .gitignore
+bb31b19 initial commit</code></pre>
+<pre class="sourceCode bash">
+<code class="sourceCode bash"><span class="kw">git</span> revert d3b6c3c</code>
+</pre>
+<pre><code>[master 0a38fe1] Revert &quot;added .gitignore&quot;
+ 1 file changed, 1 deletion(-)
+ delete mode 100644 .gitignore</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> status</code></pre></div>
+<pre><code>On branch master
+Untracked files:
+  (use &quot;git add &lt;file&gt;...&quot; to include in what will be committed)
+
+    data1.csv
+    data2.csv
+    data3.csv
+
+nothing added to commit but untracked files present (use &quot;git add&quot; to track)</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> log --oneline</code></pre></div>
+<pre><code>0a38fe1 Revert &quot;added .gitignore&quot;
+f90dfe5 added file1
+d3b6c3c added .gitignore
+bb31b19 initial commit</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">ls</span> -la</code></pre></div>
+<pre><code>total 68
+drwxr-xr-x  3 dnegrey dnegrey  4096 Mar 14 16:53 .
+drwx------ 37 dnegrey dnegrey 12288 Mar 14 16:53 ..
+-rw-r--r--  1 dnegrey dnegrey     0 Mar 14 16:53 data1.csv
+-rw-r--r--  1 dnegrey dnegrey     0 Mar 14 16:53 data2.csv
+-rw-r--r--  1 dnegrey dnegrey     0 Mar 14 16:53 data3.csv
+-rw-r--r--  1 dnegrey dnegrey    14 Mar 14 16:53 file1
+drwxr-xr-x  8 dnegrey dnegrey  4096 Mar 14 16:53 .git
+-rw-r--r--  1 dnegrey dnegrey    15 Mar 14 16:53 README.md</code></pre>
+<p>Recall that the point of Git is to track <strong><em>all</em></strong> of your changes! Notice that <code>git revert</code> did not simply roll back or remove the prior commit, but rather it created a new commit reflective of the state we desired. In fact, by removing our <code>.gitignore</code> file, Git is now aware of the data files that it was previously ignoring! We can now <em>revert our revert</em> to get back our <code>.gitignore</code> file:</p>
+<pre class="sourceCode bash">
+<code class="sourceCode bash"><span class="kw">git</span> revert 0a38fe1</code>
+</pre>
+<pre><code>[master 21243e1] Revert &quot;Revert &quot;added .gitignore&quot;&quot;
+ 1 file changed, 1 insertion(+)
+ create mode 100644 .gitignore</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> status</code></pre></div>
+<pre><code>On branch master
+nothing to commit, working directory clean</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> log --oneline</code></pre></div>
+<pre><code>21243e1 Revert &quot;Revert &quot;added .gitignore&quot;&quot;
+0a38fe1 Revert &quot;added .gitignore&quot;
+f90dfe5 added file1
+d3b6c3c added .gitignore
+bb31b19 initial commit</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">ls</span> -la</code></pre></div>
+<pre><code>total 80
+drwxr-xr-x  3 dnegrey dnegrey  4096 Mar 14 16:53 .
+drwx------ 37 dnegrey dnegrey 12288 Mar 14 16:53 ..
+-rw-r--r--  1 dnegrey dnegrey     0 Mar 14 16:53 data1.csv
+-rw-r--r--  1 dnegrey dnegrey     0 Mar 14 16:53 data2.csv
+-rw-r--r--  1 dnegrey dnegrey     0 Mar 14 16:53 data3.csv
+-rw-r--r--  1 dnegrey dnegrey    14 Mar 14 16:53 file1
+drwxr-xr-x  8 dnegrey dnegrey  4096 Mar 14 16:53 .git
+-rw-r--r--  1 dnegrey dnegrey    10 Mar 14 16:53 .gitignore
+-rw-r--r--  1 dnegrey dnegrey    15 Mar 14 16:53 README.md</code></pre>
+<p><strong>AMAZING!!!</strong></p>
 <p>     </p>
 </div>
 </div>

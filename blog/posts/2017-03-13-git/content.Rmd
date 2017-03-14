@@ -220,9 +220,102 @@ git status
 git log --oneline
 ```
 
+### Discard Changes
 
+Let's add a new file to our project:
 
+```{bash}
+echo "Hello, world!" > file1
+cat file1
+```
 
+```{bash}
+git add file1
+git commit -m "added file1"
+```
+```{bash}
+git log --oneline
+```
+```{bash}
+git status
+```
+
+Now, this is where things start to heat up! Let's make a change to `file`:
+
+```{bash}
+echo "Goodbye, world:(" > file1
+cat file1
+```
+```{bash}
+git status
+```
+
+Based on the above response from `git status`, Git is aware that `file1` has changed! But, recall **staging**! This change has not yet been staged. Sometimes, changes like this might occur by accident or they may simply no longer be desired. To roll back unstaged changes to a file, use the `git checkout --` command:
+
+```{bash}
+git checkout -- file1
+cat file1
+```
+```{bash}
+git status
+```
+
+**Voila!** Everything is back to the way it was before we changed `file1`.
+
+### Git Revert
+
+In some cases, it will be necessary to undo an entire commit. To do so, use the `git revert` command and supply it with the SHA-1 hash of the commit that you would like to revert. Suppose we didn't want a `.gitignore` file. We would want to revert our second commit:
+
+```{bash}
+git log --oneline
+```
+```{bash, echo=FALSE}
+git log --oneline | head -n 2 | tail -n 1 | cut -d " " -f 1 > ~/revert
+echo '<span class="kw">git</span>' revert $(cat ~/revert) > ~/revert
+```
+
+`r htmltools::pre(class = "sourceCode bash", htmltools::code(class = "sourceCode bash", htmltools::includeHTML("~/revert")))`
+
+```{bash, echo=FALSE}
+git revert $(git log --oneline | head -n 2 | tail -n 1 | cut -d " " -f 1)
+rm ~/revert
+```
+
+```{bash}
+git status
+```
+```{bash}
+git log --oneline
+```
+```{bash}
+ls -la
+```
+
+Recall that the point of Git is to track ***all*** of your changes! Notice that `git revert` did not simply roll back or remove the prior commit, but rather it created a new commit reflective of the state we desired. In fact, by removing our `.gitignore` file, Git is now aware of the data files that it was previously ignoring! We can now *revert our revert* to get back our `.gitignore` file:
+
+```{bash, echo=FALSE}
+git log --oneline | head -n 1 | cut -d " " -f 1 > ~/revert
+echo '<span class="kw">git</span>' revert $(cat ~/revert) > ~/revert
+```
+
+`r htmltools::pre(class = "sourceCode bash", htmltools::code(class = "sourceCode bash", htmltools::includeHTML("~/revert")))`
+
+```{bash, echo=FALSE}
+git revert $(git log --oneline | head -n 1 | cut -d " " -f 1)
+rm ~/revert
+```
+
+```{bash}
+git status
+```
+```{bash}
+git log --oneline
+```
+```{bash}
+ls -la
+```
+
+**AMAZING!!!**
 
 ```{r, echo=FALSE}
 knitr::opts_knit$set(root.dir='/home/dnegrey')
