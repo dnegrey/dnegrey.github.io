@@ -1,0 +1,17 @@
+# Git Fundamentals {.tabset}
+
+*March 13, 2017*
+
+## Article
+
+### Overview
+
+Of all the tools I use as a data scientist, the one that I cherish the most is **[Git](https://git-scm.com/)**. As a free and open source *distributed* version control system, Git plays an integral role in data science workflows by seamlessly fostering many of the most important considerations of said workflows including **collaboration**, **experimentation**, **reproducibility** and of course, **source code management**.
+
+## Notes
+
+### System Info
+
+* **Operating system**: ubuntu 16.04 LTS (64-bit)
+* **Bash version**: GNU bash, version 4.3.46(1)-release (x86_64-pc-linux-gnu)
+* **Git version**: 2.7.4
