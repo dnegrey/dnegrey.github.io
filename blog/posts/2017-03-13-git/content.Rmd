@@ -8,7 +8,7 @@
 
 Of all the tools I use as a data scientist, the one that I cherish the most is **[Git](https://git-scm.com/)**. As a free and open source *distributed* version control system, Git plays an integral role in my work by seamlessly fostering many of the most important considerations of data science workflows including **collaboration**, **experimentation**, **reproducibility** and of course, **source code management**.
 
-At their core, version control systems (VCS) all serve one broad and common purpose: *tracking changes to files*. What distinguishes one system from another, however, is *how* that purpose is implemented and what additional features are present. To get a better understanding of the history and evolution of version control systems, I recommend reading the introduction at [Ry's Git Tutorial](http://rypress.com/tutorials/git/index). I also recommend bookmarking his tutorial and working your way through all of the sections as he does a terrific job demonstrating Git's feature set in much greater detail than what I'm covering in this post.
+At their core, version control systems (VCS) all serve one broad and common purpose: *tracking changes to files*. What distinguishes one system from another, however, is *how* that purpose is implemented and what additional features are present. To get a better understanding of the history and evolution of version control systems, I recommend reading the introduction at [Ry's Git Tutorial](http://rypress.com/tutorials/git/index). You might also want to bookmark his tutorial and work your way through all of the sections as he does a terrific job demonstrating Git's feature set in much greater detail than what I'm covering in this post.
 
 Before we move on, let's clarify something that often comes up when people first start learning about Git. Many of you may have heard of [GitHub](https://github.com/) before, and if you've read through [my resources page](/resources) you may have caught notice of [GitLab](https://about.gitlab.com/) as well. These are each examples of *web-based repository hosting services*. Git itself is just a lightweight command line tool. Services like GitHub provide development platforms that center around the use of Git but add a rich suite of additional features which are useful in software development. The focus of this post is on learning the fundamentals of the Git command line tool.
 
@@ -39,6 +39,10 @@ cd ~
 mkdir fundamentals
 cd fundamentals
 git init
+```
+
+```{r, echo=FALSE}
+knitr::opts_knit$set(root.dir='/home/dnegrey/fundamentals')
 ```
 
 ### Add a README File
@@ -122,8 +126,51 @@ echo \# fundamentals > README.md
 cat README.md
 ```
 
-
 ### Git Status
+
+Now that we actually have a file in our repository, we are ready to use Git. The one command that you'll find yourself using regularly in order to check the status of your project and see what changes have occurred since the last "clean" state is `git status`:
+
+```{bash}
+git status
+```
+
+Notice the response from our command. It lists our README.md file as an "untracked file". This is Git's way of telling you that a new file is present in the repository. It also says to use `"git add"` to track.
+
+### Staging
+
+Git allows you to review your changes before they get recorded into version control. This is called **staging**. You can add or remove files from the current staging area ("snapshot") using `git add` and `git rm`:
+
+```{bash}
+git add README.md
+git status
+```
+
+Now, README.md is being tracked and is ready to be *committed* into version control.
+
+### Git Commit
+
+When you are ready to officially record ("commit") your staged changes, use the `git commit` command. Doing so will prompt you for a commit message (all commits get accompanied by a message), however, you can avoid the prompt and supply the message while requesting the commit by using the `-m` option:
+
+```{bash}
+git commit -m "initial commit"
+git status
+```
+
+This will commit any staged files. Note that each commit is given a unique identifer known as a **SHA-1 hash**.
+
+### Git Log
+
+Use the `git log` command to print a summary of all the commits that you've made. This will include the full commit hash, author, date and message. For a more abbreviated result, use the `--oneline` option which will only print out the commit message and the first 7 characters from the commit hash:
+
+```{bash}
+git log
+```
+
+```{bash}
+git log --oneline
+```
+
+
 
 
 ```{r, echo=FALSE}
