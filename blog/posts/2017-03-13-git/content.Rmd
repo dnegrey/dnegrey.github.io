@@ -170,6 +170,57 @@ git log
 git log --oneline
 ```
 
+### .gitignore
+
+There may be instances when you want Git to ignore certain files in your repository. A good example of this is temporary data files that your code produces while it is executing. Generally, if you subscribe to the principles of reproducible research, you should be able to ignore any ouput files that your code produces as the code should be able to reproduce that output when necessary. For Git to ignore certain files, you'll need to create a `.gitignore` file in your project root, and in it list the file names or patterns that describe what is to be ignored.
+
+Let's confirm a clean working directory:
+
+```{bash}
+ls -l
+```
+```{bash}
+git status
+```
+
+Now, let's create a few data files that we'll want to ignore:
+
+```{bash}
+for i in 1 2 3; do
+    touch data${i}.csv
+done
+ls -l
+```
+```{bash}
+git status
+```
+
+Next, we simply create our `.gitignore` file with the correct pattern to ignore these new data files:
+
+```{bash}
+echo data\*.csv > .gitignore
+cat .gitignore
+```
+```{bash}
+git status
+```
+
+```{bash}
+ls -la
+```
+
+Great! Git will now ignore any file that fits the pattern `data*.csv`. However, it does recognize that we've now introduced a new file - namely, the `.gitignore` file. So we simply add `.gitignore` to the staging area and commit:
+
+```{bash}
+git add .gitignore
+git commit -m "added .gitignore"
+git status
+```
+```{bash}
+git log --oneline
+```
+
+
 
 
 

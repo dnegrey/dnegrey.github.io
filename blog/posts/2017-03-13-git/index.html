@@ -290,7 +290,7 @@ Changes to be committed:
 <p>When you are ready to officially record (“commit”) your staged changes, use the <code>git commit</code> command. Doing so will prompt you for a commit message (all commits get accompanied by a message), however, you can avoid the prompt and supply the message while requesting the commit by using the <code>-m</code> option:</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> commit -m <span class="st">&quot;initial commit&quot;</span>
 <span class="kw">git</span> status</code></pre></div>
-<pre><code>[master (root-commit) 2517fca] initial commit
+<pre><code>[master (root-commit) e85e53a] initial commit
  1 file changed, 1 insertion(+)
  create mode 100644 README.md
 On branch master
@@ -301,13 +301,78 @@ nothing to commit, working directory clean</code></pre>
 <h3>Git Log</h3>
 <p>Use the <code>git log</code> command to print a summary of all the commits that you’ve made. This will include the full commit hash, author, date and message. For a more abbreviated result, use the <code>--oneline</code> option which will only print out the commit message and the first 7 characters from the commit hash:</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> log</code></pre></div>
-<pre><code>commit 2517fcad0c7cc4e37055c20a26663b20bc1a607e
+<pre><code>commit e85e53a22547e3fb7169077d0e16a4ea3ec5c6b9
 Author: dnegrey &lt;dnegrey@gmail.com&gt;
-Date:   Tue Mar 14 14:59:23 2017 -0400
+Date:   Tue Mar 14 15:56:02 2017 -0400
 
     initial commit</code></pre>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> log --oneline</code></pre></div>
-<pre><code>2517fca initial commit</code></pre>
+<pre><code>e85e53a initial commit</code></pre>
+</div>
+<div id="gitignore" class="section level3">
+<h3>.gitignore</h3>
+<p>There may be instances when you want Git to ignore certain files in your repository. A good example of this is temporary data files that your code produces while it is executing. Generally, if you subscribe to the principles of reproducible research, you should be able to ignore any ouput files that your code produces as the code should be able to reproduce that output when necessary. For Git to ignore certain files, you’ll need to create a <code>.gitignore</code> file in your project root, and in it list the file names or patterns that describe what is to be ignored.</p>
+<p>Let’s confirm a clean working directory:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">ls</span> -l</code></pre></div>
+<pre><code>total 12
+-rw-r--r-- 1 dnegrey dnegrey 15 Mar 14 15:56 README.md</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> status</code></pre></div>
+<pre><code>On branch master
+nothing to commit, working directory clean</code></pre>
+<p>Now, let’s create a few data files that we’ll want to ignore:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">for</span> <span class="kw">i</span> in 1 2 3<span class="kw">;</span> <span class="kw">do</span>
+    <span class="kw">touch</span> data<span class="ot">${i}</span>.csv
+<span class="kw">done</span>
+<span class="kw">ls</span> -l</code></pre></div>
+<pre><code>total 36
+-rw-r--r-- 1 dnegrey dnegrey  0 Mar 14 15:56 data1.csv
+-rw-r--r-- 1 dnegrey dnegrey  0 Mar 14 15:56 data2.csv
+-rw-r--r-- 1 dnegrey dnegrey  0 Mar 14 15:56 data3.csv
+-rw-r--r-- 1 dnegrey dnegrey 15 Mar 14 15:56 README.md</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> status</code></pre></div>
+<pre><code>On branch master
+Untracked files:
+  (use &quot;git add &lt;file&gt;...&quot; to include in what will be committed)
+
+    data1.csv
+    data2.csv
+    data3.csv
+
+nothing added to commit but untracked files present (use &quot;git add&quot; to track)</code></pre>
+<p>Next, we simply create our <code>.gitignore</code> file with the correct pattern to ignore these new data files:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">echo</span> data<span class="dt">\*</span>.csv <span class="kw">&gt;</span> .gitignore
+<span class="kw">cat</span> .gitignore</code></pre></div>
+<pre><code>data*.csv</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> status</code></pre></div>
+<pre><code>On branch master
+Untracked files:
+  (use &quot;git add &lt;file&gt;...&quot; to include in what will be committed)
+
+    .gitignore
+
+nothing added to commit but untracked files present (use &quot;git add&quot; to track)</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">ls</span> -la</code></pre></div>
+<pre><code>total 68
+drwxr-xr-x  3 dnegrey dnegrey  4096 Mar 14 15:56 .
+drwx------ 37 dnegrey dnegrey 12288 Mar 14 15:56 ..
+-rw-r--r--  1 dnegrey dnegrey     0 Mar 14 15:56 data1.csv
+-rw-r--r--  1 dnegrey dnegrey     0 Mar 14 15:56 data2.csv
+-rw-r--r--  1 dnegrey dnegrey     0 Mar 14 15:56 data3.csv
+drwxr-xr-x  8 dnegrey dnegrey  4096 Mar 14 15:56 .git
+-rw-r--r--  1 dnegrey dnegrey    10 Mar 14 15:56 .gitignore
+-rw-r--r--  1 dnegrey dnegrey    15 Mar 14 15:56 README.md</code></pre>
+<p>Great! Git will now ignore any file that fits the pattern <code>data*.csv</code>. However, it does recognize that we’ve now introduced a new file - namely, the <code>.gitignore</code> file. So we simply add <code>.gitignore</code> to the staging area and commit:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> add .gitignore
+<span class="kw">git</span> commit -m <span class="st">&quot;added .gitignore&quot;</span>
+<span class="kw">git</span> status</code></pre></div>
+<pre><code>[master 88e5cdc] added .gitignore
+ 1 file changed, 1 insertion(+)
+ create mode 100644 .gitignore
+On branch master
+nothing to commit, working directory clean</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> log --oneline</code></pre></div>
+<pre><code>88e5cdc added .gitignore
+e85e53a initial commit</code></pre>
 <p>     </p>
 </div>
 </div>
