@@ -12,6 +12,18 @@ At their core, version control systems (VCS) all serve one broad and common purp
 
 Before we move on, let's clarify something that often comes up when people first start learning about Git. Many of you may have heard of [GitHub](https://github.com/) before, and if you've read through [my resources page](/resources) you may have caught notice of [GitLab](https://about.gitlab.com/) as well. These are each examples of *web-based repository hosting services*. Git itself is just a lightweight command line tool. Services like GitHub provide development platforms that center around the use of Git but add a rich suite of additional features which are useful in software development. The focus of this post is on learning the fundamentals of the Git command line tool.
 
+### Prerequisites
+
+A basic understanding of Linux (Unix-like) commands is assumed. Specifically, this post makes extensive use of the following:
+
+* `mkdir`: create new directories
+* `cd`: change the current working directory
+* `echo`: display a line of text
+* `cat`: concatenate files and print on the standard output
+* `ls`: list directory contents
+* `rm`: remove files or directories
+
+For brevity, I use `echo` with redirection (`>`) to write files. In reality, you'd be using a visual editor such as `vi` to write and edit files.
 
 ## Notes
 
