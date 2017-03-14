@@ -6,7 +6,12 @@
 
 ### Overview
 
-Of all the tools I use as a data scientist, the one that I cherish the most is **[Git](https://git-scm.com/)**. As a free and open source *distributed* version control system, Git plays an integral role in data science workflows by seamlessly fostering many of the most important considerations of said workflows including **collaboration**, **experimentation**, **reproducibility** and of course, **source code management**.
+Of all the tools I use as a data scientist, the one that I cherish the most is **[Git](https://git-scm.com/)**. As a free and open source *distributed* version control system, Git plays an integral role in my work by seamlessly fostering many of the most important considerations of data science workflows including **collaboration**, **experimentation**, **reproducibility** and of course, **source code management**.
+
+At their core, version control systems (VCS) all serve one broad and common purpose: *tracking changes to files*. What distinguishes one system from another, however, is *how* that purpose is implemented and what additional features are present. To get a better understanding of the history and evolution of version control systems, I recommend reading the introduction at [Ry's Git Tutorial](http://rypress.com/tutorials/git/index). I also recommend bookmarking his tutorial and working your way through all of the sections as he does a terrific job demonstrating Git's feature set in much greater detail than what I'm covering in this post.
+
+Before we move on, let's clarify something that often comes up when people first start learning about Git. Many of you may have heard of [GitHub](https://github.com/) before, and if you've read through [my resources page](/resources) you may have caught notice of [GitLab](https://about.gitlab.com/) as well. These are each examples of *web-based repository hosting services*. Git itself is just a lightweight command line tool. Services like GitHub provide development platforms that center around the use of Git but add a rich suite of additional features which are useful in software development. The focus of this post is on learning the fundamentals of the Git command line tool.
+
 
 ## Notes
 
