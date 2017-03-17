@@ -189,7 +189,7 @@ $(document).ready(function () {
 <h3>Overview</h3>
 <p>Of all the tools I use as a data scientist, the one that I cherish the most is <strong><a href="https://git-scm.com/">Git</a></strong>. As a free and open source <em>distributed</em> version control system, Git plays an integral role in my work by seamlessly fostering many of the most important considerations of data science workflows including <strong>collaboration</strong>, <strong>experimentation</strong>, <strong>reproducibility</strong> and of course, <strong>source code management</strong>.</p>
 <p>At their core, version control systems (VCS) all serve one broad and common purpose: <em>tracking changes to files</em>. What distinguishes one system from another, however, is <em>how</em> that purpose is implemented and what additional features are present. To get a better understanding of the history and evolution of version control systems, I recommend reading the introduction at <a href="http://rypress.com/tutorials/git/index">Ry’s Git Tutorial</a>. You might also want to bookmark his tutorial and work your way through all of the sections as he does a terrific job demonstrating Git’s feature set in much greater detail than what I’m covering in this post.</p>
-<p>Before we move on, let’s clarify something that often comes up when people first start learning about Git. Many of you may have heard of <a href="https://github.com/">GitHub</a> before, and if you’ve read through <a href="/resources">my resources page</a> you may have caught notice of <a href="https://about.gitlab.com/">GitLab</a> as well. These are each examples of <em>web-based repository hosting services</em>. Git itself is just a lightweight command line tool. Services like GitHub provide development platforms that center around the use of Git but add a rich suite of additional features which are useful in software development. The focus of this post is on learning the fundamentals of the Git command line tool.</p>
+<p>Before we move on, let’s clarify something that often comes up when people first start learning about Git. Many of you may have heard of <a href="https://github.com/">GitHub</a> before, and if you’ve read through <a href="/resources">my resources page</a> you may have caught notice of <a href="https://about.gitlab.com/">GitLab</a> as well. These are each examples of <em>web-based repository hosting services</em>. Git itself is just a lightweight command line tool. Services like GitHub provide software development platforms that center around the use of Git but add a rich suite of additional features. The focus of this post is on learning the fundamentals of the Git command line tool.</p>
 </div>
 <div id="prerequisites" class="section level3">
 <h3>Prerequisites</h3>
@@ -215,7 +215,7 @@ $(document).ready(function () {
 </div>
 <div id="add-a-readme-file" class="section level3">
 <h3>Add a README File</h3>
-<p>The first thing you’ll want to do with any new Git repository is add a <strong>README.md</strong> file to the project root. As a plain text file, it will be the easiest place to save and read notes about your project. The “.md” extension indicates that it is a <a href="https://daringfireball.net/projects/markdown/">markdown</a> file. Markdown is a text-to-HTML conversion tool that allows you to create easy-to-read and easy-to-write plain text files which get converted to HTML. Hosting services like GitHub and GitLab will automatically render your README.md file to HTML at the main repository site (for example: <a href="https://github.com/dnegrey/blogr" class="uri">https://github.com/dnegrey/blogr</a>). Here is a brief primer on some more commonly used markdown syntax:</p>
+<p>The first thing you’ll want to do with any new Git repository is add a <strong>README.md</strong> file to the project root. As a plain text file, it will be the easiest place to save and read notes about your project. The “.md” extension indicates that it is a <a href="https://daringfireball.net/projects/markdown/">markdown</a> file. Markdown is a text-to-HTML conversion tool that allows you to create easy-to-read and easy-to-write plain text files which get converted to HTML. Hosting services like GitHub and GitLab will automatically render your README.md file to HTML at the main repository site (for example: <a href="https://github.com/dnegrey/blogr" class="uri">https://github.com/dnegrey/blogr</a>). Here is a brief primer on some of the more commonly used markdown syntax:</p>
 <hr />
 <div>
 <div style="float: left; width: 48%; margin-left: 0; margin-right: 2%;">
@@ -268,7 +268,7 @@ Untracked files:
     README.md
 
 nothing added to commit but untracked files present (use &quot;git add&quot; to track)</code></pre>
-<p>Notice the response from our command. It lists our README.md file as an “untracked file”. This is Git’s way of telling you that a new file is present in the repository. It also says to use <code>&quot;git add&quot;</code> to track.</p>
+<p>Notice the response from our command. It lists our README.md file as an <em>untracked file</em>. This is Git’s way of telling you that a new file is present in the repository. It also says to use <code>&quot;git add&quot;</code> to track.</p>
 </div>
 <div id="staging" class="section level3">
 <h3>Staging</h3>
@@ -287,10 +287,10 @@ Changes to be committed:
 </div>
 <div id="git-commit" class="section level3">
 <h3>Git Commit</h3>
-<p>When you are ready to officially record (“commit”) your staged changes, use the <code>git commit</code> command. Doing so will prompt you for a commit message (all commits get accompanied by a message), however, you can avoid the prompt and supply the message while requesting the commit by using the <code>-m</code> option:</p>
+<p>When you are ready to officially record (“commit”) your staged changes, use the <code>git commit</code> command. Doing so will prompt you for a commit message (all commits get accompanied by a message), however, you can avoid the prompt and supply the message with the commit by using the <code>-m</code> option:</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> commit -m <span class="st">&quot;initial commit&quot;</span>
 <span class="kw">git</span> status</code></pre></div>
-<pre><code>[master (root-commit) bb31b19] initial commit
+<pre><code>[master (root-commit) e7b8c3b] initial commit
  1 file changed, 1 insertion(+)
  create mode 100644 README.md
 On branch master
@@ -299,23 +299,25 @@ nothing to commit, working directory clean</code></pre>
 </div>
 <div id="git-log" class="section level3">
 <h3>Git Log</h3>
-<p>Use the <code>git log</code> command to print a summary of all the commits that you’ve made. This will include the full commit hash, author, date and message. For a more abbreviated result, use the <code>--oneline</code> option which will only print out the commit message and the first 7 characters from the commit hash:</p>
+<p>Use the <code>git log</code> command to print a summary of all the commits that you’ve made. This will include the full commit hash, author, date and message. For an abbreviated result, use the <code>--oneline</code> option which will only print out the commit message and the first 7 characters from the commit hash:</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> log</code></pre></div>
-<pre><code>commit bb31b193156c67a940b6fc651791e25305d9e98d
+<pre><code>commit e7b8c3bace960cb3d7de28299e7e0f17603570bf
 Author: dnegrey &lt;dnegrey@gmail.com&gt;
-Date:   Tue Mar 14 16:53:29 2017 -0400
+Date:   Thu Mar 16 22:27:57 2017 -0400
 
     initial commit</code></pre>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> log --oneline</code></pre></div>
-<pre><code>bb31b19 initial commit</code></pre>
+<pre><code>e7b8c3b initial commit</code></pre>
 </div>
 <div id="gitignore" class="section level3">
 <h3>.gitignore</h3>
-<p>There may be instances when you want Git to ignore certain files in your repository. A good example of this is temporary data files that your code produces while it is executing. Generally, if you subscribe to the principles of reproducible research, you should be able to ignore any ouput files that your code produces as the code should be able to reproduce that output when necessary. For Git to ignore certain files, you’ll need to create a <code>.gitignore</code> file in your project root, and in it list the file names or patterns that describe what is to be ignored.</p>
+<p>There may be instances when you want Git to ignore certain files in your repository. A good example of this includes working data files that your code produces while it is executing. Generally, if you subscribe to the principles of reproducible research, you should be able to ignore any ouput files that your code produces as your code should be able to reproduce the output when needed. For Git to ignore certain files, you’ll need to create a <code>.gitignore</code> file in your project root, and list in it the file names or patterns that describe what is to be ignored.</p>
 <p>Let’s confirm a clean working directory:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">pwd</span></code></pre></div>
+<pre><code>/home/dnegrey/fundamentals</code></pre>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">ls</span> -l</code></pre></div>
 <pre><code>total 12
--rw-r--r-- 1 dnegrey dnegrey 15 Mar 14 16:53 README.md</code></pre>
+-rw-r--r-- 1 dnegrey dnegrey 15 Mar 16 22:27 README.md</code></pre>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> status</code></pre></div>
 <pre><code>On branch master
 nothing to commit, working directory clean</code></pre>
@@ -325,10 +327,10 @@ nothing to commit, working directory clean</code></pre>
 <span class="kw">done</span>
 <span class="kw">ls</span> -l</code></pre></div>
 <pre><code>total 36
--rw-r--r-- 1 dnegrey dnegrey  0 Mar 14 16:53 data1.csv
--rw-r--r-- 1 dnegrey dnegrey  0 Mar 14 16:53 data2.csv
--rw-r--r-- 1 dnegrey dnegrey  0 Mar 14 16:53 data3.csv
--rw-r--r-- 1 dnegrey dnegrey 15 Mar 14 16:53 README.md</code></pre>
+-rw-r--r-- 1 dnegrey dnegrey  0 Mar 16 22:27 data1.csv
+-rw-r--r-- 1 dnegrey dnegrey  0 Mar 16 22:27 data2.csv
+-rw-r--r-- 1 dnegrey dnegrey  0 Mar 16 22:27 data3.csv
+-rw-r--r-- 1 dnegrey dnegrey 15 Mar 16 22:27 README.md</code></pre>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> status</code></pre></div>
 <pre><code>On branch master
 Untracked files:
@@ -353,26 +355,26 @@ Untracked files:
 nothing added to commit but untracked files present (use &quot;git add&quot; to track)</code></pre>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">ls</span> -la</code></pre></div>
 <pre><code>total 68
-drwxr-xr-x  3 dnegrey dnegrey  4096 Mar 14 16:53 .
-drwx------ 37 dnegrey dnegrey 12288 Mar 14 16:53 ..
--rw-r--r--  1 dnegrey dnegrey     0 Mar 14 16:53 data1.csv
--rw-r--r--  1 dnegrey dnegrey     0 Mar 14 16:53 data2.csv
--rw-r--r--  1 dnegrey dnegrey     0 Mar 14 16:53 data3.csv
-drwxr-xr-x  8 dnegrey dnegrey  4096 Mar 14 16:53 .git
--rw-r--r--  1 dnegrey dnegrey    10 Mar 14 16:53 .gitignore
--rw-r--r--  1 dnegrey dnegrey    15 Mar 14 16:53 README.md</code></pre>
-<p>Great! Git will now ignore any file that fits the pattern <code>data*.csv</code>. However, it does recognize that we’ve now introduced a new file - namely, the <code>.gitignore</code> file. So we simply add <code>.gitignore</code> to the staging area and commit:</p>
+drwxr-xr-x  3 dnegrey dnegrey  4096 Mar 16 22:27 .
+drwx------ 37 dnegrey dnegrey 12288 Mar 16 22:27 ..
+-rw-r--r--  1 dnegrey dnegrey     0 Mar 16 22:27 data1.csv
+-rw-r--r--  1 dnegrey dnegrey     0 Mar 16 22:27 data2.csv
+-rw-r--r--  1 dnegrey dnegrey     0 Mar 16 22:27 data3.csv
+drwxr-xr-x  8 dnegrey dnegrey  4096 Mar 16 22:27 .git
+-rw-r--r--  1 dnegrey dnegrey    10 Mar 16 22:27 .gitignore
+-rw-r--r--  1 dnegrey dnegrey    15 Mar 16 22:27 README.md</code></pre>
+<p>Great! Git will now ignore any file that fits the pattern <code>data*.csv</code>. However, it does recognize that we have introduced a new file. Namely, the <code>.gitignore</code> file. So we simply add <code>.gitignore</code> to the staging area and commit:</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> add .gitignore
 <span class="kw">git</span> commit -m <span class="st">&quot;added .gitignore&quot;</span>
 <span class="kw">git</span> status</code></pre></div>
-<pre><code>[master d3b6c3c] added .gitignore
+<pre><code>[master 571b106] added .gitignore
  1 file changed, 1 insertion(+)
  create mode 100644 .gitignore
 On branch master
 nothing to commit, working directory clean</code></pre>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> log --oneline</code></pre></div>
-<pre><code>d3b6c3c added .gitignore
-bb31b19 initial commit</code></pre>
+<pre><code>571b106 added .gitignore
+e7b8c3b initial commit</code></pre>
 </div>
 <div id="discard-changes" class="section level3">
 <h3>Discard Changes</h3>
@@ -382,17 +384,17 @@ bb31b19 initial commit</code></pre>
 <pre><code>Hello, world!</code></pre>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> add file1
 <span class="kw">git</span> commit -m <span class="st">&quot;added file1&quot;</span></code></pre></div>
-<pre><code>[master f90dfe5] added file1
+<pre><code>[master c5bea9b] added file1
  1 file changed, 1 insertion(+)
  create mode 100644 file1</code></pre>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> log --oneline</code></pre></div>
-<pre><code>f90dfe5 added file1
-d3b6c3c added .gitignore
-bb31b19 initial commit</code></pre>
+<pre><code>c5bea9b added file1
+571b106 added .gitignore
+e7b8c3b initial commit</code></pre>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> status</code></pre></div>
 <pre><code>On branch master
 nothing to commit, working directory clean</code></pre>
-<p>Now, this is where things start to heat up! Let’s make a change to <code>file</code>:</p>
+<p>Now, this is where things start to heat up! Let’s make a change to <code>file1</code>:</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">echo</span> <span class="st">&quot;Goodbye, world:(&quot;</span> <span class="kw">&gt;</span> file1
 <span class="kw">cat</span> file1</code></pre></div>
 <pre><code>Goodbye, world:(</code></pre>
@@ -405,7 +407,7 @@ Changes not staged for commit:
     modified:   file1
 
 no changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&quot;)</code></pre>
-<p>Based on the above response from <code>git status</code>, Git is aware that <code>file1</code> has changed! But, recall <strong>staging</strong>! This change has not yet been staged. Sometimes, changes like this might occur by accident or they may simply no longer be desired. To roll back unstaged changes to a file, use the <code>git checkout --</code> command:</p>
+<p>Based on the above response from <code>git status</code>, Git is aware that <code>file1</code> has changed. But, recall <em>staging</em>! This change has not yet been staged. Sometimes, changes like this might occur by accident or they may no longer be desired. To undo <em>unstaged</em> changes to a file, use the <code>git checkout --</code> command:</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> checkout -- file1
 <span class="kw">cat</span> file1</code></pre></div>
 <pre><code>Hello, world!</code></pre>
@@ -418,13 +420,13 @@ nothing to commit, working directory clean</code></pre>
 <h3>Git Revert</h3>
 <p>In some cases, it will be necessary to undo an entire commit. To do so, use the <code>git revert</code> command and supply it with the SHA-1 hash of the commit that you would like to revert. Suppose we didn’t want a <code>.gitignore</code> file. We would want to revert our second commit:</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> log --oneline</code></pre></div>
-<pre><code>f90dfe5 added file1
-d3b6c3c added .gitignore
-bb31b19 initial commit</code></pre>
+<pre><code>c5bea9b added file1
+571b106 added .gitignore
+e7b8c3b initial commit</code></pre>
 <pre class="sourceCode bash">
-<code class="sourceCode bash"><span class="kw">git</span> revert d3b6c3c</code>
+<code class="sourceCode bash"><span class="kw">git</span> revert 571b106</code>
 </pre>
-<pre><code>[master 0a38fe1] Revert &quot;added .gitignore&quot;
+<pre><code>[master 4e0494c] Revert &quot;added .gitignore&quot;
  1 file changed, 1 deletion(-)
  delete mode 100644 .gitignore</code></pre>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> status</code></pre></div>
@@ -438,47 +440,47 @@ Untracked files:
 
 nothing added to commit but untracked files present (use &quot;git add&quot; to track)</code></pre>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> log --oneline</code></pre></div>
-<pre><code>0a38fe1 Revert &quot;added .gitignore&quot;
-f90dfe5 added file1
-d3b6c3c added .gitignore
-bb31b19 initial commit</code></pre>
+<pre><code>4e0494c Revert &quot;added .gitignore&quot;
+c5bea9b added file1
+571b106 added .gitignore
+e7b8c3b initial commit</code></pre>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">ls</span> -la</code></pre></div>
 <pre><code>total 68
-drwxr-xr-x  3 dnegrey dnegrey  4096 Mar 14 16:53 .
-drwx------ 37 dnegrey dnegrey 12288 Mar 14 16:53 ..
--rw-r--r--  1 dnegrey dnegrey     0 Mar 14 16:53 data1.csv
--rw-r--r--  1 dnegrey dnegrey     0 Mar 14 16:53 data2.csv
--rw-r--r--  1 dnegrey dnegrey     0 Mar 14 16:53 data3.csv
--rw-r--r--  1 dnegrey dnegrey    14 Mar 14 16:53 file1
-drwxr-xr-x  8 dnegrey dnegrey  4096 Mar 14 16:53 .git
--rw-r--r--  1 dnegrey dnegrey    15 Mar 14 16:53 README.md</code></pre>
-<p>Recall that the point of Git is to track <strong><em>all</em></strong> of your changes! Notice that <code>git revert</code> did not simply roll back or remove the prior commit, but rather it created a new commit reflective of the state we desired. In fact, by removing our <code>.gitignore</code> file, Git is now aware of the data files that it was previously ignoring! We can now <em>revert our revert</em> to get back our <code>.gitignore</code> file:</p>
+drwxr-xr-x  3 dnegrey dnegrey  4096 Mar 16 22:27 .
+drwx------ 37 dnegrey dnegrey 12288 Mar 16 22:27 ..
+-rw-r--r--  1 dnegrey dnegrey     0 Mar 16 22:27 data1.csv
+-rw-r--r--  1 dnegrey dnegrey     0 Mar 16 22:27 data2.csv
+-rw-r--r--  1 dnegrey dnegrey     0 Mar 16 22:27 data3.csv
+-rw-r--r--  1 dnegrey dnegrey    14 Mar 16 22:27 file1
+drwxr-xr-x  8 dnegrey dnegrey  4096 Mar 16 22:27 .git
+-rw-r--r--  1 dnegrey dnegrey    15 Mar 16 22:27 README.md</code></pre>
+<p>Recall that the point of Git is to track <strong><em>all</em></strong> of your changes! Notice that <code>git revert</code> did not simply roll back or remove the prior commit, instead it created a new commit reflective of the state we desired. In fact, by removing our <code>.gitignore</code> file, Git is now aware of the data files that it was previously ignoring! We can now <em>revert our revert</em> to get back our <code>.gitignore</code> file:</p>
 <pre class="sourceCode bash">
-<code class="sourceCode bash"><span class="kw">git</span> revert 0a38fe1</code>
+<code class="sourceCode bash"><span class="kw">git</span> revert 4e0494c</code>
 </pre>
-<pre><code>[master 21243e1] Revert &quot;Revert &quot;added .gitignore&quot;&quot;
+<pre><code>[master 6c89c01] Revert &quot;Revert &quot;added .gitignore&quot;&quot;
  1 file changed, 1 insertion(+)
  create mode 100644 .gitignore</code></pre>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> status</code></pre></div>
 <pre><code>On branch master
 nothing to commit, working directory clean</code></pre>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> log --oneline</code></pre></div>
-<pre><code>21243e1 Revert &quot;Revert &quot;added .gitignore&quot;&quot;
-0a38fe1 Revert &quot;added .gitignore&quot;
-f90dfe5 added file1
-d3b6c3c added .gitignore
-bb31b19 initial commit</code></pre>
+<pre><code>6c89c01 Revert &quot;Revert &quot;added .gitignore&quot;&quot;
+4e0494c Revert &quot;added .gitignore&quot;
+c5bea9b added file1
+571b106 added .gitignore
+e7b8c3b initial commit</code></pre>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">ls</span> -la</code></pre></div>
 <pre><code>total 80
-drwxr-xr-x  3 dnegrey dnegrey  4096 Mar 14 16:53 .
-drwx------ 37 dnegrey dnegrey 12288 Mar 14 16:53 ..
--rw-r--r--  1 dnegrey dnegrey     0 Mar 14 16:53 data1.csv
--rw-r--r--  1 dnegrey dnegrey     0 Mar 14 16:53 data2.csv
--rw-r--r--  1 dnegrey dnegrey     0 Mar 14 16:53 data3.csv
--rw-r--r--  1 dnegrey dnegrey    14 Mar 14 16:53 file1
-drwxr-xr-x  8 dnegrey dnegrey  4096 Mar 14 16:53 .git
--rw-r--r--  1 dnegrey dnegrey    10 Mar 14 16:53 .gitignore
--rw-r--r--  1 dnegrey dnegrey    15 Mar 14 16:53 README.md</code></pre>
+drwxr-xr-x  3 dnegrey dnegrey  4096 Mar 16 22:27 .
+drwx------ 37 dnegrey dnegrey 12288 Mar 16 22:27 ..
+-rw-r--r--  1 dnegrey dnegrey     0 Mar 16 22:27 data1.csv
+-rw-r--r--  1 dnegrey dnegrey     0 Mar 16 22:27 data2.csv
+-rw-r--r--  1 dnegrey dnegrey     0 Mar 16 22:27 data3.csv
+-rw-r--r--  1 dnegrey dnegrey    14 Mar 16 22:27 file1
+drwxr-xr-x  8 dnegrey dnegrey  4096 Mar 16 22:27 .git
+-rw-r--r--  1 dnegrey dnegrey    10 Mar 16 22:27 .gitignore
+-rw-r--r--  1 dnegrey dnegrey    15 Mar 16 22:27 README.md</code></pre>
 <p><strong>AMAZING!!!</strong></p>
 <p>     </p>
 </div>

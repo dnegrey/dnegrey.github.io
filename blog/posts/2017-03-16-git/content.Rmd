@@ -1,6 +1,6 @@
 # Git Fundamentals {.tabset}
 
-*March 13, 2017*
+*March 16, 2017*
 
 ## Article
 
