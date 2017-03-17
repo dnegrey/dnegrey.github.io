@@ -20,6 +20,7 @@ My name is Dan Negrey, and I am a **[Data Scientist](https://en.wikipedia.org/wi
 
 ### Latest news
 
+* *March 16, 2017*: blog post - [Git Fundamentals](/blog/posts/2017-03-16-git)
 * *March 4, 2017*: new project - [Data Days CLE 2017: Introducing R](/projects/dataDaysCLE.html)
 * *October 25, 2016*: new project - [MLB Dashboard](https://dnegrey.shinyapps.io/mlbDashboard/)
 * *May 15, 2016*: blog post - [Leaflet by Example: Election 2000

@@ -10,7 +10,7 @@ Of all the tools I use as a data scientist, the one that I cherish the most is *
 
 At their core, version control systems (VCS) all serve one broad and common purpose: *tracking changes to files*. What distinguishes one system from another, however, is *how* that purpose is implemented and what additional features are present. To get a better understanding of the history and evolution of version control systems, I recommend reading the introduction at [Ry's Git Tutorial](http://rypress.com/tutorials/git/index). You might also want to bookmark his tutorial and work your way through all of the sections as he does a terrific job demonstrating Git's feature set in much greater detail than what I'm covering in this post.
 
-Before we move on, let's clarify something that often comes up when people first start learning about Git. Many of you may have heard of [GitHub](https://github.com/) before, and if you've read through [my resources page](/resources) you may have caught notice of [GitLab](https://about.gitlab.com/) as well. These are each examples of *web-based repository hosting services*. Git itself is just a lightweight command line tool. Services like GitHub provide software development platforms that center around the use of Git but add a rich suite of additional features. The focus of this post is on learning the fundamentals of the Git command line tool.
+Before we move on, let's clarify something that often comes up when people first start learning about Git. Many of you may have heard of [GitHub](https://github.com/) before, and if you read through [my resources page](/resources) you probably caught notice of [GitLab](https://about.gitlab.com/) as well. These are each examples of *web-based repository hosting services*. Git itself is just a lightweight command line tool. Services like GitHub provide software development platforms that center around the use of Git but add a rich suite of additional features. The focus of this post is on learning the fundamentals of the Git command line tool.
 
 ### Prerequisites
 
@@ -27,7 +27,7 @@ For brevity, I am using `echo` with redirection (`>`) to write files. In reality
 
 ### Create a Local Git Repository
 
-Before we can do anything with Git, we must initialize a directory as a Git repository. Let's do so in a brand new directory that we'll create underneath our home directory (`~`) called `fundamentals`:
+Before we can do anything with Git, we must initialize a directory as a Git repository. Let's do so in a brand new directory that we'll create called `fundamentals` underneath our home directory (`~`):
 
 ```{r, echo=FALSE}
 knitr::opts_chunk$set(comment=NA)
@@ -172,7 +172,7 @@ git log --oneline
 
 ### .gitignore
 
-There may be instances when you want Git to ignore certain files in your repository. A good example of this includes working data files that your code produces while it is executing. Generally, if you subscribe to the principles of reproducible research, you should be able to ignore any ouput files that your code produces as your code should be able to reproduce the output when needed. For Git to ignore certain files, you'll need to create a `.gitignore` file in your project root, and list in it the file names or patterns that describe what is to be ignored.
+There may be instances when you want Git to ignore certain files in your repository. A good example of this includes working data files that your code produces while it is executing. Generally, if you subscribe to the principles of reproducible research, then you should be able to ignore any ouput files that your code produces as your code should be able to reproduce the output when needed. For Git to ignore certain files, you'll need to create a `.gitignore` file in your project root, and list in it the file names or patterns that describe what is to be ignored.
 
 Let's confirm a clean working directory:
 
@@ -212,7 +212,7 @@ git status
 ls -la
 ```
 
-Great! Git will now ignore any file that fits the pattern `data*.csv`. However, it does recognize that we have introduced a new file. Namely, the `.gitignore` file. So we simply add `.gitignore` to the staging area and commit:
+Great! Git will now ignore any file in our repository that matches the pattern `data*.csv`. However, it recognizes that we have introduced a new file - namely, the `.gitignore` file. So we simply add `.gitignore` to the staging area and commit:
 
 ```{bash}
 git add .gitignore
@@ -256,6 +256,9 @@ git status
 Based on the above response from `git status`, Git is aware that `file1` has changed. But, recall *staging*! This change has not yet been staged. Sometimes, changes like this might occur by accident or they may no longer be desired. To undo *unstaged* changes to a file, use the `git checkout --` command:
 
 ```{bash}
+cat file1
+```
+```{bash}
 git checkout -- file1
 cat file1
 ```
@@ -294,7 +297,7 @@ git log --oneline
 ls -la
 ```
 
-Recall that the point of Git is to track ***all*** of your changes! Notice that `git revert` did not simply roll back or remove the prior commit, instead it created a new commit reflective of the state we desired. In fact, by removing our `.gitignore` file, Git is now aware of the data files that it was previously ignoring! We can now *revert our revert* to get back our `.gitignore` file:
+Recall that the point of Git is to track ***all*** of your changes! Notice that `git revert` did not simply roll back or remove the specified commit. Instead, it created a new commit reflective of the state we desired. In fact, by removing our `.gitignore` file, Git is now aware of the data files that it was previously ignoring! We can now *revert our revert* to get back our `.gitignore` file:
 
 ```{bash, echo=FALSE}
 git log --oneline | head -n 1 | cut -d " " -f 1 > ~/revert
@@ -318,7 +321,9 @@ git log --oneline
 ls -la
 ```
 
-**AMAZING!!!**
+### Closing Remarks
+
+With just a few simple commands, you've taken your first step into a larger world! The use of version control, and more specifically Git, may be a total paradigm shift for you. It may seem challenging to learn and difficult to incorporate into your everyday workflow. But over time, this will subside, you'll learn to work in far more efficient ways than you did previously and Git will become an indispensable tool that is integral to your approach. And we've only just scratched the surface. Git's branching model is one of its key differentiators and will be next up on our list along with remote repositories, so stay tuned to the blog by following me on Twitter [\@NegreyDan](https://twitter.com/negreydan)!
 
 ```{r, echo=FALSE}
 knitr::opts_knit$set(root.dir='/home/dnegrey')
