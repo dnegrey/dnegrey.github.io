@@ -6,10 +6,6 @@
 
 ----------
 
-<a id="sidebar-contact-me" href="mailto:dnegrey@gmail.com"><span class="fa fa-envelope"></span>Contact me</a>
-
-----------
-
 <p id="chrome-statement">Best viewed using <span id="chrome-C">C</span><span id="chrome-h">h</span><span id="chrome-r">r</span><span id="chrome-o">o</span><span id="chrome-m">m</span><span id="chrome-e">e</span><span id="chrome-icon" class="fa fa-chrome"></span></p>
 
 ----------
