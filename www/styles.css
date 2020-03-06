@@ -24,6 +24,7 @@ navbar
 .navbar-logo {
     height: 40px;
     margin-top: 4px;
+    margin-left: 2px;
 }
 .navbar-brand {
     font-size: 18px;
@@ -46,6 +47,10 @@ navbar
 sidebar
 */
 
+.mobile-layout #sidebar .chart-title {
+    visibility: hidden;
+    height: 0;
+}
 #sidebar {
     background-color: #2B3E50;
     border-right: 1px solid #2B3E50;
@@ -57,34 +62,14 @@ sidebar
     font-size: large;
     color: #5BC0DE;
 }
-#sidebar img {
-    max-width: 100%;
+#sidebar p:nth-child(1) {
+    height: 240px;
+    overflow: hidden;
     border-radius: 3px;
 }
-#sidebar .fa {
-    margin-right: 5px;
-}
-#chrome-C {
-    color: #4285F4;
-}
-#chrome-h {
-    color: #DB4437;
-}
-#chrome-r {
-    color: #F4B400;
-}
-#chrome-o {
-    color: #4285F4;
-}
-#chrome-m {
-    color: #0F9D58;
-}
-#chrome-e {
-    color: #DB4437;
-}
-#chrome-icon {
-    color: #F4B400;
-    margin-left: 5px;
+#sidebar p:nth-child(1) img {
+    max-width: 100%;
+    margin-top: -10px;
 }
 
 /*

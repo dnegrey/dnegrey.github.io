@@ -2,11 +2,12 @@
 title: "Dan Negrey"
 output:
     flexdashboard::flex_dashboard:
+        vertical_layout: scroll
         theme: bootstrap
         orientation: rows
         css: www/styles.css
-        logo: www/storm-logo.png
-        favicon: www/storm-favicon.png
+        logo: www/spaceship-logo.png
+        favicon: www/spaceship-favicon.png
         navbar:
             - {icon: "fa-twitter", href: "https://twitter.com/negreydan", target: "_blank"}
             - {icon: "fa-linkedin", href: "https://www.linkedin.com/in/dnegrey", target: "_blank"}
@@ -24,4 +25,10 @@ Home {data-icon=fa-home}
 =========
 
 ```{r, child = "src/Rmd/home.Rmd"}
+```
+
+Colors {data-icon=fa-palette}
+=========
+
+```{r, child = "src/Rmd/colors.Rmd"}
 ```
