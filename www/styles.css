@@ -133,3 +133,7 @@ general use
 /*
 app specific
 */
+
+#toolbox img {
+    max-width: 100%;
+}

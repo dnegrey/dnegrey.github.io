@@ -27,6 +27,12 @@ Home {data-icon=fa-home}
 ```{r, child = "src/Rmd/home.Rmd"}
 ```
 
+Toolbox {data-icon=fa-toolbox}
+=========
+
+```{r, child = "src/Rmd/toolbox.Rmd"}
+```
+
 Colors {data-icon=fa-palette}
 =========
 
