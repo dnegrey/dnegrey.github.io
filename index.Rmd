@@ -6,8 +6,8 @@ output:
         theme: bootstrap
         orientation: rows
         css: www/styles.css
-        logo: www/spaceship-logo.png
-        favicon: www/spaceship-favicon.png
+        logo: www/nuclear.png
+        favicon: www/nuclear.png
         navbar:
             - {icon: "fa-twitter", href: "https://twitter.com/negreydan", target: "_blank"}
             - {icon: "fa-linkedin", href: "https://www.linkedin.com/in/dnegrey", target: "_blank"}
