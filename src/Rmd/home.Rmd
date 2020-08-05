@@ -1,5 +1,13 @@
-Row
+Column {data-width=250}
 ----------
 
 ###
 
+Column {data-width=200}
+----------
+
+###
+
+### R workflow {.superHeroLightGray}
+
+![Package Workflow](www/package-workflow.png) \

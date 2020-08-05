@@ -2,12 +2,12 @@
 title: "Dan Negrey"
 output:
     flexdashboard::flex_dashboard:
-        vertical_layout: scroll
+        vertical_layout: fill
         theme: bootstrap
         orientation: rows
         css: www/styles.css
-        logo: www/nuclear.png
-        favicon: www/nuclear.png
+        logo: www/dan-icon.png
+        favicon: www/dan-icon.png
         navbar:
             - {icon: "fa-twitter", href: "https://twitter.com/negreydan", target: "_blank"}
             - {icon: "fa-linkedin", href: "https://www.linkedin.com/in/dnegrey", target: "_blank"}
@@ -21,7 +21,7 @@ Sidebar {.sidebar}
 ```{r, child = "src/Rmd/sidebar.Rmd"}
 ```
 
-Home {data-icon=fa-home}
+Home {data-icon=fa-home data-orientation=columns}
 =========
 
 ```{r, child = "src/Rmd/home.Rmd"}
