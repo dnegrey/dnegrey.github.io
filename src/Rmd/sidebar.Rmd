@@ -1,7 +1,0 @@
-![Dan Negrey](www/dnegrey.png) \
-
-----------
-
-<p id="sidebar-title">Data Scientist</p>
-
-----------
