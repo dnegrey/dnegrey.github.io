@@ -1,0 +1,86 @@
+---
+title: "About"
+---
+
+## Approach
+
+Over the years I have developed a consistent approach to tackling data science problems, which centers around four key components and emphasizes reproducibility:
+
+1. **Getting data** *(querying an API or database, scraping a website, importing
+flat files, etc.)*
+2. **Cleaning data** *(scrubbing, keying, joining, filtering, etc.)*
+3. **Analyzing data** *(exploring, aggregating, modeling, visualizing, etc.)*
+4. **Publishing results** *(knitting a report, updating a dashboard, emailing a
+summary, etc.)*
+
+
+## Experience
+
+**[MarketBridge](https://market-bridge.com/)** - Bethesda, MD
+
+* *Director, Analytics* <span style="float: right;">April 2021 - present</span>
+
+**[Hyland Software](https://www.hyland.com/)** - Westlake, OH
+
+* *Team Lead, Marketing Intelligence* <span style="float: right;">March 2019 - April 2021</span>
+* *Data Scientist IV* <span style="float: right;">November 2017 - March 2019</span>
+
+**[Precision Dialogue (now RRD)](https://www.rrd.com/services/marketing)** - Westlake, OH
+
+* *Director, Analytics and Data Science* <span style="float: right;">January 2015 - November 2017</span>
+* *Senior Analytics Consultant* <span style="float: right;">June 2011 - December 2014</span>
+* *Analytics Consultant* <span style="float: right;">July 2009 - June 2011</span>
+
+**[National City Bank (now PNC)](https://www.pnc.com/)** - Cleveland, OH
+
+* *Senior Risk Analyst* <span style="float: right;">July 2008 - July 2009</span>
+
+**[American Greetings](https://www.americangreetings.com/)** - Cleveland, OH
+
+* *Statistician I* <span style="float: right;">July 2007 - June 2008</span>
+
+## Education
+
+**[Ohio University](https://www.ohio.edu/)** - Athens, OH
+
+* M.S. Mathematics <span style="float: right;">March 2007</span>
+* B.S.Ed. Integrated Mathematics <span style="float: right;">June 2005</span>
+
+## Personal
+
+When not conversing about data science, you may find me opining about sports,
+video games, science fiction and popular culture. I am also a proud husband,
+father, animal lover and vegetarian. Here are a few of my favorite things:
+
+:::{#favorite-things-grid}
+:::{#favorite-thing-1 .favorite-thing-container}
+[![](www/favorite/starwars.png)](https://www.starwars.com/)
+:::
+:::{#favorite-thing-2 .favorite-thing-container}
+[![](www/favorite/cavs.png)](https://www.nba.com/cavaliers/)
+:::
+:::{#favorite-thing-3 .favorite-thing-container}
+[![](www/favorite/foofighters.png)](https://www.foofighters.com/)
+:::
+:::{#favorite-thing-4 .favorite-thing-container}
+[![](www/favorite/futurama.png)](https://www.syfy.com/futurama/)
+:::
+:::{#favorite-thing-5 .favorite-thing-container}
+[![](www/favorite/zelda.png)](https://www.zelda.com/)
+:::
+:::{#favorite-thing-6 .favorite-thing-container}
+[![](www/favorite/monsters.png)](https://www.clevelandmonsters.com/)
+:::
+:::{#favorite-thing-7 .favorite-thing-container}
+[![](www/favorite/spiderman.png)](https://www.marvel.com/characters/spider-man-peter-parker/in-comics)
+:::
+:::{#favorite-thing-8 .favorite-thing-container}
+[![](www/favorite/castlevania.png)](https://www.konami.com/games/castlevania/)
+:::
+:::{#favorite-thing-9 .favorite-thing-container}
+[![](www/favorite/risk.png)](https://en.wikipedia.org/wiki/Risk_(game))
+:::
+:::{#favorite-thing-10 .favorite-thing-container}
+[![](www/favorite/playstation.png)](https://www.playstation.com/en-us/)
+:::
+:::

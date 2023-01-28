@@ -1,0 +1,79 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Home",
+    "section": "",
+    "text": "Hello, world! I am a data scientist based in Cleveland, OH. Currently, I am the Director of Analytics at MarketBridge, where I am fortunate to work with so many bright and motivated colleagues as we help clients solve some of their most pressing challenges. My career has centered around marketing analytics but I am genuinely interested in all things data, especially when it involves the use of open-source technology. In particular, I love using R with Shiny and R Markdown to build powerful data tools, dashboards and reports."
+  },
+  {
+    "objectID": "index.html#experience",
+    "href": "index.html#experience",
+    "title": "Home",
+    "section": "Experience",
+    "text": "Experience\nMarketBridge - Bethesda, MD\n\nDirector, Analytics | April 2021 - present\n\nHyland Software - Westlake, OH\n\nTeam Lead, Marketing Intelligence | March 2019 - April 2021\nData Scientist IV | November 2017 - March 2019\n\nPrecision Dialogue (now RRD) - Westlake, OH\n\nDirector, Analytics and Data Science | January 2015 - November 2017\nSenior Analytics Consultant | June 2011 - December 2014\nAnalytics Consultant | July 2009 - June 2011\n\nNational City Bank (now PNC) - Cleveland, OH\n\nSenior Risk Analyst | July 2008 - July 2009\n\nAmerican Greetings - Cleveland, OH\n\nStatistician I | July 2007 - June 2008"
+  },
+  {
+    "objectID": "index.html#education",
+    "href": "index.html#education",
+    "title": "Home",
+    "section": "Education",
+    "text": "Education\nOhio University - Athens, OH\n\nM.S. Mathematics | March 2007\nB.S.Ed. Integrated Mathematics | June 2005"
+  },
+  {
+    "objectID": "blog.html",
+    "href": "blog.html",
+    "title": "Blog",
+    "section": "",
+    "text": "Post With Code\n\n\n\n\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\n\n\n\n\nJan 25, 2023\n\n\nHarlow Malloc\n\n\n\n\n\n\n  \n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\n\n\nJan 22, 2023\n\n\nTristan O’Malley\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "posts/welcome/index.html",
+    "href": "posts/welcome/index.html",
+    "title": "Welcome To My Blog",
+    "section": "",
+    "text": "This is the first post in a Quarto blog. Welcome!\n\nSince this post doesn’t specify an explicit image, the first image in the post will be used in the listing page of posts."
+  },
+  {
+    "objectID": "posts/post-with-code/index.html",
+    "href": "posts/post-with-code/index.html",
+    "title": "Post With Code",
+    "section": "",
+    "text": "This is a post with executable code.\n\n1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "Over the years I have developed a consistent approach to tackling data science problems, which centers around four key components and emphasizes reproducibility:\n\nGetting data (querying an API or database, scraping a website, importing flat files, etc.)\nCleaning data (scrubbing, keying, joining, filtering, etc.)\nAnalyzing data (exploring, aggregating, modeling, visualizing, etc.)\nPublishing results (knitting a report, updating a dashboard, emailing a summary, etc.)"
+  },
+  {
+    "objectID": "about.html#education",
+    "href": "about.html#education",
+    "title": "About",
+    "section": "Education",
+    "text": "Education\nOhio University - Athens, OH\n\nM.S. Mathematics March 2007\nB.S.Ed. Integrated Mathematics June 2005"
+  },
+  {
+    "objectID": "about.html#experience",
+    "href": "about.html#experience",
+    "title": "About",
+    "section": "Experience",
+    "text": "Experience\nMarketBridge - Bethesda, MD\n\nDirector, Analytics April 2021 - present\n\nHyland Software - Westlake, OH\n\nTeam Lead, Marketing Intelligence March 2019 - April 2021\nData Scientist IV November 2017 - March 2019\n\nPrecision Dialogue (now RRD) - Westlake, OH\n\nDirector, Analytics and Data Science January 2015 - November 2017\nSenior Analytics Consultant June 2011 - December 2014\nAnalytics Consultant July 2009 - June 2011\n\nNational City Bank (now PNC) - Cleveland, OH\n\nSenior Risk Analyst July 2008 - July 2009\n\nAmerican Greetings - Cleveland, OH\n\nStatistician I July 2007 - June 2008"
+  },
+  {
+    "objectID": "about.html#approach",
+    "href": "about.html#approach",
+    "title": "About",
+    "section": "Approach",
+    "text": "Approach\nOver the years I have developed a consistent approach to tackling data science problems, which centers around four key components and emphasizes reproducibility:\n\nGetting data (querying an API or database, scraping a website, importing flat files, etc.)\nCleaning data (scrubbing, keying, joining, filtering, etc.)\nAnalyzing data (exploring, aggregating, modeling, visualizing, etc.)\nPublishing results (knitting a report, updating a dashboard, emailing a summary, etc.)"
+  },
+  {
+    "objectID": "about.html#personal",
+    "href": "about.html#personal",
+    "title": "About",
+    "section": "Personal",
+    "text": "Personal\nWhen not conversing about data science, you may find me opining about sports, video games, science fiction and popular culture. I am also a proud husband, father, animal lover and vegetarian. Here are a few of my favorite things:"
+  }
+]

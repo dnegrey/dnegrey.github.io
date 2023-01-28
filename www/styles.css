@@ -1,0 +1,28 @@
+/* css styles */
+
+.text-align-left {
+  text-align: left;
+}
+
+#favorite-things-grid {
+  display: grid;
+  grid-template-rows: 100px 100px;
+  row-gap: 20px;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  column-gap: 20px;
+  grid-template-areas:
+    'favorite-thing-1 favorite-thing-2 favorite-thing-3 favorite-thing-4 favorite-thing-5'
+    ' favorite-thing-6 favorite-thing-7 favorite-thing-8 favorite-thing-9 favorite-thing-10';
+}
+.favorite-thing-container {
+  border: 5px solid #EAEAEA;
+  padding: 5px;
+  background-color: #EAEAEA;
+}
+.favorite-thing-container:hover {
+  border-color: #2C3E50;
+  background-color: #2C3E50;
+}
+.favorite-thing-container img {
+  max-height: 80px;
+}
