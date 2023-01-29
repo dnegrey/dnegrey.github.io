@@ -18,33 +18,57 @@ summary, etc.)*
 
 **[MarketBridge](https://market-bridge.com/)** - Bethesda, MD
 
-* *Director, Analytics* <span style="float: right;">April 2021 - present</span>
+* *Director, Analytics*
+
+  April 2021 - present
 
 **[Hyland Software](https://www.hyland.com/)** - Westlake, OH
 
-* *Team Lead, Marketing Intelligence* <span style="float: right;">March 2019 - April 2021</span>
-* *Data Scientist IV* <span style="float: right;">November 2017 - March 2019</span>
+* *Team Lead, Marketing Intelligence*
+
+  March 2019 - April 2021
+
+* *Data Scientist IV*
+
+  November 2017 - March 2019
 
 **[Precision Dialogue (now RRD)](https://www.rrd.com/services/marketing)** - Westlake, OH
 
-* *Director, Analytics and Data Science* <span style="float: right;">January 2015 - November 2017</span>
-* *Senior Analytics Consultant* <span style="float: right;">June 2011 - December 2014</span>
-* *Analytics Consultant* <span style="float: right;">July 2009 - June 2011</span>
+* *Director, Analytics and Data Science*
+
+  January 2015 - November 2017
+
+* *Senior Analytics Consultant*
+
+  June 2011 - December 2014
+
+* *Analytics Consultant*
+
+  July 2009 - June 2011
 
 **[National City Bank (now PNC)](https://www.pnc.com/)** - Cleveland, OH
 
-* *Senior Risk Analyst* <span style="float: right;">July 2008 - July 2009</span>
+* *Senior Risk Analyst*
+
+  July 2008 - July 2009
 
 **[American Greetings](https://www.americangreetings.com/)** - Cleveland, OH
 
-* *Statistician I* <span style="float: right;">July 2007 - June 2008</span>
+* *Statistician I*
+
+  July 2007 - June 2008
 
 ## Education
 
 **[Ohio University](https://www.ohio.edu/)** - Athens, OH
 
-* M.S. Mathematics <span style="float: right;">March 2007</span>
-* B.S.Ed. Integrated Mathematics <span style="float: right;">June 2005</span>
+* **M.S. Mathematics**
+
+  March 2007
+
+* **B.S.Ed. Integrated Mathematics**
+
+  June 2005
 
 ## Personal
 
@@ -54,33 +78,53 @@ father, animal lover and vegetarian. Here are a few of my favorite things:
 
 :::{#favorite-things-grid}
 :::{#favorite-thing-1 .favorite-thing-container}
+:::{.favorite-thing-image}
 [![](www/favorite/starwars.png)](https://www.starwars.com/)
 :::
+:::
 :::{#favorite-thing-2 .favorite-thing-container}
+:::{.favorite-thing-image}
 [![](www/favorite/cavs.png)](https://www.nba.com/cavaliers/)
 :::
+:::
 :::{#favorite-thing-3 .favorite-thing-container}
+:::{.favorite-thing-image}
 [![](www/favorite/foofighters.png)](https://www.foofighters.com/)
 :::
+:::
 :::{#favorite-thing-4 .favorite-thing-container}
+:::{.favorite-thing-image}
 [![](www/favorite/futurama.png)](https://www.syfy.com/futurama/)
 :::
+:::
 :::{#favorite-thing-5 .favorite-thing-container}
+:::{.favorite-thing-image}
 [![](www/favorite/zelda.png)](https://www.zelda.com/)
 :::
+:::
 :::{#favorite-thing-6 .favorite-thing-container}
+:::{.favorite-thing-image}
 [![](www/favorite/monsters.png)](https://www.clevelandmonsters.com/)
 :::
+:::
 :::{#favorite-thing-7 .favorite-thing-container}
+:::{.favorite-thing-image}
 [![](www/favorite/spiderman.png)](https://www.marvel.com/characters/spider-man-peter-parker/in-comics)
 :::
+:::
 :::{#favorite-thing-8 .favorite-thing-container}
+:::{.favorite-thing-image}
 [![](www/favorite/castlevania.png)](https://www.konami.com/games/castlevania/)
 :::
+:::
 :::{#favorite-thing-9 .favorite-thing-container}
+:::{.favorite-thing-image}
 [![](www/favorite/risk.png)](https://en.wikipedia.org/wiki/Risk_(game))
 :::
+:::
 :::{#favorite-thing-10 .favorite-thing-container}
+:::{.favorite-thing-image}
 [![](www/favorite/playstation.png)](https://www.playstation.com/en-us/)
+:::
 :::
 :::
