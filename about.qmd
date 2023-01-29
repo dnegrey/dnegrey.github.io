@@ -13,6 +13,7 @@ flat files, etc.)*
 4. **Publishing results** *(knitting a report, updating a dashboard, emailing a
 summary, etc.)*
 
+![](www/hex_flow.png)
 
 ## Experience
 
