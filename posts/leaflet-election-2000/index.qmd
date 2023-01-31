@@ -1,0 +1,13 @@
+---
+title: "Leaflet by Example: Election 2000"
+author: "Dan Negrey"
+date: "2016-05-15"
+categories: [visualization, geospatial, politics]
+image: "image.jpg"
+---
+
+This is a post with executable code.
+
+```{r}
+1 + 1
+```

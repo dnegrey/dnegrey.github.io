@@ -2,22 +2,22 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://dnegrey.github.io/index.html</loc>
-    <lastmod>2023-01-29T17:37:58.640Z</lastmod>
-  </url>
-  <url>
-    <loc>https://dnegrey.github.io/blog.html</loc>
-    <lastmod>2023-01-29T03:41:19.467Z</lastmod>
-  </url>
-  <url>
-    <loc>https://dnegrey.github.io/posts/welcome/index.html</loc>
-    <lastmod>2023-01-27T13:49:34.593Z</lastmod>
-  </url>
-  <url>
-    <loc>https://dnegrey.github.io/posts/post-with-code/index.html</loc>
-    <lastmod>2023-01-27T13:49:35.933Z</lastmod>
+    <lastmod>2023-01-31T01:54:10.475Z</lastmod>
   </url>
   <url>
     <loc>https://dnegrey.github.io/about.html</loc>
-    <lastmod>2023-01-29T17:38:41.423Z</lastmod>
+    <lastmod>2023-01-31T01:54:06.863Z</lastmod>
+  </url>
+  <url>
+    <loc>https://dnegrey.github.io/blog.html</loc>
+    <lastmod>2023-01-31T01:54:07.223Z</lastmod>
+  </url>
+  <url>
+    <loc>https://dnegrey.github.io/posts/git-fundamentals/index.html</loc>
+    <lastmod>2023-01-31T01:54:08.579Z</lastmod>
+  </url>
+  <url>
+    <loc>https://dnegrey.github.io/posts/leaflet-election-2000/index.html</loc>
+    <lastmod>2023-01-31T01:54:09.907Z</lastmod>
   </url>
 </urlset>
