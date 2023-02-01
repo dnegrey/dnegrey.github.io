@@ -1,7 +1,7 @@
 {
-  "hash": "13a4309afdd56e51108fa3e7c73622aa",
+  "hash": "7cd4a8c272651d93c3aa252e73eac9a1",
   "result": {
-    "markdown": "---\ntitle: \"Git Fundamentals\"\nauthor: \"Dan Negrey\"\ndate: \"2017-03-16\"\ncategories: [git, command line, version control]\nimage: \"image.jpg\"\n---\n\n\nThis is a post with executable code.\n\n\n::: {.cell}\n\n```{.r .cell-code}\n1 + 1\n```\n\n::: {.cell-output .cell-output-stdout}\n```\n[1] 2\n```\n:::\n:::\n",
+    "markdown": "---\ntitle: \"Git Fundamentals\"\ndate: \"2017-03-16\"\ncategories: [git, command line, version control]\nimage: \"image.jpg\"\n---\n\n\nThis is a post with executable code.\n\n\n::: {.cell}\n\n```{.r .cell-code}\n1 + 1\n```\n\n::: {.cell-output .cell-output-stdout}\n```\n[1] 2\n```\n:::\n:::\n",
     "supporting": [],
     "filters": [
       "rmarkdown/pagebreak.lua"

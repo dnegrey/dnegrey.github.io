@@ -1,13 +1,323 @@
 ---
 title: "Leaflet by Example: Election 2000"
-author: "Dan Negrey"
 date: "2016-05-15"
+description: "This post demonstrates how to import a shapefile, scape data from the web, join the two and visualize the result in an interactive map."
 categories: [visualization, geospatial, politics]
 image: "image.jpg"
 ---
 
-This is a post with executable code.
+If you've kept your finger on the pulse of the R community lately, you'd likely
+agree that innovation has been on a tear! A foundation built on extensibility
+combined with a growing user base amount to daily announcements of new products,
+new packages, new features and new ideas. One of the more impressive items to
+arrive in the past year or two is the [htmlwidgets](http://www.htmlwidgets.org/)
+package. If you're not already familiar, this package provides a framework for
+bringing interactive JavaScript visualizations to R, where they can then easily
+be embedded into R Markdown documents and Shiny web applications.
+
+Using this framework, developers can create new widgets that bind R and
+JavaScript in amazingly seamless ways. Many such R packages already exist, and
+while each provides useful and unique tools for presenting and visualizing data,
+one in particular stands out for its geospatial capabilities.
+[Leaflet](https://rstudio.github.io/leaflet/) gives users the ability to create
+interactive maps that can span the entire globe or drill down to a street level.
+With a variety of different base maps (tiles) and the ability to overlay
+multiple layers of content (including markers, pop-ups, lines, shapes, etc.),
+the applications for leaflet are endless. This article is focused on
+demonstrating a handful of leaflet's many great features using real world data.
+
+In the United States, a [Clinton (D)](https://www.hillaryclinton.com/) vs.
+[Trump (R)](https://www.donaldjtrump.com/) showdown is all but certain for the
+upcoming presidential election in November. There has been a lot of rhetoric
+tossed around during the primaries and, if those debates were any indication, we
+are all in for some very entertaining months ahead. During election years, I'm
+often reminded of the 2000 presidential election that pitted incumbent vice
+president [Al Gore (D)](https://www.algore.com/) vs. incumbent Texas governor
+[George W. Bush (R)](http://www.georgewbush.com/). One of the closest
+presidential elections in U.S. history, and certainly the most publicized one,
+2000 saw Bush defeat Gore by only 5 electoral votes despite Gore winning the 
+popular vote by half a percent. To better understand how the votes shook out,
+let's create a leaflet map to visualize who carried which states and by how many
+votes.
+
+::: {.callout-note}
+Minor adjustments have been made to this post in order to re-publish it in 2020.
+Most notably is the use of `rgdal::readOGR()` to import the state shape data
+whereas `maptools::readShapePoly()` was used previously.
+:::
+
+## Necessary Packages
+
+First thing we must do is load some additional packages that we'll need along
+the way. Ultimately, we're going to be fetching the election result data from
+the web, cleaning it up a bit, combining it with state boundary shape data and
+then plotting it using leaflet. There are a number of packages and functions
+capable of getting the data and preparing it for the final plot, but the ones
+I've chosen here, I've found to be a little more reliable and independent than
+some of the alternatives.
 
 ```{r}
-1 + 1
+#| message: false
+#| warning: false
+library(rgdal)
+library(httr)
+library(xml2)
+library(rvest)
+library(dplyr)
+library(leaflet)
+```
+
+## State Boundary Data
+
+Since we are interested in seeing the election results by state, we'll need to
+obtain a shape file for U.S. states. Fortunately, the United States Census
+Bureau provides a variety of cartographic boundary (shape) files. This shape
+data is available to download, from their website, in a compressed (zipped)
+format. Using a few utility functions, we can easily download and unzip the data
+to our working directory. Next, we have to import the shape data. For this we
+will use `rgdal::readOGR()`.
+
+```{r}
+#| message: false
+#| warning: false
+download.file(
+  url = "http://www2.census.gov/geo/tiger/GENZ2015/shp/cb_2015_us_state_20m.zip",
+  destfile = "cb_2015_us_state_20m.zip"
+)
+unzip(
+  zipfile = "cb_2015_us_state_20m.zip",
+  exdir = "cb_2015_us_state_20m"
+)
+stateMap <- readOGR(
+  dsn = "cb_2015_us_state_20m/cb_2015_us_state_20m.shp",
+  layer = "cb_2015_us_state_20m",
+  GDAL1_integer64_policy = TRUE,
+  verbose = FALSE
+)
+```
+
+## Election Result Data
+
+Now we need our actual election results, by state, in a data frame. There are a
+number of options for obtaining this data, but one particularly convenient
+option involves scraping it directly from
+[Infoplease](https://www.infoplease.com/). We can use `httr::GET()` along with
+`xml2::read_html()` and `rvest::html_table()` to pull directly into R the state
+tabulated results. Note that we have to do some basic manipulation in order to:
+
+1. Extract the initial data frame from a list
+2. Remove the header and total rows from the actual data
+3. Convert formatted numbers to integers
+4. Assign new column names
+5. Derive new fields
+
+```{r}
+#| message: false
+#| warning: false
+x <- GET(
+  url = paste0(
+    "https://www.infoplease.com/us/government/elections/",
+    "presidential-election-of-2000-electoral-and-popular-vote-summary"
+  )
+)
+x <- html_table(read_html(gsub("<sup.*?sup>","",rawToChar(x$content))))
+x <- as.data.frame(x[[1]])
+x <- x[2:(nrow(x) - 1), c(1:5, 8:9)]
+for (i in 2:7) {
+  x[, i] <- as.integer(gsub("[^0-9]", "", x[, i]))
+}
+names(x) <- c(
+  "StateName",
+  "PopularBush",
+  "PopularMixBush",
+  "PopularGore",
+  "PopularMixGore",
+  "ElectoralBush",
+  "ElectoralGore"
+)
+x$ElectoralVotes <- ifelse(
+  test = is.na(x$ElectoralBush),
+  yes = x$ElectoralGore,
+  no = x$ElectoralBush
+)
+x$Winner <- ifelse(
+  test = is.na(x$ElectoralBush),
+  yes = "Gore",
+  no = "Bush"
+)
+x$StateName <- ifelse(
+  test = x$StateName == "DC",
+  yes = "District of Columbia",
+  no = x$StateName
+)
+stateResults <- x
+```
+
+## Combine Data
+
+While it's possible to reference disjoint data within leaflet, it's much easier
+to reference a single data frame with all of your information. If you've
+inspected the `stateMap` object so far, you've probably noticed that its
+structure appears to be complex. Fortunately, we don't need to worry too much
+about that. However, it's important to know that this structure is sort of like
+a list where each immediate element is a "state". In fact, by running
+`length(stateMap)`, you'll see that it has 52 elements, which is 1 more than the
+number of observations in our election result data (50 states plus the District
+of Columbia). This additional element belongs to [Puerto
+Rico](https://en.wikipedia.org/wiki/Federal_voting_rights_in_Puerto_Rico), which
+is a U.S. territory and does not have voting representation in congress nor is
+entitled to electoral votes for president. We can use the base function
+`subset()` to remove Puerto Rico from our shape data and then
+`dplyr::inner_join()` to join our election data to the *data object* in
+`stateMap`.
+
+```{r}
+x <- subset(stateMap, stateMap$NAME %in% stateResults$StateName)
+x$StateName <- as.character(x$NAME)
+x@data <- x@data %>%
+  inner_join(stateResults, "StateName")
+```
+
+## Color Conscious
+
+At this point, all of the data needed for our plot is stored inside the object
+`x`. Since we'd like to color each state by its winner, we'll need to create a
+function for mapping each candidate to a color. Leaflet has some nice color
+mapping functions specifically for this purpose, so we'll use
+`leaflet::colorFactor()` to map, in traditional partisan fashion, <span
+style="color: red; font-weight: bold">red</span> to Governor Bush and <span
+style="color: blue; font-weight: bold">blue</span> to Vice President Gore.
+
+```{r}
+pal <- colorFactor(
+  palette = c("Red", "Blue"),
+  domain = c("Bush", "Gore")
+)
+```
+
+## Map Creation
+
+Finally, we are ready to create our map using `leaflet::leaflet()`. Like many
+packages, leaflet imports the forward pipe operator (`%>%`) from the magrittr
+package. This allows you to construct a logical pipeline of features while
+avoiding nesting functions, which could quickly become difficult to code, read
+and troubleshoot. One of the first things you'll want to do with any leaflet map
+is call `addTiles()` or `addProviderTiles()`. This adds a basemap layer. By
+calling `addTiles()` with no arguments, you'll get
+[OpenStreetMap](https://www.openstreetmap.org/#map=5/51.500/-0.100) tiles which
+look great and suffice for many applications. For our map, though, since we're
+going to overlay a lot of color, I want to use simple black and white tiles (see
+[here](http://leaflet-extras.github.io/leaflet-providers/preview/index.html) for
+the complete set of available tiles). Next, we set the initial center
+coordinates and zoom level for our viewing window. Remember, these are
+interactive maps and you'll be able to zoom in and out and drag all around. The
+options specified below result in a well centered view of the continental United
+States. Now we can add our shape data, which we do using `addPolygons()`. For
+this, we point to our shape data object (`x`) and can then make attached
+references to the columns in `x@data` using `= ~`. Our state borders will be
+colored white with a weight of 2, while the interior of the states will be
+colored according to our palette function and the value of the `x@data$Winner`
+field for that particular state. Another great feature of leaflet maps is the
+ability to add pop-ups, which can be constructed inside `addPolygons()` (among
+other `add*()` functions). Here, we'll paste together some of the information
+from our data and use a little HTML to make it render nicely. Lastly, we'll add
+a legend to let users know which color goes with which candidate.
+
+```{r}
+leaflet(width = "100%") %>%
+  addProviderTiles("CartoDB.Positron") %>%
+  setView(
+    lng = -98.35,
+    lat = 39.50,
+    zoom = 4
+  ) %>%
+  addPolygons(
+    data = x,
+    color = "#FFFFFF",
+    weight = 2,
+    fillColor = ~ pal(Winner),
+    fillOpacity = 1,
+    popup = ~ paste(
+      sprintf("<b>%s</b>(%s)", NAME, STUSPS),
+      sprintf("Winner: <b>%s</b>", Winner),
+      sprintf("Electoral Votes: <b>%s</b>", ElectoralVotes),
+      sprintf("Popular # (Bush): <b>%s</b>", format(PopularBush, big.mark = ",")),
+      sprintf("Popular %s (Bush): <b>%s%s</b>", "%", PopularMixBush, "%"),
+      sprintf("Popular # (Gore): <b>%s</b>", format(PopularGore, big.mark = ",")),
+      sprintf("Popular %s (Gore): <b>%s%s</b>", "%", PopularMixGore, "%"),
+      sep = "<br>"
+    )
+  ) %>%
+  addLegend(
+    position = "bottomleft",
+    pal = pal,
+    values = c("Bush", "Gore"),
+    opacity = 1
+  )
+```
+
+## Election Results
+
+Despite the election occurring on November 7, the margin of victory in Florida
+was so small that it triggered a mandatory recount. This led to litigation which
+ultimately reached the United States Supreme Court. Finally, on December 12, the
+court's decision in *Bush v. Gore* ended the recounts, effectively awarding
+Florida to Bush and giving him the 270 electoral votes needed to win the
+election. This was only the fourth presidential election in U.S. history where
+the winner failed to win a plurality of the popular vote. The final tally was as
+follows:
+
+```{r}
+#| echo: false
+x <- GET("https://www.infoplease.com/us/government/elections/presidential-election-of-2000-electoral-and-popular-vote-summary")
+x <- html_table(read_html(gsub("<sup.*?sup>","",rawToChar(x$content))))
+x <- as.data.frame(x[[1]])
+x <- x[nrow(x), 1:5]
+for (i in 2:5) {
+  x[, i] <- as.integer(gsub("[^0-9]", "", x[, i]))
+}
+ebn <- sum(stateResults$ElectoralBush, na.rm = TRUE)
+egn <- sum(stateResults$ElectoralGore, na.rm = TRUE)
+et <- sum(stateResults$ElectoralVotes)
+ebp <- sprintf("%1.1f%%", 100*ebn/et)
+egp <- sprintf("%1.1f%%", 100*egn/et)
+pbn <- x[1, 2]
+pgn <- x[1, 4]
+pbp <- sprintf("%1.1f%%", x[1, 3]/100)
+pgp <- sprintf("%1.1f%%", x[1, 5]/100)
+pbn <- format(pbn, big.mark = ",")
+pgn <- format(pgn, big.mark = ",")
+```
+
+<div>
+<p style="float: left;">
+<img src="bush.jpg" alt="George W. Bush">
+</p>
+<ul style="list-style-type: none; margin-left: 170px; padding-left: 20px;">
+<li><b>George W. Bush</b></li>
+<li>Electoral votes: <b>`r ebn` (`r ebp`)</b></li>
+<li>Popular votes: <b>`r pbn` (`r pbp`)</b></li>
+</ul>
+</p>
+</div>
+
+<div style="clear: left;">
+<p style="float: left;">
+<img src="gore.jpg" alt="Al Gore">
+</p>
+<ul style="list-style-type: none; margin-left: 170px; padding-left: 20px;">
+<li><b>Al Gore</b></li>
+<li>Electoral votes: <b>`r egn` (`r egp`)</b></li>
+<li>Popular votes: <b>`r pgn` (`r pgp`)</b></li>
+</ul>
+</p>
+</div>
+
+<div style="clear: left;">
+</div>
+
+
+```{bash}
+#| echo: false
+rm -rf cb_2015_us_state_20m*
 ```
