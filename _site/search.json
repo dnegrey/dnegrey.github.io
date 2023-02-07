@@ -39,14 +39,14 @@
     "href": "blog.html",
     "title": "Blog",
     "section": "",
-    "text": "Git Fundamentals\n\n\n\n\n\n\n\ngit\n\n\ncommand line\n\n\nversion control\n\n\n\n\n\n\n\n\n\n\n\nMar 16, 2017\n\n\nDan Negrey\n\n\n\n\n\n\n  \n\n\n\n\nLeaflet by Example: Election 2000\n\n\n\n\n\n\n\nvisualization\n\n\ngeospatial\n\n\npolitics\n\n\n\n\nThis post demonstrates how to import a shapefile, scape data from the web, join the two and visualize the result in an interactive map.\n\n\n\n\n\n\nMay 15, 2016\n\n\nDan Negrey\n\n\n\n\n\n\nNo matching items"
+    "text": "Git Fundamentals\n\n\n\n\n\n\n\ngit\n\n\ncommand line\n\n\nversion control\n\n\n\n\nThis post blahblahblah.\n\n\n\n\n\n\nMar 16, 2017\n\n\nDan Negrey\n\n\n\n\n\n\n  \n\n\n\n\nLeaflet by Example: Election 2000\n\n\n\n\n\n\n\nvisualization\n\n\ngeospatial\n\n\npolitics\n\n\n\n\nThis post demonstrates how to import a shapefile, scape data from the web, join the two and visualize the result in an interactive map.\n\n\n\n\n\n\nMay 15, 2016\n\n\nDan Negrey\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/git-fundamentals/index.html",
     "href": "posts/git-fundamentals/index.html",
     "title": "Git Fundamentals",
     "section": "",
-    "text": "This is a post with executable code.\n\n1 + 1\n\n[1] 2"
+    "text": "Of all the tools I use as a data scientist, the one that I cherish the most is Git. As a free and open source distributed version control system, Git plays an integral role in my work by seamlessly fostering many of the most important considerations of data science workflows including collaboration, experimentation, reproducibility and of course, source code management.\nAt their core, version control systems (VCS) all serve one broad and common purpose: tracking changes to files. What distinguishes one system from another, however, is how that purpose is implemented and what additional features are present. To get a better understanding of the history and evolution of version control systems, I recommend reading the introduction at Ry’s Git Tutorial. You might also want to bookmark his tutorial and work your way through all of the sections as he does a terrific job demonstrating Git’s feature set in much greater detail than what I’m covering in this post.\nBefore we move on, let’s clarify something that often comes up when people first start learning about Git. Many of you may have heard of companies like GitHub, GitLab or Bitbucket. These are each examples of web-based repository hosting services. Git itself is just a lightweight command line tool. Services like GitHub provide software development platforms that center around the use of Git but add a rich suite of additional features. The focus of this post is on learning the fundamentals of the Git command line tool."
   },
   {
     "objectID": "posts/leaflet-election-2000/index.html",
@@ -103,5 +103,26 @@
     "title": "Leaflet by Example: Election 2000",
     "section": "Election Results",
     "text": "Election Results\nDespite the election occurring on November 7, the margin of victory in Florida was so small that it triggered a mandatory recount. This led to litigation which ultimately reached the United States Supreme Court. Finally, on December 12, the court’s decision in Bush v. Gore ended the recounts, effectively awarding Florida to Bush and giving him the 270 electoral votes needed to win the election. This was only the fourth presidential election in U.S. history where the winner failed to win a plurality of the popular vote. The final tally was as follows:\n\n\n\n\n\n\n\n\n\nGeorge W. Bush\n\n\nElectoral votes: 271 (50.5%)\n\n\nPopular votes: 50,456,002 (47.9%)\n\n\n\n\n\n\n\n\n\n\nAl Gore\n\n\nElectoral votes: 266 (49.5%)\n\n\nPopular votes: 50,999,897 (48.4%)"
+  },
+  {
+    "objectID": "posts/git-fundamentals/index.html#prerequisites",
+    "href": "posts/git-fundamentals/index.html#prerequisites",
+    "title": "Git Fundamentals",
+    "section": "Prerequisites",
+    "text": "Prerequisites\nA basic understanding of Linux (Unix-like) commands is assumed. Specifically, this post makes extensive use of the following:\n\nmkdir: create new directories\ncd: change the current working directory\necho: display a line of text\ncat: concatenate files and print on the standard output\nls: list directory contents\nrm: remove files or directories\n\nFor brevity, I am using echo with redirection (>) to write files. In reality, you’d be using a visual editor such as vi to write and edit files."
+  },
+  {
+    "objectID": "posts/git-fundamentals/index.html#create-a-local-git-repository",
+    "href": "posts/git-fundamentals/index.html#create-a-local-git-repository",
+    "title": "Git Fundamentals",
+    "section": "Create a Local Git Repository",
+    "text": "Create a Local Git Repository\nBefore we can do anything with Git, we must initialize a directory as a Git repository. Let’s do so in a brand new directory that we’ll create called fundamentals underneath our home directory (~):\n\n\n\n\ncd ~\nmkdir fundamentals\ncd fundamentals\ngit init\n\nInitialized empty Git repository in /home/dan/fundamentals/.git/"
+  },
+  {
+    "objectID": "posts/git-fundamentals/index.html#add-a-readme-file",
+    "href": "posts/git-fundamentals/index.html#add-a-readme-file",
+    "title": "Git Fundamentals",
+    "section": "Add a README File",
+    "text": "Add a README File\nThe first thing you’ll want to do with any new Git repository is add a README.md file to the project root. As a plain text file, it will be the easiest place to save and read notes about your project. The “.md” extension indicates that it is a markdown file. Markdown is a text-to-HTML conversion tool that allows you to create easy-to-read and easy-to-write plain text files which get converted to HTML. Hosting services like GitHub and GitLab will automatically render your README.md file to HTML at the main repository site (for example: https://github.com/rstudio/blogdown). Here is a brief primer on some of the more commonly used markdown syntax:\n\n\n\n\nHeaders\n\n# is an h1 header\n## is an h2 header\n### is an h3 header (and so on)\n\n\n\nRegular Writing\n\nRegular writing becomes a <p> tag\n\n\n\nInline Code\n\nEnclose inline code in `single ticks`\n\n\n\nUnordered Lists\n\n* item one in unordered list\n* item two in unordered list\n* item three in unordered list\n\n\n\n\n\nItalics and Bold\n\n*italics*\n**bold**\n***bold-and-italics***\n\n\n\nHyperlinks\n\n[hyperlink-alt-text](hyperlink-href)\n\n\n\nCode Chunks\n\n    Indent four spaces for a code block\n\n\n\nOrdered Lists\n\n1 item one in ordered list\n2 item two in ordered list\n3 item three in ordered list\n\n\n\n\n\n\nNow let’s actually create our README.md file. A popular convention (and one that I use) is to have the first line of your README.md file be an <h1> header with the name of your repository:\n\necho \\# fundamentals > README.md\ncat README.md\n\n# fundamentals"
   }
 ]
