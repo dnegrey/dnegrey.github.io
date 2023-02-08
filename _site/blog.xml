@@ -131,6 +131,378 @@
 <pre><code># fundamentals</code></pre>
 </div>
 </div>
+</section>
+<section id="git-status" class="level2">
+<h2 class="anchored" data-anchor-id="git-status">Git Status</h2>
+<p>Now that we actually have a file in our repository, we are ready to use Git. The one command that you’ll find yourself using regularly in order to check the status of your project and see what changes have occurred since the last “clean” state is <code>git status</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><span class="fu" style="color: #4758AB;">git</span> status</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>On branch main
+
+No commits yet
+
+Untracked files:
+  (use "git add &lt;file&gt;..." to include in what will be committed)
+    README.md
+
+nothing added to commit but untracked files present (use "git add" to track)</code></pre>
+</div>
+</div>
+<p>Notice the response from our command. It lists our README.md file as an <em>untracked file</em>. This is Git’s way of telling you that a new file is present in the repository. It also says to use <code>"git add"</code> to track.</p>
+</section>
+<section id="staging" class="level2">
+<h2 class="anchored" data-anchor-id="staging">Staging</h2>
+<p>Git allows you to review your changes before they get recorded into version control. This is called <strong>staging</strong>. You can add or remove files from the current staging area (“snapshot”) using <code>git add</code> and <code>git rm</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><span class="fu" style="color: #4758AB;">git</span> add README.md</span>
+<span id="cb15-2"><span class="fu" style="color: #4758AB;">git</span> status</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>On branch main
+
+No commits yet
+
+Changes to be committed:
+  (use "git rm --cached &lt;file&gt;..." to unstage)
+    new file:   README.md</code></pre>
+</div>
+</div>
+<p>Now, README.md is being tracked and is ready to be <em>committed</em> into version control.</p>
+</section>
+<section id="git-commit" class="level2">
+<h2 class="anchored" data-anchor-id="git-commit">Git Commit</h2>
+<p>When you are ready to officially record (“commit”) your staged changes, use the <code>git commit</code> command. Doing so will prompt you for a commit message (all commits get accompanied by a message), however, you can avoid the prompt and supply the message with the commit by using the <code>-m</code> option:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><span class="fu" style="color: #4758AB;">git</span> commit <span class="at" style="color: #657422;">-m</span> <span class="st" style="color: #20794D;">"initial commit"</span></span>
+<span id="cb17-2"><span class="fu" style="color: #4758AB;">git</span> status</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[main (root-commit) 33276a2] initial commit
+ 1 file changed, 1 insertion(+)
+ create mode 100644 README.md
+On branch main
+nothing to commit, working tree clean</code></pre>
+</div>
+</div>
+<p>This will commit any staged files. Note that each commit is given a unique identifer known as a <strong>SHA-1 hash</strong>.</p>
+</section>
+<section id="git-log" class="level2">
+<h2 class="anchored" data-anchor-id="git-log">Git Log</h2>
+<p>Use the <code>git log</code> command to print a summary of all the commits that you’ve made. This will include the full commit hash, author, date and message. For an abbreviated result, use the <code>--oneline</code> option which will only print out the commit message and the first 7 characters from the commit hash:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><span class="fu" style="color: #4758AB;">git</span> log</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>commit 33276a2309d5b5347a72754220d7fdf3320617ca
+Author: Dan Negrey &lt;dnegrey@gmail.com&gt;
+Date:   Tue Feb 7 20:51:18 2023 -0500
+
+    initial commit</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><span class="fu" style="color: #4758AB;">git</span> log <span class="at" style="color: #657422;">--oneline</span></span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>33276a2 initial commit</code></pre>
+</div>
+</div>
+</section>
+<section id="gitignore" class="level2">
+<h2 class="anchored" data-anchor-id="gitignore">.gitignore</h2>
+<p>There may be instances when you want Git to ignore certain files in your repository. A good example of this includes working data files that your code produces while it is executing. Generally, if you subscribe to the principles of reproducible research, then you should be able to ignore any ouput files that your code produces as your code should be able to reproduce the output when needed. For Git to ignore certain files, you’ll need to create a <code>.gitignore</code> file in your project root, and list in it the file names or patterns that describe what is to be ignored.</p>
+<p>Let’s confirm a clean working directory:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><span class="bu" style="color: null;">pwd</span></span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>/home/dan/fundamentals</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><span class="fu" style="color: #4758AB;">ls</span> <span class="at" style="color: #657422;">-l</span></span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>total 4
+-rw-r--r-- 1 dan dan 15 Feb  7 20:51 README.md</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><span class="fu" style="color: #4758AB;">git</span> status</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>On branch main
+nothing to commit, working tree clean</code></pre>
+</div>
+</div>
+<p>Now, let’s create a few data files that we’ll want to ignore:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><span class="cf" style="color: #003B4F;">for</span> i <span class="kw" style="color: #003B4F;">in</span> 1 2 3<span class="kw" style="color: #003B4F;">;</span> <span class="cf" style="color: #003B4F;">do</span></span>
+<span id="cb29-2">    <span class="fu" style="color: #4758AB;">touch</span> data<span class="va" style="color: #111111;">${i}</span>.csv</span>
+<span id="cb29-3"><span class="cf" style="color: #003B4F;">done</span></span>
+<span id="cb29-4"><span class="fu" style="color: #4758AB;">ls</span> <span class="at" style="color: #657422;">-l</span></span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>total 4
+-rw-r--r-- 1 dan dan  0 Feb  7 20:51 data1.csv
+-rw-r--r-- 1 dan dan  0 Feb  7 20:51 data2.csv
+-rw-r--r-- 1 dan dan  0 Feb  7 20:51 data3.csv
+-rw-r--r-- 1 dan dan 15 Feb  7 20:51 README.md</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb31-1"><span class="fu" style="color: #4758AB;">git</span> status</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>On branch main
+Untracked files:
+  (use "git add &lt;file&gt;..." to include in what will be committed)
+    data1.csv
+    data2.csv
+    data3.csv
+
+nothing added to commit but untracked files present (use "git add" to track)</code></pre>
+</div>
+</div>
+<p>Next, we simply create our <code>.gitignore</code> file with the correct pattern to ignore these new data files:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb33-1"><span class="bu" style="color: null;">echo</span> data<span class="dt" style="color: #AD0000;">\*</span>.csv <span class="op" style="color: #5E5E5E;">&gt;</span> .gitignore</span>
+<span id="cb33-2"><span class="fu" style="color: #4758AB;">cat</span> .gitignore</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>data*.csv</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb35-1"><span class="fu" style="color: #4758AB;">git</span> status</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>On branch main
+Untracked files:
+  (use "git add &lt;file&gt;..." to include in what will be committed)
+    .gitignore
+
+nothing added to commit but untracked files present (use "git add" to track)</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb37-1"><span class="fu" style="color: #4758AB;">ls</span> <span class="at" style="color: #657422;">-la</span></span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>total 20
+drwxr-xr-x  3 dan dan 4096 Feb  7 20:51 .
+drwxr-x--- 22 dan dan 4096 Feb  7 20:51 ..
+-rw-r--r--  1 dan dan    0 Feb  7 20:51 data1.csv
+-rw-r--r--  1 dan dan    0 Feb  7 20:51 data2.csv
+-rw-r--r--  1 dan dan    0 Feb  7 20:51 data3.csv
+drwxr-xr-x  8 dan dan 4096 Feb  7 20:51 .git
+-rw-r--r--  1 dan dan   10 Feb  7 20:51 .gitignore
+-rw-r--r--  1 dan dan   15 Feb  7 20:51 README.md</code></pre>
+</div>
+</div>
+<p>Great! Git will now ignore any file in our repository that matches the pattern <code>data*.csv</code>. However, it recognizes that we have introduced a new file - namely, the <code>.gitignore</code> file. So we simply add <code>.gitignore</code> to the staging area and commit:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb39-1"><span class="fu" style="color: #4758AB;">git</span> add .gitignore</span>
+<span id="cb39-2"><span class="fu" style="color: #4758AB;">git</span> commit <span class="at" style="color: #657422;">-m</span> <span class="st" style="color: #20794D;">"added .gitignore"</span></span>
+<span id="cb39-3"><span class="fu" style="color: #4758AB;">git</span> status</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[main 7d1bece] added .gitignore
+ 1 file changed, 1 insertion(+)
+ create mode 100644 .gitignore
+On branch main
+nothing to commit, working tree clean</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb41-1"><span class="fu" style="color: #4758AB;">git</span> log <span class="at" style="color: #657422;">--oneline</span></span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>7d1bece added .gitignore
+33276a2 initial commit</code></pre>
+</div>
+</div>
+</section>
+<section id="discard-changes" class="level2">
+<h2 class="anchored" data-anchor-id="discard-changes">Discard Changes</h2>
+<p>Let’s add a new file to our project:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb43-1"><span class="bu" style="color: null;">echo</span> <span class="st" style="color: #20794D;">"Hello, world!"</span> <span class="op" style="color: #5E5E5E;">&gt;</span> file1</span>
+<span id="cb43-2"><span class="fu" style="color: #4758AB;">cat</span> file1</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Hello, world!</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb45-1"><span class="fu" style="color: #4758AB;">git</span> add file1</span>
+<span id="cb45-2"><span class="fu" style="color: #4758AB;">git</span> commit <span class="at" style="color: #657422;">-m</span> <span class="st" style="color: #20794D;">"added file1"</span></span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[main 337001e] added file1
+ 1 file changed, 1 insertion(+)
+ create mode 100644 file1</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb47-1"><span class="fu" style="color: #4758AB;">git</span> log <span class="at" style="color: #657422;">--oneline</span></span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>337001e added file1
+7d1bece added .gitignore
+33276a2 initial commit</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb49-1"><span class="fu" style="color: #4758AB;">git</span> status</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>On branch main
+nothing to commit, working tree clean</code></pre>
+</div>
+</div>
+<p>Now, this is where things start to heat up! Let’s make a change to <code>file1</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb51-1"><span class="bu" style="color: null;">echo</span> <span class="st" style="color: #20794D;">"Goodbye, world:("</span> <span class="op" style="color: #5E5E5E;">&gt;</span> file1</span>
+<span id="cb51-2"><span class="fu" style="color: #4758AB;">cat</span> file1</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Goodbye, world:(</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb53" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb53-1"><span class="fu" style="color: #4758AB;">git</span> status</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>On branch main
+Changes not staged for commit:
+  (use "git add &lt;file&gt;..." to update what will be committed)
+  (use "git restore &lt;file&gt;..." to discard changes in working directory)
+    modified:   file1
+
+no changes added to commit (use "git add" and/or "git commit -a")</code></pre>
+</div>
+</div>
+<p>Based on the above response from <code>git status</code>, Git is aware that <code>file1</code> has changed. But, recall <em>staging</em>! This change has not yet been staged. Sometimes, changes like this might occur by accident or they may no longer be desired. To undo <em>unstaged</em> changes to a file, use the <code>git checkout --</code> command:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb55-1"><span class="fu" style="color: #4758AB;">cat</span> file1</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Goodbye, world:(</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb57" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb57-1"><span class="fu" style="color: #4758AB;">git</span> checkout <span class="at" style="color: #657422;">--</span> file1</span>
+<span id="cb57-2"><span class="fu" style="color: #4758AB;">cat</span> file1</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Hello, world!</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb59" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb59-1"><span class="fu" style="color: #4758AB;">git</span> status</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>On branch main
+nothing to commit, working tree clean</code></pre>
+</div>
+</div>
+<p><strong>Voila!</strong> Everything is back to the way it was before we changed <code>file1</code>.</p>
+</section>
+<section id="git-revert" class="level2">
+<h2 class="anchored" data-anchor-id="git-revert">Git Revert</h2>
+<p>In some cases, it will be necessary to undo an entire commit. To do so, use the <code>git revert</code> command and supply it with the SHA-1 hash of the commit that you would like to revert. Suppose we didn’t want a <code>.gitignore</code> file. We would want to revert our second commit:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb61" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb61-1"><span class="fu" style="color: #4758AB;">git</span> log <span class="at" style="color: #657422;">--oneline</span></span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>337001e added file1
+7d1bece added .gitignore
+33276a2 initial commit</code></pre>
+</div>
+</div>
+<div class="cell">
+
+</div>
+<p></p><pre class="sourceCode bash code-with-copy"> <code class="sourceCode
+bash"><span class="kw" style="color: #003B4F;">git</span> revert 7d1bece</code> </pre><p></p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[main 3d77b78] Revert "added .gitignore"
+ Date: Tue Feb 7 20:51:18 2023 -0500
+ 1 file changed, 1 deletion(-)
+ delete mode 100644 .gitignore</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb64" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb64-1"><span class="fu" style="color: #4758AB;">git</span> status</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>On branch main
+Untracked files:
+  (use "git add &lt;file&gt;..." to include in what will be committed)
+    data1.csv
+    data2.csv
+    data3.csv
+
+nothing added to commit but untracked files present (use "git add" to track)</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb66" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb66-1"><span class="fu" style="color: #4758AB;">git</span> log <span class="at" style="color: #657422;">--oneline</span></span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>3d77b78 Revert "added .gitignore"
+337001e added file1
+7d1bece added .gitignore
+33276a2 initial commit</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb68" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb68-1"><span class="fu" style="color: #4758AB;">ls</span> <span class="at" style="color: #657422;">-la</span></span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>total 20
+drwxr-xr-x  3 dan dan 4096 Feb  7 20:51 .
+drwxr-x--- 22 dan dan 4096 Feb  7 20:51 ..
+-rw-r--r--  1 dan dan    0 Feb  7 20:51 data1.csv
+-rw-r--r--  1 dan dan    0 Feb  7 20:51 data2.csv
+-rw-r--r--  1 dan dan    0 Feb  7 20:51 data3.csv
+-rw-r--r--  1 dan dan   14 Feb  7 20:51 file1
+drwxr-xr-x  8 dan dan 4096 Feb  7 20:51 .git
+-rw-r--r--  1 dan dan   15 Feb  7 20:51 README.md</code></pre>
+</div>
+</div>
+<p>Recall that the point of Git is to track <strong><em>all</em></strong> of your changes! Notice that <code>git revert</code> did not simply roll back or remove the specified commit. Instead, it created a new commit reflective of the state we desired. In fact, by removing our <code>.gitignore</code> file, Git is now aware of the data files that it was previously ignoring! We can now <em>revert our revert</em> to get back our <code>.gitignore</code> file:</p>
+<div class="cell">
+
+</div>
+<p></p><pre class="sourceCode bash code-with-copy"> <code class="sourceCode
+bash"><span class="kw" style="color: #003B4F;">git</span> revert 3d77b78</code> </pre><p></p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[main d19f5b3] Revert "Revert "added .gitignore""
+ Date: Tue Feb 7 20:51:18 2023 -0500
+ 1 file changed, 1 insertion(+)
+ create mode 100644 .gitignore</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb71" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb71-1"><span class="fu" style="color: #4758AB;">git</span> status</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>On branch main
+nothing to commit, working tree clean</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb73" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb73-1"><span class="fu" style="color: #4758AB;">git</span> log <span class="at" style="color: #657422;">--oneline</span></span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>d19f5b3 Revert "Revert "added .gitignore""
+3d77b78 Revert "added .gitignore"
+337001e added file1
+7d1bece added .gitignore
+33276a2 initial commit</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb75" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb75-1"><span class="fu" style="color: #4758AB;">ls</span> <span class="at" style="color: #657422;">-la</span></span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>total 24
+drwxr-xr-x  3 dan dan 4096 Feb  7 20:51 .
+drwxr-x--- 22 dan dan 4096 Feb  7 20:51 ..
+-rw-r--r--  1 dan dan    0 Feb  7 20:51 data1.csv
+-rw-r--r--  1 dan dan    0 Feb  7 20:51 data2.csv
+-rw-r--r--  1 dan dan    0 Feb  7 20:51 data3.csv
+-rw-r--r--  1 dan dan   14 Feb  7 20:51 file1
+drwxr-xr-x  8 dan dan 4096 Feb  7 20:51 .git
+-rw-r--r--  1 dan dan   10 Feb  7 20:51 .gitignore
+-rw-r--r--  1 dan dan   15 Feb  7 20:51 README.md</code></pre>
+</div>
+</div>
+</section>
+<section id="closing-remarks" class="level2">
+<h2 class="anchored" data-anchor-id="closing-remarks">Closing Remarks</h2>
+<p>With just a few simple commands, you’ve taken your first step into a larger world! The use of version control, and more specifically Git, may be a total paradigm shift for you. It may seem challenging to learn and difficult to incorporate into your everyday workflow. But over time, this will subside, you’ll learn to work in far more efficient ways than you did previously and Git will become an indispensable tool that is integral to your approach. And we’ve only just scratched the surface. Git’s branching model is one of its key differentiators and will be next up on our list along with remote repositories, so stay tuned to the blog by following me on Twitter <a href="https://twitter.com/negreydan">@NegreyDan</a>!</p>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
 
 
 </section>
