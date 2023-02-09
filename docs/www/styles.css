@@ -16,7 +16,6 @@
 }
 
 /* favorite things images and links */
-
 #favorite-things-grid {
   display: grid;
   grid-template-rows: auto auto;

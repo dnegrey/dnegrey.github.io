@@ -17,6 +17,7 @@ website:
     left:
       - index.qmd
       - about.qmd
+      - projects.qmd
       - blog.qmd
     right:
       - icon: rss

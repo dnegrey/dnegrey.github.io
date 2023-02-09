@@ -180,5 +180,19 @@
     "title": "Leaflet by Example: Election 2000",
     "section": "Election Results",
     "text": "Election Results\nDespite the election occurring on November 7, the margin of victory in Florida was so small that it triggered a mandatory recount. This led to litigation which ultimately reached the United States Supreme Court. Finally, on December 12, the court’s decision in Bush v. Gore ended the recounts, effectively awarding Florida to Bush and giving him the 270 electoral votes needed to win the election. This was only the fourth presidential election in U.S. history where the winner failed to win a plurality of the popular vote. The final tally was as follows:\n\n\n\n\n\n\n\n\n\nGeorge W. Bush\n\n\nElectoral votes: 271 (50.5%)\n\n\nPopular votes: 50,456,002 (47.9%)\n\n\n\n\n\n\n\n\n\n\nAl Gore\n\n\nElectoral votes: 266 (49.5%)\n\n\nPopular votes: 50,999,897 (48.4%)"
+  },
+  {
+    "objectID": "projects.html",
+    "href": "projects.html",
+    "title": "Projects",
+    "section": "",
+    "text": "Learn more about some of my side projects!"
+  },
+  {
+    "objectID": "projects.html#shiny",
+    "href": "projects.html#shiny",
+    "title": "Projects",
+    "section": "Shiny",
+    "text": "Shiny\nI love bringing data to life through interactive web applications! When Shiny was first introduced years ago, I knew that it would become indispensable in my toolkit. I spent a lot of time early on learning the basics and trying my best to understand reactive programming, all while being fairly new to the principles of web development. Over time, I grew much more comfortable with Shiny, learning more advanced topics while also strengthening my R programming skills, becoming more familiar with data visualization packages and improving my software development abilities. In 2019, I built an app to track my family’s weekly picks for the NFL regular season. This app won me a spot on the System76 Superfan 3: Mission to Thelio (my proudest moment as an open-source data geek and an experience that I will never forget)! Be sure to check out System76 if you’re not already familiar - they are an awesome company, with great people, building amazing technology! But before you do that, check out some of the apps I have built and are hosting on shinyapps.io:\nNFL Weekly Picks"
   }
 ]
