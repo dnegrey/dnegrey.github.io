@@ -1,0 +1,15 @@
+Type: Quarto
+Title: Personal website and blog of Dan Negrey
+Description: This is the source code for my personal website/blog.
+Authors@R: c(
+  person(
+    given = "Dan",
+    family = "Negrey",
+    role = c("aut", "cre"),
+    email = "dnegrey@gmail.com"
+  )
+)
+URL: https://dnegrey.com/
+Imports:
+  quarto
+Encoding: UTF-8

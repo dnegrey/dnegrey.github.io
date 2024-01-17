@@ -1,0 +1,36 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Dan Negrey"
+  description: "Dan Negrey's personal website and blog."
+  site-url: https://dnegrey.github.io/
+  favicon: www/favicon.ico
+  open-graph: true
+  twitter-card:
+    creator: "@NegreyDan"
+  page-footer:
+    center: "Copyright &#169; 2016-2024, Dan Negrey"
+  navbar:
+    pinned: true
+    left:
+      - index.qmd
+      - about.qmd
+      - projects.qmd
+      - blog.qmd
+    right:
+      - icon: rss
+        href: index.xml
+      - icon: github
+        href: https://github.com/dnegrey
+      - icon: linkedin
+        href: https://www.linkedin.com/in/dnegrey
+      - icon: twitter
+        href: https://twitter.com/NegreyDan
+format:
+  html:
+    theme:
+      light: flatly
+      dark: darkly
+    css: www/styles.css

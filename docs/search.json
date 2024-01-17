@@ -1,0 +1,205 @@
+[
+  {
+    "objectID": "blog.html",
+    "href": "blog.html",
+    "title": "Blog",
+    "section": "",
+    "text": "Git Fundamentals\n\n\n\n\n\n\ngit\n\n\ncommand line\n\n\nversion control\n\n\n\nThis post provides an overview of Git as a version control system and introduces the basic command line tools for use in a local project.\n\n\n\n\n\nMar 16, 2017\n\n\nDan Negrey\n\n\n\n\n\n\n\n\n\n\n\n\nLeaflet by Example: Election 2000\n\n\n\n\n\n\nvisualization\n\n\ngeospatial\n\n\npolitics\n\n\n\nThis post demonstrates how to import a shapefile, scape data from the web, join the two and visualize the result in an interactive map.\n\n\n\n\n\nMay 15, 2016\n\n\nDan Negrey\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Home",
+    "section": "",
+    "text": "Hello, world! I am a data scientist based in Cleveland, OH. My current role is Director of Analytics at MarketBridge, where I am fortunate to work with so many bright and motivated colleagues as we help clients solve some of their most pressing data science challenges. My career has centered around marketing analytics but I am genuinely interested in all things data, especially when it involves the use of open-source technology. In particular, I love using R with Shiny and R Markdown to build powerful data tools, dashboards and reports."
+  },
+  {
+    "objectID": "posts/leaflet-election-2000/index.html",
+    "href": "posts/leaflet-election-2000/index.html",
+    "title": "Leaflet by Example: Election 2000",
+    "section": "",
+    "text": "If you’ve kept your finger on the pulse of the R community lately, you’d likely agree that innovation has been on a tear! A foundation built on extensibility combined with a growing user base amount to daily announcements of new products, new packages, new features and new ideas. One of the more impressive items to arrive in the past year or two is the htmlwidgets package. If you’re not already familiar, this package provides a framework for bringing interactive JavaScript visualizations to R, where they can then easily be embedded into R Markdown documents and Shiny web applications.\nUsing this framework, developers can create new widgets that bind R and JavaScript in amazingly seamless ways. Many such R packages already exist, and while each provides useful and unique tools for presenting and visualizing data, one in particular stands out for its geospatial capabilities. Leaflet gives users the ability to create interactive maps that can span the entire globe or drill down to a street level. With a variety of different base maps (tiles) and the ability to overlay multiple layers of content (including markers, pop-ups, lines, shapes, etc.), the applications for leaflet are endless. This article is focused on demonstrating a handful of leaflet’s many great features using real world data.\nIn the United States, a Clinton (D) vs. Trump (R) showdown is all but certain for the upcoming presidential election in November. There has been a lot of rhetoric tossed around during the primaries and, if those debates were any indication, we are all in for some very entertaining months ahead. During election years, I’m often reminded of the 2000 presidential election that pitted incumbent vice president Al Gore (D) vs. incumbent Texas governor George W. Bush (R). One of the closest presidential elections in U.S. history, and certainly the most publicized one, 2000 saw Bush defeat Gore by only 5 electoral votes despite Gore winning the popular vote by half a percent. To better understand how the votes shook out, let’s create a leaflet map to visualize who carried which states and by how many votes."
+  },
+  {
+    "objectID": "posts/leaflet-election-2000/index.html#necessary-packages",
+    "href": "posts/leaflet-election-2000/index.html#necessary-packages",
+    "title": "Leaflet by Example: Election 2000",
+    "section": "Necessary Packages",
+    "text": "Necessary Packages\nFirst thing we must do is load some additional packages that we’ll need along the way. Ultimately, we’re going to be fetching the election result data from the web, cleaning it up a bit, combining it with state boundary shape data and then plotting it using leaflet. There are a number of packages and functions capable of getting the data and preparing it for the final plot, but the ones I’ve chosen here, I’ve found to be a little more reliable and independent than some of the alternatives.\n\nlibrary(rgdal)\nlibrary(httr)\nlibrary(xml2)\nlibrary(rvest)\nlibrary(dplyr)\nlibrary(leaflet)"
+  },
+  {
+    "objectID": "posts/leaflet-election-2000/index.html#state-boundary-data",
+    "href": "posts/leaflet-election-2000/index.html#state-boundary-data",
+    "title": "Leaflet by Example: Election 2000",
+    "section": "State Boundary Data",
+    "text": "State Boundary Data\nSince we are interested in seeing the election results by state, we’ll need to obtain a shape file for U.S. states. Fortunately, the United States Census Bureau provides a variety of cartographic boundary (shape) files. This shape data is available to download, from their website, in a compressed (zipped) format. Using a few utility functions, we can easily download and unzip the data to our working directory. Next, we have to import the shape data. For this we will use rgdal::readOGR().\n\ndownload.file(\n  url = \"http://www2.census.gov/geo/tiger/GENZ2015/shp/cb_2015_us_state_20m.zip\",\n  destfile = \"cb_2015_us_state_20m.zip\"\n)\nunzip(\n  zipfile = \"cb_2015_us_state_20m.zip\",\n  exdir = \"cb_2015_us_state_20m\"\n)\nstateMap &lt;- readOGR(\n  dsn = \"cb_2015_us_state_20m/cb_2015_us_state_20m.shp\",\n  layer = \"cb_2015_us_state_20m\",\n  GDAL1_integer64_policy = TRUE,\n  verbose = FALSE\n)"
+  },
+  {
+    "objectID": "posts/leaflet-election-2000/index.html#election-result-data",
+    "href": "posts/leaflet-election-2000/index.html#election-result-data",
+    "title": "Leaflet by Example: Election 2000",
+    "section": "Election Result Data",
+    "text": "Election Result Data\nNow we need our actual election results, by state, in a data frame. There are a number of options for obtaining this data, but one particularly convenient option involves scraping it directly from Infoplease. We can use httr::GET() along with xml2::read_html() and rvest::html_table() to pull directly into R the state tabulated results. Note that we have to do some basic manipulation in order to:\n\nExtract the initial data frame from a list\nRemove the header and total rows from the actual data\nConvert formatted numbers to integers\nAssign new column names\nDerive new fields\n\n\nx &lt;- GET(\n  url = paste0(\n    \"https://www.infoplease.com/us/government/elections/\",\n    \"presidential-election-of-2000-electoral-and-popular-vote-summary\"\n  )\n)\nx &lt;- html_table(read_html(gsub(\"&lt;sup.*?sup&gt;\",\"\",rawToChar(x$content))))\nx &lt;- as.data.frame(x[[1]])\nx &lt;- x[2:(nrow(x) - 1), c(1:5, 8:9)]\nfor (i in 2:7) {\n  x[, i] &lt;- as.integer(gsub(\"[^0-9]\", \"\", x[, i]))\n}\nnames(x) &lt;- c(\n  \"StateName\",\n  \"PopularBush\",\n  \"PopularMixBush\",\n  \"PopularGore\",\n  \"PopularMixGore\",\n  \"ElectoralBush\",\n  \"ElectoralGore\"\n)\nx$ElectoralVotes &lt;- ifelse(\n  test = is.na(x$ElectoralBush),\n  yes = x$ElectoralGore,\n  no = x$ElectoralBush\n)\nx$Winner &lt;- ifelse(\n  test = is.na(x$ElectoralBush),\n  yes = \"Gore\",\n  no = \"Bush\"\n)\nx$StateName &lt;- ifelse(\n  test = x$StateName == \"DC\",\n  yes = \"District of Columbia\",\n  no = x$StateName\n)\nstateResults &lt;- x"
+  },
+  {
+    "objectID": "posts/leaflet-election-2000/index.html#combine-data",
+    "href": "posts/leaflet-election-2000/index.html#combine-data",
+    "title": "Leaflet by Example: Election 2000",
+    "section": "Combine Data",
+    "text": "Combine Data\nWhile it’s possible to reference disjoint data within leaflet, it’s much easier to reference a single data frame with all of your information. If you’ve inspected the stateMap object so far, you’ve probably noticed that its structure appears to be complex. Fortunately, we don’t need to worry too much about that. However, it’s important to know that this structure is sort of like a list where each immediate element is a “state”. In fact, by running length(stateMap), you’ll see that it has 52 elements, which is 1 more than the number of observations in our election result data (50 states plus the District of Columbia). This additional element belongs to Puerto Rico, which is a U.S. territory and does not have voting representation in congress nor is entitled to electoral votes for president. We can use the base function subset() to remove Puerto Rico from our shape data and then dplyr::inner_join() to join our election data to the data object in stateMap.\n\nx &lt;- subset(stateMap, stateMap$NAME %in% stateResults$StateName)\nx$StateName &lt;- as.character(x$NAME)\nx@data &lt;- x@data %&gt;%\n  inner_join(stateResults, \"StateName\")"
+  },
+  {
+    "objectID": "posts/leaflet-election-2000/index.html#color-conscious",
+    "href": "posts/leaflet-election-2000/index.html#color-conscious",
+    "title": "Leaflet by Example: Election 2000",
+    "section": "Color Conscious",
+    "text": "Color Conscious\nAt this point, all of the data needed for our plot is stored inside the object x. Since we’d like to color each state by its winner, we’ll need to create a function for mapping each candidate to a color. Leaflet has some nice color mapping functions specifically for this purpose, so we’ll use leaflet::colorFactor() to map, in traditional partisan fashion, red to Governor Bush and blue to Vice President Gore.\n\npal &lt;- colorFactor(\n  palette = c(\"Red\", \"Blue\"),\n  domain = c(\"Bush\", \"Gore\")\n)"
+  },
+  {
+    "objectID": "posts/leaflet-election-2000/index.html#map-creation",
+    "href": "posts/leaflet-election-2000/index.html#map-creation",
+    "title": "Leaflet by Example: Election 2000",
+    "section": "Map Creation",
+    "text": "Map Creation\nFinally, we are ready to create our map using leaflet::leaflet(). Like many packages, leaflet imports the forward pipe operator (%&gt;%) from the magrittr package. This allows you to construct a logical pipeline of features while avoiding nesting functions, which could quickly become difficult to code, read and troubleshoot. One of the first things you’ll want to do with any leaflet map is call addTiles() or addProviderTiles(). This adds a basemap layer. By calling addTiles() with no arguments, you’ll get OpenStreetMap tiles which look great and suffice for many applications. For our map, though, since we’re going to overlay a lot of color, I want to use simple black and white tiles (see here for the complete set of available tiles). Next, we set the initial center coordinates and zoom level for our viewing window. Remember, these are interactive maps and you’ll be able to zoom in and out and drag all around. The options specified below result in a well centered view of the continental United States. Now we can add our shape data, which we do using addPolygons(). For this, we point to our shape data object (x) and can then make attached references to the columns in x@data using = ~. Our state borders will be colored white with a weight of 2, while the interior of the states will be colored according to our palette function and the value of the x@data$Winner field for that particular state. Another great feature of leaflet maps is the ability to add pop-ups, which can be constructed inside addPolygons() (among other add*() functions). Here, we’ll paste together some of the information from our data and use a little HTML to make it render nicely. Lastly, we’ll add a legend to let users know which color goes with which candidate.\n\nleaflet(width = \"100%\") %&gt;%\n  addProviderTiles(\"CartoDB.Positron\") %&gt;%\n  setView(\n    lng = -98.35,\n    lat = 39.50,\n    zoom = 4\n  ) %&gt;%\n  addPolygons(\n    data = x,\n    color = \"#FFFFFF\",\n    weight = 2,\n    fillColor = ~ pal(Winner),\n    fillOpacity = 1,\n    popup = ~ paste(\n      sprintf(\"&lt;b&gt;%s&lt;/b&gt;(%s)\", NAME, STUSPS),\n      sprintf(\"Winner: &lt;b&gt;%s&lt;/b&gt;\", Winner),\n      sprintf(\"Electoral Votes: &lt;b&gt;%s&lt;/b&gt;\", ElectoralVotes),\n      sprintf(\"Popular # (Bush): &lt;b&gt;%s&lt;/b&gt;\", format(PopularBush, big.mark = \",\")),\n      sprintf(\"Popular %s (Bush): &lt;b&gt;%s%s&lt;/b&gt;\", \"%\", PopularMixBush, \"%\"),\n      sprintf(\"Popular # (Gore): &lt;b&gt;%s&lt;/b&gt;\", format(PopularGore, big.mark = \",\")),\n      sprintf(\"Popular %s (Gore): &lt;b&gt;%s%s&lt;/b&gt;\", \"%\", PopularMixGore, \"%\"),\n      sep = \"&lt;br&gt;\"\n    )\n  ) %&gt;%\n  addLegend(\n    position = \"bottomleft\",\n    pal = pal,\n    values = c(\"Bush\", \"Gore\"),\n    opacity = 1\n  )"
+  },
+  {
+    "objectID": "posts/leaflet-election-2000/index.html#election-results",
+    "href": "posts/leaflet-election-2000/index.html#election-results",
+    "title": "Leaflet by Example: Election 2000",
+    "section": "Election Results",
+    "text": "Election Results\nDespite the election occurring on November 7, the margin of victory in Florida was so small that it triggered a mandatory recount. This led to litigation which ultimately reached the United States Supreme Court. Finally, on December 12, the court’s decision in Bush v. Gore ended the recounts, effectively awarding Florida to Bush and giving him the 270 electoral votes needed to win the election. This was only the fourth presidential election in U.S. history where the winner failed to win a plurality of the popular vote. The final tally was as follows:\n\n\n\n\n\n\nGeorge W. Bush\n\n\nElectoral votes: 271 (50.5%)\n\n\nPopular votes: 50,456,002 (47.9%)\n\n\n\n\n\n\n\n\n\n\nAl Gore\n\n\nElectoral votes: 266 (49.5%)\n\n\nPopular votes: 50,999,897 (48.4%)"
+  },
+  {
+    "objectID": "posts/git-fundamentals/index.html",
+    "href": "posts/git-fundamentals/index.html",
+    "title": "Git Fundamentals",
+    "section": "",
+    "text": "Of all the tools I use as a data scientist, the one that I cherish the most is Git. As a free and open source distributed version control system, Git plays an integral role in my work by seamlessly fostering many of the most important considerations of data science workflows including collaboration, experimentation, reproducibility and of course, source code management.\nAt their core, version control systems (VCS) all serve one broad and common purpose: tracking changes to files. What distinguishes one system from another, however, is how that purpose is implemented and what additional features are present. To get a better understanding of the history and evolution of version control systems, I recommend reading the introduction at Ry’s Git Tutorial. You might also want to bookmark his tutorial and work your way through all of the sections as he does a terrific job demonstrating Git’s feature set in much greater detail than what I’m covering in this post.\nBefore we move on, let’s clarify something that often comes up when people first start learning about Git. Many of you may have heard of companies like GitHub, GitLab or Bitbucket. These are each examples of web-based repository hosting services. Git itself is just a lightweight command line tool. Services like GitHub provide software development platforms that center around the use of Git but add a rich suite of additional features. The focus of this post is on learning the fundamentals of the Git command line tool."
+  },
+  {
+    "objectID": "posts/git-fundamentals/index.html#prerequisites",
+    "href": "posts/git-fundamentals/index.html#prerequisites",
+    "title": "Git Fundamentals",
+    "section": "Prerequisites",
+    "text": "Prerequisites\nA basic understanding of Linux (Unix-like) commands is assumed. Specifically, this post makes extensive use of the following:\n\nmkdir: create new directories\ncd: change the current working directory\necho: display a line of text\ncat: concatenate files and print on the standard output\nls: list directory contents\nrm: remove files or directories\n\nFor brevity, I am using echo with redirection (&gt;) to write files. In reality, you’d be using a visual editor such as vi to write and edit files."
+  },
+  {
+    "objectID": "posts/git-fundamentals/index.html#create-a-local-git-repository",
+    "href": "posts/git-fundamentals/index.html#create-a-local-git-repository",
+    "title": "Git Fundamentals",
+    "section": "Create a Local Git Repository",
+    "text": "Create a Local Git Repository\nBefore we can do anything with Git, we must initialize a directory as a Git repository. Let’s do so in a brand new directory that we’ll create called fundamentals underneath our home directory (~):\n\ncd ~\nmkdir fundamentals\ncd fundamentals\ngit init\n\nInitialized empty Git repository in /home/dan/fundamentals/.git/"
+  },
+  {
+    "objectID": "posts/git-fundamentals/index.html#add-a-readme-file",
+    "href": "posts/git-fundamentals/index.html#add-a-readme-file",
+    "title": "Git Fundamentals",
+    "section": "Add a README File",
+    "text": "Add a README File\nThe first thing you’ll want to do with any new Git repository is add a README.md file to the project root. As a plain text file, it will be the easiest place to save and read notes about your project. The “.md” extension indicates that it is a markdown file. Markdown is a text-to-HTML conversion tool that allows you to create easy-to-read and easy-to-write plain text files which get converted to HTML. Hosting services like GitHub and GitLab will automatically render your README.md file to HTML at the main repository site (for example: https://github.com/rstudio/blogdown). Here is a brief primer on some of the more commonly used markdown syntax:\n\n\n\n\nHeaders\n\n# is an h1 header\n## is an h2 header\n### is an h3 header (and so on)\n\n\n\nRegular Writing\n\nRegular writing becomes a &lt;p&gt; tag\n\n\n\nInline Code\n\nEnclose inline code in `single ticks`\n\n\n\nUnordered Lists\n\n* item one in unordered list\n* item two in unordered list\n* item three in unordered list\n\n\n\n\n\nItalics and Bold\n\n*italics*\n**bold**\n***bold-and-italics***\n\n\n\nHyperlinks\n\n[hyperlink-alt-text](hyperlink-href)\n\n\n\nCode Chunks\n\n    Indent four spaces for a code block\n\n\n\nOrdered Lists\n\n1 item one in ordered list\n2 item two in ordered list\n3 item three in ordered list\n\n\n\n\n\n\nNow let’s actually create our README.md file. A popular convention (and one that I use) is to have the first line of your README.md file be an &lt;h1&gt; header with the name of your repository:\n\necho \\# fundamentals &gt; README.md\ncat README.md\n\n# fundamentals"
+  },
+  {
+    "objectID": "posts/git-fundamentals/index.html#git-status",
+    "href": "posts/git-fundamentals/index.html#git-status",
+    "title": "Git Fundamentals",
+    "section": "Git Status",
+    "text": "Git Status\nNow that we actually have a file in our repository, we are ready to use Git. The one command that you’ll find yourself using regularly in order to check the status of your project and see what changes have occurred since the last “clean” state is git status:\n\ngit status\n\nOn branch main\n\nNo commits yet\n\nUntracked files:\n  (use \"git add &lt;file&gt;...\" to include in what will be committed)\n    README.md\n\nnothing added to commit but untracked files present (use \"git add\" to track)\n\n\nNotice the response from our command. It lists our README.md file as an untracked file. This is Git’s way of telling you that a new file is present in the repository. It also says to use \"git add\" to track."
+  },
+  {
+    "objectID": "posts/git-fundamentals/index.html#staging",
+    "href": "posts/git-fundamentals/index.html#staging",
+    "title": "Git Fundamentals",
+    "section": "Staging",
+    "text": "Staging\nGit allows you to review your changes before they get recorded into version control. This is called staging. You can add or remove files from the current staging area (“snapshot”) using git add and git rm:\n\ngit add README.md\ngit status\n\nOn branch main\n\nNo commits yet\n\nChanges to be committed:\n  (use \"git rm --cached &lt;file&gt;...\" to unstage)\n    new file:   README.md\n\n\nNow, README.md is being tracked and is ready to be committed into version control."
+  },
+  {
+    "objectID": "posts/git-fundamentals/index.html#git-commit",
+    "href": "posts/git-fundamentals/index.html#git-commit",
+    "title": "Git Fundamentals",
+    "section": "Git Commit",
+    "text": "Git Commit\nWhen you are ready to officially record (“commit”) your staged changes, use the git commit command. Doing so will prompt you for a commit message (all commits get accompanied by a message), however, you can avoid the prompt and supply the message with the commit by using the -m option:\n\ngit commit -m \"initial commit\"\ngit status\n\n[main (root-commit) 33276a2] initial commit\n 1 file changed, 1 insertion(+)\n create mode 100644 README.md\nOn branch main\nnothing to commit, working tree clean\n\n\nThis will commit any staged files. Note that each commit is given a unique identifer known as a SHA-1 hash."
+  },
+  {
+    "objectID": "posts/git-fundamentals/index.html#git-log",
+    "href": "posts/git-fundamentals/index.html#git-log",
+    "title": "Git Fundamentals",
+    "section": "Git Log",
+    "text": "Git Log\nUse the git log command to print a summary of all the commits that you’ve made. This will include the full commit hash, author, date and message. For an abbreviated result, use the --oneline option which will only print out the commit message and the first 7 characters from the commit hash:\n\ngit log\n\ncommit 33276a2309d5b5347a72754220d7fdf3320617ca\nAuthor: Dan Negrey &lt;dnegrey@gmail.com&gt;\nDate:   Tue Feb 7 20:51:18 2023 -0500\n\n    initial commit\n\n\n\ngit log --oneline\n\n33276a2 initial commit"
+  },
+  {
+    "objectID": "posts/git-fundamentals/index.html#gitignore",
+    "href": "posts/git-fundamentals/index.html#gitignore",
+    "title": "Git Fundamentals",
+    "section": ".gitignore",
+    "text": ".gitignore\nThere may be instances when you want Git to ignore certain files in your repository. A good example of this includes working data files that your code produces while it is executing. Generally, if you subscribe to the principles of reproducible research, then you should be able to ignore any ouput files that your code produces as your code should be able to reproduce the output when needed. For Git to ignore certain files, you’ll need to create a .gitignore file in your project root, and list in it the file names or patterns that describe what is to be ignored.\nLet’s confirm a clean working directory:\n\npwd\n\n/home/dan/fundamentals\n\n\n\nls -l\n\ntotal 4\n-rw-r--r-- 1 dan dan 15 Feb  7 20:51 README.md\n\n\n\ngit status\n\nOn branch main\nnothing to commit, working tree clean\n\n\nNow, let’s create a few data files that we’ll want to ignore:\n\nfor i in 1 2 3; do\n    touch data${i}.csv\ndone\nls -l\n\ntotal 4\n-rw-r--r-- 1 dan dan  0 Feb  7 20:51 data1.csv\n-rw-r--r-- 1 dan dan  0 Feb  7 20:51 data2.csv\n-rw-r--r-- 1 dan dan  0 Feb  7 20:51 data3.csv\n-rw-r--r-- 1 dan dan 15 Feb  7 20:51 README.md\n\n\n\ngit status\n\nOn branch main\nUntracked files:\n  (use \"git add &lt;file&gt;...\" to include in what will be committed)\n    data1.csv\n    data2.csv\n    data3.csv\n\nnothing added to commit but untracked files present (use \"git add\" to track)\n\n\nNext, we simply create our .gitignore file with the correct pattern to ignore these new data files:\n\necho data\\*.csv &gt; .gitignore\ncat .gitignore\n\ndata*.csv\n\n\n\ngit status\n\nOn branch main\nUntracked files:\n  (use \"git add &lt;file&gt;...\" to include in what will be committed)\n    .gitignore\n\nnothing added to commit but untracked files present (use \"git add\" to track)\n\n\n\nls -la\n\ntotal 20\ndrwxr-xr-x  3 dan dan 4096 Feb  7 20:51 .\ndrwxr-x--- 22 dan dan 4096 Feb  7 20:51 ..\n-rw-r--r--  1 dan dan    0 Feb  7 20:51 data1.csv\n-rw-r--r--  1 dan dan    0 Feb  7 20:51 data2.csv\n-rw-r--r--  1 dan dan    0 Feb  7 20:51 data3.csv\ndrwxr-xr-x  8 dan dan 4096 Feb  7 20:51 .git\n-rw-r--r--  1 dan dan   10 Feb  7 20:51 .gitignore\n-rw-r--r--  1 dan dan   15 Feb  7 20:51 README.md\n\n\nGreat! Git will now ignore any file in our repository that matches the pattern data*.csv. However, it recognizes that we have introduced a new file - namely, the .gitignore file. So we simply add .gitignore to the staging area and commit:\n\ngit add .gitignore\ngit commit -m \"added .gitignore\"\ngit status\n\n[main 7d1bece] added .gitignore\n 1 file changed, 1 insertion(+)\n create mode 100644 .gitignore\nOn branch main\nnothing to commit, working tree clean\n\n\n\ngit log --oneline\n\n7d1bece added .gitignore\n33276a2 initial commit"
+  },
+  {
+    "objectID": "posts/git-fundamentals/index.html#discard-changes",
+    "href": "posts/git-fundamentals/index.html#discard-changes",
+    "title": "Git Fundamentals",
+    "section": "Discard Changes",
+    "text": "Discard Changes\nLet’s add a new file to our project:\n\necho \"Hello, world!\" &gt; file1\ncat file1\n\nHello, world!\n\n\n\ngit add file1\ngit commit -m \"added file1\"\n\n[main 337001e] added file1\n 1 file changed, 1 insertion(+)\n create mode 100644 file1\n\n\n\ngit log --oneline\n\n337001e added file1\n7d1bece added .gitignore\n33276a2 initial commit\n\n\n\ngit status\n\nOn branch main\nnothing to commit, working tree clean\n\n\nNow, this is where things start to heat up! Let’s make a change to file1:\n\necho \"Goodbye, world:(\" &gt; file1\ncat file1\n\nGoodbye, world:(\n\n\n\ngit status\n\nOn branch main\nChanges not staged for commit:\n  (use \"git add &lt;file&gt;...\" to update what will be committed)\n  (use \"git restore &lt;file&gt;...\" to discard changes in working directory)\n    modified:   file1\n\nno changes added to commit (use \"git add\" and/or \"git commit -a\")\n\n\nBased on the above response from git status, Git is aware that file1 has changed. But, recall staging! This change has not yet been staged. Sometimes, changes like this might occur by accident or they may no longer be desired. To undo unstaged changes to a file, use the git checkout -- command:\n\ncat file1\n\nGoodbye, world:(\n\n\n\ngit checkout -- file1\ncat file1\n\nHello, world!\n\n\n\ngit status\n\nOn branch main\nnothing to commit, working tree clean\n\n\nVoila! Everything is back to the way it was before we changed file1."
+  },
+  {
+    "objectID": "posts/git-fundamentals/index.html#git-revert",
+    "href": "posts/git-fundamentals/index.html#git-revert",
+    "title": "Git Fundamentals",
+    "section": "Git Revert",
+    "text": "Git Revert\nIn some cases, it will be necessary to undo an entire commit. To do so, use the git revert command and supply it with the SHA-1 hash of the commit that you would like to revert. Suppose we didn’t want a .gitignore file. We would want to revert our second commit:\n\ngit log --oneline\n\n337001e added file1\n7d1bece added .gitignore\n33276a2 initial commit\n\n\n git revert 7d1bece \n\n\n[main 3d77b78] Revert \"added .gitignore\"\n Date: Tue Feb 7 20:51:18 2023 -0500\n 1 file changed, 1 deletion(-)\n delete mode 100644 .gitignore\n\n\n\ngit status\n\nOn branch main\nUntracked files:\n  (use \"git add &lt;file&gt;...\" to include in what will be committed)\n    data1.csv\n    data2.csv\n    data3.csv\n\nnothing added to commit but untracked files present (use \"git add\" to track)\n\n\n\ngit log --oneline\n\n3d77b78 Revert \"added .gitignore\"\n337001e added file1\n7d1bece added .gitignore\n33276a2 initial commit\n\n\n\nls -la\n\ntotal 20\ndrwxr-xr-x  3 dan dan 4096 Feb  7 20:51 .\ndrwxr-x--- 22 dan dan 4096 Feb  7 20:51 ..\n-rw-r--r--  1 dan dan    0 Feb  7 20:51 data1.csv\n-rw-r--r--  1 dan dan    0 Feb  7 20:51 data2.csv\n-rw-r--r--  1 dan dan    0 Feb  7 20:51 data3.csv\n-rw-r--r--  1 dan dan   14 Feb  7 20:51 file1\ndrwxr-xr-x  8 dan dan 4096 Feb  7 20:51 .git\n-rw-r--r--  1 dan dan   15 Feb  7 20:51 README.md\n\n\nRecall that the point of Git is to track all of your changes! Notice that git revert did not simply roll back or remove the specified commit. Instead, it created a new commit reflective of the state we desired. In fact, by removing our .gitignore file, Git is now aware of the data files that it was previously ignoring! We can now revert our revert to get back our .gitignore file:\n git revert 3d77b78 \n\n\n[main d19f5b3] Revert \"Revert \"added .gitignore\"\"\n Date: Tue Feb 7 20:51:18 2023 -0500\n 1 file changed, 1 insertion(+)\n create mode 100644 .gitignore\n\n\n\ngit status\n\nOn branch main\nnothing to commit, working tree clean\n\n\n\ngit log --oneline\n\nd19f5b3 Revert \"Revert \"added .gitignore\"\"\n3d77b78 Revert \"added .gitignore\"\n337001e added file1\n7d1bece added .gitignore\n33276a2 initial commit\n\n\n\nls -la\n\ntotal 24\ndrwxr-xr-x  3 dan dan 4096 Feb  7 20:51 .\ndrwxr-x--- 22 dan dan 4096 Feb  7 20:51 ..\n-rw-r--r--  1 dan dan    0 Feb  7 20:51 data1.csv\n-rw-r--r--  1 dan dan    0 Feb  7 20:51 data2.csv\n-rw-r--r--  1 dan dan    0 Feb  7 20:51 data3.csv\n-rw-r--r--  1 dan dan   14 Feb  7 20:51 file1\ndrwxr-xr-x  8 dan dan 4096 Feb  7 20:51 .git\n-rw-r--r--  1 dan dan   10 Feb  7 20:51 .gitignore\n-rw-r--r--  1 dan dan   15 Feb  7 20:51 README.md"
+  },
+  {
+    "objectID": "posts/git-fundamentals/index.html#closing-remarks",
+    "href": "posts/git-fundamentals/index.html#closing-remarks",
+    "title": "Git Fundamentals",
+    "section": "Closing Remarks",
+    "text": "Closing Remarks\nWith just a few simple commands, you’ve taken your first step into a larger world! The use of version control, and more specifically Git, may be a total paradigm shift for you. It may seem challenging to learn and difficult to incorporate into your everyday workflow. But over time, this will subside, you’ll learn to work in far more efficient ways than you did previously and Git will become an indispensable tool that is integral to your approach. And we’ve only just scratched the surface. Git’s branching model is one of its key differentiators and will be next up on our list along with remote repositories, so stay tuned to the blog by following me on Twitter @NegreyDan!"
+  },
+  {
+    "objectID": "projects.html",
+    "href": "projects.html",
+    "title": "Projects",
+    "section": "",
+    "text": "Learn more about some of my side projects!"
+  },
+  {
+    "objectID": "projects.html#shiny",
+    "href": "projects.html#shiny",
+    "title": "Projects",
+    "section": "Shiny",
+    "text": "Shiny\nI love bringing data to life through interactive web applications! When Shiny was first introduced years ago, I knew that it would become indispensable in my toolkit. I spent a lot of time early on learning the basics and trying my best to understand reactive programming, all while being fairly new to the principles of web development. Over time, I grew much more comfortable with Shiny, learning more advanced topics while also strengthening my R programming skills, becoming more familiar with data visualization packages and improving my software development abilities. In 2019, I built an app to track my family’s weekly picks for the NFL regular season. This app won me a spot on the System76 Superfan 3: Mission to Thelio (my proudest moment as an open-source data geek and an experience that I will never forget)! Be sure to check out System76 if you’re not already familiar - they are an awesome company, with great people, building amazing technology! But before you do that, check out some of the apps I have built and are hosting on shinyapps.io:\nNFL Weekly Picks"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "Over the years I have developed a consistent approach to tackling data science problems, which centers around four key components and emphasizes reproducibility:\n\nGetting data (querying an API or database, scraping a website, importing flat files, etc.)\nCleaning data (scrubbing, keying, joining, filtering, etc.)\nAnalyzing data (exploring, aggregating, modeling, visualizing, etc.)\nPublishing results (knitting a report, updating a dashboard, emailing a summary, etc.)"
+  },
+  {
+    "objectID": "about.html#approach",
+    "href": "about.html#approach",
+    "title": "About",
+    "section": "",
+    "text": "Over the years I have developed a consistent approach to tackling data science problems, which centers around four key components and emphasizes reproducibility:\n\nGetting data (querying an API or database, scraping a website, importing flat files, etc.)\nCleaning data (scrubbing, keying, joining, filtering, etc.)\nAnalyzing data (exploring, aggregating, modeling, visualizing, etc.)\nPublishing results (knitting a report, updating a dashboard, emailing a summary, etc.)"
+  },
+  {
+    "objectID": "about.html#experience",
+    "href": "about.html#experience",
+    "title": "About",
+    "section": "Experience",
+    "text": "Experience\nMarketBridge - Bethesda, MD\n\nDirector, Analytics\nApril 2021 - present\n\nHyland Software - Westlake, OH\n\nTeam Lead, Marketing Intelligence\nMarch 2019 - April 2021\nData Scientist IV\nNovember 2017 - March 2019\n\nPrecision Dialogue (now RRD) - Westlake, OH\n\nDirector, Analytics and Data Science\nJanuary 2015 - November 2017\nSenior Analytics Consultant\nJune 2011 - December 2014\nAnalytics Consultant\nJuly 2009 - June 2011\n\nNational City Bank (now PNC) - Cleveland, OH\n\nSenior Risk Analyst\nJuly 2008 - July 2009\n\nAmerican Greetings - Cleveland, OH\n\nStatistician I\nJuly 2007 - June 2008"
+  },
+  {
+    "objectID": "about.html#education",
+    "href": "about.html#education",
+    "title": "About",
+    "section": "Education",
+    "text": "Education\nOhio University - Athens, OH\n\nM.S. Mathematics\nMarch 2007\nB.S.Ed. Integrated Mathematics\nJune 2005"
+  },
+  {
+    "objectID": "about.html#personal",
+    "href": "about.html#personal",
+    "title": "About",
+    "section": "Personal",
+    "text": "Personal\nWhen not conversing about data science, you may find me opining about sports, video games, science fiction and popular culture. I am also a proud husband, father, animal lover and vegetarian. Here are a few of my favorite things:"
+  }
+]

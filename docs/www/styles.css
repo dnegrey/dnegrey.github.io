@@ -1,0 +1,58 @@
+/* css styles */
+
+.text-align-left {
+  text-align: left;
+}
+
+/* experience and education bullets */
+#experience li > p:first-child,
+#education li > p:first-child {
+  margin: 0;
+}
+#experience li > p:nth-child(2),
+#education li > p:nth-child(2) {
+  font-size: smaller;
+  color: #666666;
+}
+
+/* favorite things images and links */
+#favorite-things-grid {
+  display: grid;
+  grid-template-rows: auto auto;
+  row-gap: 10px;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  column-gap: 10px;
+  grid-template-areas:
+    'favorite-thing-1 favorite-thing-2 favorite-thing-3 favorite-thing-4 favorite-thing-5'
+    ' favorite-thing-6 favorite-thing-7 favorite-thing-8 favorite-thing-9 favorite-thing-10';
+}
+.favorite-thing-container {
+  aspect-ratio: 1;
+  background-color: #EAEAEA;
+}
+.favorite-thing-container:hover {
+  background-color: #2C3E50;
+}
+.favorite-thing-image {
+  margin: 10%;
+  height: 80%;
+}
+.favorite-thing-image p {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+.favorite-thing-image p a {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+}
+.favorite-thing-image p a img {
+  min-width: 0;
+  max-width: 100%;
+  min-height: 0;
+  max-height: 100%;
+}
