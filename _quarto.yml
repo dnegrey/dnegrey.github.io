@@ -11,7 +11,7 @@ website:
   twitter-card:
     creator: "@NegreyDan"
   page-footer:
-    center: "Copyright 2023, Dan Negrey"
+    center: "Copyright &#169; 2016-2024, Dan Negrey"
   navbar:
     pinned: true
     left:

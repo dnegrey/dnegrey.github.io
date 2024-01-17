@@ -8,13 +8,13 @@ about:
 
 :::{.text-align-left}
 
-Hello, world! I am a data scientist based in Cleveland, OH. Currently, I am the
+Hello, world! I am a data scientist based in Cleveland, OH. My current role is
 Director of Analytics at [MarketBridge](https://market-bridge.com/), where
 I am fortunate to work with so many bright and motivated colleagues as we help
-clients solve some of their most pressing challenges. My career has centered
-around marketing analytics but I am genuinely interested in all things data,
-especially when it involves the use of open-source technology. In particular, I
-love using R with Shiny and R Markdown to build powerful data tools, dashboards
-and reports.
+clients solve some of their most pressing data science challenges. My
+career has centered around marketing analytics but I am genuinely interested in
+all things data, especially when it involves the use of open-source technology.
+In particular, I love using R with Shiny and R Markdown to build powerful data
+tools, dashboards and reports.
 
 :::
