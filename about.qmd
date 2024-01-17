@@ -96,7 +96,7 @@ father, animal lover and vegetarian. Here are a few of my favorite things:
 :::
 :::{#favorite-thing-4 .favorite-thing-container}
 :::{.favorite-thing-image}
-[![](www/favorite/futurama.png)](https://www.syfy.com/futurama/)
+[![](www/favorite/futurama.png)](https://www.syfy.com/futurama)
 :::
 :::
 :::{#favorite-thing-5 .favorite-thing-container}
