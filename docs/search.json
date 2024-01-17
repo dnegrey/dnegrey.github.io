@@ -1,5 +1,12 @@
 [
   {
+    "objectID": "blog.html",
+    "href": "blog.html",
+    "title": "Blog",
+    "section": "",
+    "text": "Git Fundamentals\n\n\n\n\n\n\ngit\n\n\ncommand line\n\n\nversion control\n\n\n\nThis post provides an overview of Git as a version control system and introduces the basic command line tools for use in a local project.\n\n\n\n\n\nMar 16, 2017\n\n\nDan Negrey\n\n\n\n\n\n\n\n\n\n\n\n\nLeaflet by Example: Election 2000\n\n\n\n\n\n\nvisualization\n\n\ngeospatial\n\n\npolitics\n\n\n\nThis post demonstrates how to import a shapefile, scape data from the web, join the two and visualize the result in an interactive map.\n\n\n\n\n\nMay 15, 2016\n\n\nDan Negrey\n\n\n\n\n\n\nNo matching items"
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Home",
@@ -7,39 +14,60 @@
     "text": "Hello, world! I am a data scientist based in Cleveland, OH. My current role is Director of Analytics at MarketBridge, where I am fortunate to work with so many bright and motivated colleagues as we help clients solve some of their most pressing data science challenges. My career has centered around marketing analytics but I am genuinely interested in all things data, especially when it involves the use of open-source technology. In particular, I love using R with Shiny and R Markdown to build powerful data tools, dashboards and reports."
   },
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
+    "objectID": "posts/leaflet-election-2000/index.html",
+    "href": "posts/leaflet-election-2000/index.html",
+    "title": "Leaflet by Example: Election 2000",
     "section": "",
-    "text": "Over the years I have developed a consistent approach to tackling data science problems, which centers around four key components and emphasizes reproducibility:\n\nGetting data (querying an API or database, scraping a website, importing flat files, etc.)\nCleaning data (scrubbing, keying, joining, filtering, etc.)\nAnalyzing data (exploring, aggregating, modeling, visualizing, etc.)\nPublishing results (knitting a report, updating a dashboard, emailing a summary, etc.)"
+    "text": "If you’ve kept your finger on the pulse of the R community lately, you’d likely agree that innovation has been on a tear! A foundation built on extensibility combined with a growing user base amount to daily announcements of new products, new packages, new features and new ideas. One of the more impressive items to arrive in the past year or two is the htmlwidgets package. If you’re not already familiar, this package provides a framework for bringing interactive JavaScript visualizations to R, where they can then easily be embedded into R Markdown documents and Shiny web applications.\nUsing this framework, developers can create new widgets that bind R and JavaScript in amazingly seamless ways. Many such R packages already exist, and while each provides useful and unique tools for presenting and visualizing data, one in particular stands out for its geospatial capabilities. Leaflet gives users the ability to create interactive maps that can span the entire globe or drill down to a street level. With a variety of different base maps (tiles) and the ability to overlay multiple layers of content (including markers, pop-ups, lines, shapes, etc.), the applications for leaflet are endless. This article is focused on demonstrating a handful of leaflet’s many great features using real world data.\nIn the United States, a Clinton (D) vs. Trump (R) showdown is all but certain for the upcoming presidential election in November. There has been a lot of rhetoric tossed around during the primaries and, if those debates were any indication, we are all in for some very entertaining months ahead. During election years, I’m often reminded of the 2000 presidential election that pitted incumbent vice president Al Gore (D) vs. incumbent Texas governor George W. Bush (R). One of the closest presidential elections in U.S. history, and certainly the most publicized one, 2000 saw Bush defeat Gore by only 5 electoral votes despite Gore winning the popular vote by half a percent. To better understand how the votes shook out, let’s create a leaflet map to visualize who carried which states and by how many votes."
   },
   {
-    "objectID": "about.html#experience",
-    "href": "about.html#experience",
-    "title": "About",
-    "section": "Experience",
-    "text": "Experience\nMarketBridge - Bethesda, MD\n\nDirector, Analytics\nApril 2021 - present\n\nHyland Software - Westlake, OH\n\nTeam Lead, Marketing Intelligence\nMarch 2019 - April 2021\nData Scientist IV\nNovember 2017 - March 2019\n\nPrecision Dialogue (now RRD) - Westlake, OH\n\nDirector, Analytics and Data Science\nJanuary 2015 - November 2017\nSenior Analytics Consultant\nJune 2011 - December 2014\nAnalytics Consultant\nJuly 2009 - June 2011\n\nNational City Bank (now PNC) - Cleveland, OH\n\nSenior Risk Analyst\nJuly 2008 - July 2009\n\nAmerican Greetings - Cleveland, OH\n\nStatistician I\nJuly 2007 - June 2008"
+    "objectID": "posts/leaflet-election-2000/index.html#necessary-packages",
+    "href": "posts/leaflet-election-2000/index.html#necessary-packages",
+    "title": "Leaflet by Example: Election 2000",
+    "section": "Necessary Packages",
+    "text": "Necessary Packages\nFirst thing we must do is load some additional packages that we’ll need along the way. Ultimately, we’re going to be fetching the election result data from the web, cleaning it up a bit, combining it with state boundary shape data and then plotting it using leaflet. There are a number of packages and functions capable of getting the data and preparing it for the final plot, but the ones I’ve chosen here, I’ve found to be a little more reliable and independent than some of the alternatives.\n\nlibrary(rgdal)\nlibrary(httr)\nlibrary(xml2)\nlibrary(rvest)\nlibrary(dplyr)\nlibrary(leaflet)"
   },
   {
-    "objectID": "about.html#education",
-    "href": "about.html#education",
-    "title": "About",
-    "section": "Education",
-    "text": "Education\nOhio University - Athens, OH\n\nM.S. Mathematics\nMarch 2007\nB.S.Ed. Integrated Mathematics\nJune 2005"
+    "objectID": "posts/leaflet-election-2000/index.html#state-boundary-data",
+    "href": "posts/leaflet-election-2000/index.html#state-boundary-data",
+    "title": "Leaflet by Example: Election 2000",
+    "section": "State Boundary Data",
+    "text": "State Boundary Data\nSince we are interested in seeing the election results by state, we’ll need to obtain a shape file for U.S. states. Fortunately, the United States Census Bureau provides a variety of cartographic boundary (shape) files. This shape data is available to download, from their website, in a compressed (zipped) format. Using a few utility functions, we can easily download and unzip the data to our working directory. Next, we have to import the shape data. For this we will use rgdal::readOGR().\n\ndownload.file(\n  url = \"http://www2.census.gov/geo/tiger/GENZ2015/shp/cb_2015_us_state_20m.zip\",\n  destfile = \"cb_2015_us_state_20m.zip\"\n)\nunzip(\n  zipfile = \"cb_2015_us_state_20m.zip\",\n  exdir = \"cb_2015_us_state_20m\"\n)\nstateMap &lt;- readOGR(\n  dsn = \"cb_2015_us_state_20m/cb_2015_us_state_20m.shp\",\n  layer = \"cb_2015_us_state_20m\",\n  GDAL1_integer64_policy = TRUE,\n  verbose = FALSE\n)"
   },
   {
-    "objectID": "about.html#personal",
-    "href": "about.html#personal",
-    "title": "About",
-    "section": "Personal",
-    "text": "Personal\nWhen not conversing about data science, you may find me opining about sports, video games, science fiction and popular culture. I am also a proud husband, father, animal lover and vegetarian. Here are a few of my favorite things:"
+    "objectID": "posts/leaflet-election-2000/index.html#election-result-data",
+    "href": "posts/leaflet-election-2000/index.html#election-result-data",
+    "title": "Leaflet by Example: Election 2000",
+    "section": "Election Result Data",
+    "text": "Election Result Data\nNow we need our actual election results, by state, in a data frame. There are a number of options for obtaining this data, but one particularly convenient option involves scraping it directly from Infoplease. We can use httr::GET() along with xml2::read_html() and rvest::html_table() to pull directly into R the state tabulated results. Note that we have to do some basic manipulation in order to:\n\nExtract the initial data frame from a list\nRemove the header and total rows from the actual data\nConvert formatted numbers to integers\nAssign new column names\nDerive new fields\n\n\nx &lt;- GET(\n  url = paste0(\n    \"https://www.infoplease.com/us/government/elections/\",\n    \"presidential-election-of-2000-electoral-and-popular-vote-summary\"\n  )\n)\nx &lt;- html_table(read_html(gsub(\"&lt;sup.*?sup&gt;\",\"\",rawToChar(x$content))))\nx &lt;- as.data.frame(x[[1]])\nx &lt;- x[2:(nrow(x) - 1), c(1:5, 8:9)]\nfor (i in 2:7) {\n  x[, i] &lt;- as.integer(gsub(\"[^0-9]\", \"\", x[, i]))\n}\nnames(x) &lt;- c(\n  \"StateName\",\n  \"PopularBush\",\n  \"PopularMixBush\",\n  \"PopularGore\",\n  \"PopularMixGore\",\n  \"ElectoralBush\",\n  \"ElectoralGore\"\n)\nx$ElectoralVotes &lt;- ifelse(\n  test = is.na(x$ElectoralBush),\n  yes = x$ElectoralGore,\n  no = x$ElectoralBush\n)\nx$Winner &lt;- ifelse(\n  test = is.na(x$ElectoralBush),\n  yes = \"Gore\",\n  no = \"Bush\"\n)\nx$StateName &lt;- ifelse(\n  test = x$StateName == \"DC\",\n  yes = \"District of Columbia\",\n  no = x$StateName\n)\nstateResults &lt;- x"
   },
   {
-    "objectID": "blog.html",
-    "href": "blog.html",
-    "title": "Blog",
-    "section": "",
-    "text": "Git Fundamentals\n\n\n\n\n\n\ngit\n\n\ncommand line\n\n\nversion control\n\n\n\nThis post provides an overview of Git as a version control system and introduces the basic command line tools for use in a local project.\n\n\n\n\n\nMar 16, 2017\n\n\nDan Negrey\n\n\n\n\n\n\n\n\n\n\n\n\nLeaflet by Example: Election 2000\n\n\n\n\n\n\nvisualization\n\n\ngeospatial\n\n\npolitics\n\n\n\nThis post demonstrates how to import a shapefile, scape data from the web, join the two and visualize the result in an interactive map.\n\n\n\n\n\nMay 15, 2016\n\n\nDan Negrey\n\n\n\n\n\n\nNo matching items"
+    "objectID": "posts/leaflet-election-2000/index.html#combine-data",
+    "href": "posts/leaflet-election-2000/index.html#combine-data",
+    "title": "Leaflet by Example: Election 2000",
+    "section": "Combine Data",
+    "text": "Combine Data\nWhile it’s possible to reference disjoint data within leaflet, it’s much easier to reference a single data frame with all of your information. If you’ve inspected the stateMap object so far, you’ve probably noticed that its structure appears to be complex. Fortunately, we don’t need to worry too much about that. However, it’s important to know that this structure is sort of like a list where each immediate element is a “state”. In fact, by running length(stateMap), you’ll see that it has 52 elements, which is 1 more than the number of observations in our election result data (50 states plus the District of Columbia). This additional element belongs to Puerto Rico, which is a U.S. territory and does not have voting representation in congress nor is entitled to electoral votes for president. We can use the base function subset() to remove Puerto Rico from our shape data and then dplyr::inner_join() to join our election data to the data object in stateMap.\n\nx &lt;- subset(stateMap, stateMap$NAME %in% stateResults$StateName)\nx$StateName &lt;- as.character(x$NAME)\nx@data &lt;- x@data %&gt;%\n  inner_join(stateResults, \"StateName\")"
+  },
+  {
+    "objectID": "posts/leaflet-election-2000/index.html#color-conscious",
+    "href": "posts/leaflet-election-2000/index.html#color-conscious",
+    "title": "Leaflet by Example: Election 2000",
+    "section": "Color Conscious",
+    "text": "Color Conscious\nAt this point, all of the data needed for our plot is stored inside the object x. Since we’d like to color each state by its winner, we’ll need to create a function for mapping each candidate to a color. Leaflet has some nice color mapping functions specifically for this purpose, so we’ll use leaflet::colorFactor() to map, in traditional partisan fashion, red to Governor Bush and blue to Vice President Gore.\n\npal &lt;- colorFactor(\n  palette = c(\"Red\", \"Blue\"),\n  domain = c(\"Bush\", \"Gore\")\n)"
+  },
+  {
+    "objectID": "posts/leaflet-election-2000/index.html#map-creation",
+    "href": "posts/leaflet-election-2000/index.html#map-creation",
+    "title": "Leaflet by Example: Election 2000",
+    "section": "Map Creation",
+    "text": "Map Creation\nFinally, we are ready to create our map using leaflet::leaflet(). Like many packages, leaflet imports the forward pipe operator (%&gt;%) from the magrittr package. This allows you to construct a logical pipeline of features while avoiding nesting functions, which could quickly become difficult to code, read and troubleshoot. One of the first things you’ll want to do with any leaflet map is call addTiles() or addProviderTiles(). This adds a basemap layer. By calling addTiles() with no arguments, you’ll get OpenStreetMap tiles which look great and suffice for many applications. For our map, though, since we’re going to overlay a lot of color, I want to use simple black and white tiles (see here for the complete set of available tiles). Next, we set the initial center coordinates and zoom level for our viewing window. Remember, these are interactive maps and you’ll be able to zoom in and out and drag all around. The options specified below result in a well centered view of the continental United States. Now we can add our shape data, which we do using addPolygons(). For this, we point to our shape data object (x) and can then make attached references to the columns in x@data using = ~. Our state borders will be colored white with a weight of 2, while the interior of the states will be colored according to our palette function and the value of the x@data$Winner field for that particular state. Another great feature of leaflet maps is the ability to add pop-ups, which can be constructed inside addPolygons() (among other add*() functions). Here, we’ll paste together some of the information from our data and use a little HTML to make it render nicely. Lastly, we’ll add a legend to let users know which color goes with which candidate.\n\nleaflet(width = \"100%\") %&gt;%\n  addProviderTiles(\"CartoDB.Positron\") %&gt;%\n  setView(\n    lng = -98.35,\n    lat = 39.50,\n    zoom = 4\n  ) %&gt;%\n  addPolygons(\n    data = x,\n    color = \"#FFFFFF\",\n    weight = 2,\n    fillColor = ~ pal(Winner),\n    fillOpacity = 1,\n    popup = ~ paste(\n      sprintf(\"&lt;b&gt;%s&lt;/b&gt;(%s)\", NAME, STUSPS),\n      sprintf(\"Winner: &lt;b&gt;%s&lt;/b&gt;\", Winner),\n      sprintf(\"Electoral Votes: &lt;b&gt;%s&lt;/b&gt;\", ElectoralVotes),\n      sprintf(\"Popular # (Bush): &lt;b&gt;%s&lt;/b&gt;\", format(PopularBush, big.mark = \",\")),\n      sprintf(\"Popular %s (Bush): &lt;b&gt;%s%s&lt;/b&gt;\", \"%\", PopularMixBush, \"%\"),\n      sprintf(\"Popular # (Gore): &lt;b&gt;%s&lt;/b&gt;\", format(PopularGore, big.mark = \",\")),\n      sprintf(\"Popular %s (Gore): &lt;b&gt;%s%s&lt;/b&gt;\", \"%\", PopularMixGore, \"%\"),\n      sep = \"&lt;br&gt;\"\n    )\n  ) %&gt;%\n  addLegend(\n    position = \"bottomleft\",\n    pal = pal,\n    values = c(\"Bush\", \"Gore\"),\n    opacity = 1\n  )"
+  },
+  {
+    "objectID": "posts/leaflet-election-2000/index.html#election-results",
+    "href": "posts/leaflet-election-2000/index.html#election-results",
+    "title": "Leaflet by Example: Election 2000",
+    "section": "Election Results",
+    "text": "Election Results\nDespite the election occurring on November 7, the margin of victory in Florida was so small that it triggered a mandatory recount. This led to litigation which ultimately reached the United States Supreme Court. Finally, on December 12, the court’s decision in Bush v. Gore ended the recounts, effectively awarding Florida to Bush and giving him the 270 electoral votes needed to win the election. This was only the fourth presidential election in U.S. history where the winner failed to win a plurality of the popular vote. The final tally was as follows:\n\n\n\n\n\n\nGeorge W. Bush\n\n\nElectoral votes: 271 (50.5%)\n\n\nPopular votes: 50,456,002 (47.9%)\n\n\n\n\n\n\n\n\n\n\nAl Gore\n\n\nElectoral votes: 266 (49.5%)\n\n\nPopular votes: 50,999,897 (48.4%)"
   },
   {
     "objectID": "posts/git-fundamentals/index.html",
@@ -126,62 +154,6 @@
     "text": "Closing Remarks\nWith just a few simple commands, you’ve taken your first step into a larger world! The use of version control, and more specifically Git, may be a total paradigm shift for you. It may seem challenging to learn and difficult to incorporate into your everyday workflow. But over time, this will subside, you’ll learn to work in far more efficient ways than you did previously and Git will become an indispensable tool that is integral to your approach. And we’ve only just scratched the surface. Git’s branching model is one of its key differentiators and will be next up on our list along with remote repositories, so stay tuned to the blog by following me on Twitter @NegreyDan!"
   },
   {
-    "objectID": "posts/leaflet-election-2000/index.html",
-    "href": "posts/leaflet-election-2000/index.html",
-    "title": "Leaflet by Example: Election 2000",
-    "section": "",
-    "text": "If you’ve kept your finger on the pulse of the R community lately, you’d likely agree that innovation has been on a tear! A foundation built on extensibility combined with a growing user base amount to daily announcements of new products, new packages, new features and new ideas. One of the more impressive items to arrive in the past year or two is the htmlwidgets package. If you’re not already familiar, this package provides a framework for bringing interactive JavaScript visualizations to R, where they can then easily be embedded into R Markdown documents and Shiny web applications.\nUsing this framework, developers can create new widgets that bind R and JavaScript in amazingly seamless ways. Many such R packages already exist, and while each provides useful and unique tools for presenting and visualizing data, one in particular stands out for its geospatial capabilities. Leaflet gives users the ability to create interactive maps that can span the entire globe or drill down to a street level. With a variety of different base maps (tiles) and the ability to overlay multiple layers of content (including markers, pop-ups, lines, shapes, etc.), the applications for leaflet are endless. This article is focused on demonstrating a handful of leaflet’s many great features using real world data.\nIn the United States, a Clinton (D) vs. Trump (R) showdown is all but certain for the upcoming presidential election in November. There has been a lot of rhetoric tossed around during the primaries and, if those debates were any indication, we are all in for some very entertaining months ahead. During election years, I’m often reminded of the 2000 presidential election that pitted incumbent vice president Al Gore (D) vs. incumbent Texas governor George W. Bush (R). One of the closest presidential elections in U.S. history, and certainly the most publicized one, 2000 saw Bush defeat Gore by only 5 electoral votes despite Gore winning the popular vote by half a percent. To better understand how the votes shook out, let’s create a leaflet map to visualize who carried which states and by how many votes."
-  },
-  {
-    "objectID": "posts/leaflet-election-2000/index.html#necessary-packages",
-    "href": "posts/leaflet-election-2000/index.html#necessary-packages",
-    "title": "Leaflet by Example: Election 2000",
-    "section": "Necessary Packages",
-    "text": "Necessary Packages\nFirst thing we must do is load some additional packages that we’ll need along the way. Ultimately, we’re going to be fetching the election result data from the web, cleaning it up a bit, combining it with state boundary shape data and then plotting it using leaflet. There are a number of packages and functions capable of getting the data and preparing it for the final plot, but the ones I’ve chosen here, I’ve found to be a little more reliable and independent than some of the alternatives.\n\nlibrary(rgdal)\nlibrary(httr)\nlibrary(xml2)\nlibrary(rvest)\nlibrary(dplyr)\nlibrary(leaflet)"
-  },
-  {
-    "objectID": "posts/leaflet-election-2000/index.html#state-boundary-data",
-    "href": "posts/leaflet-election-2000/index.html#state-boundary-data",
-    "title": "Leaflet by Example: Election 2000",
-    "section": "State Boundary Data",
-    "text": "State Boundary Data\nSince we are interested in seeing the election results by state, we’ll need to obtain a shape file for U.S. states. Fortunately, the United States Census Bureau provides a variety of cartographic boundary (shape) files. This shape data is available to download, from their website, in a compressed (zipped) format. Using a few utility functions, we can easily download and unzip the data to our working directory. Next, we have to import the shape data. For this we will use rgdal::readOGR().\n\ndownload.file(\n  url = \"http://www2.census.gov/geo/tiger/GENZ2015/shp/cb_2015_us_state_20m.zip\",\n  destfile = \"cb_2015_us_state_20m.zip\"\n)\nunzip(\n  zipfile = \"cb_2015_us_state_20m.zip\",\n  exdir = \"cb_2015_us_state_20m\"\n)\nstateMap &lt;- readOGR(\n  dsn = \"cb_2015_us_state_20m/cb_2015_us_state_20m.shp\",\n  layer = \"cb_2015_us_state_20m\",\n  GDAL1_integer64_policy = TRUE,\n  verbose = FALSE\n)"
-  },
-  {
-    "objectID": "posts/leaflet-election-2000/index.html#election-result-data",
-    "href": "posts/leaflet-election-2000/index.html#election-result-data",
-    "title": "Leaflet by Example: Election 2000",
-    "section": "Election Result Data",
-    "text": "Election Result Data\nNow we need our actual election results, by state, in a data frame. There are a number of options for obtaining this data, but one particularly convenient option involves scraping it directly from Infoplease. We can use httr::GET() along with xml2::read_html() and rvest::html_table() to pull directly into R the state tabulated results. Note that we have to do some basic manipulation in order to:\n\nExtract the initial data frame from a list\nRemove the header and total rows from the actual data\nConvert formatted numbers to integers\nAssign new column names\nDerive new fields\n\n\nx &lt;- GET(\n  url = paste0(\n    \"https://www.infoplease.com/us/government/elections/\",\n    \"presidential-election-of-2000-electoral-and-popular-vote-summary\"\n  )\n)\nx &lt;- html_table(read_html(gsub(\"&lt;sup.*?sup&gt;\",\"\",rawToChar(x$content))))\nx &lt;- as.data.frame(x[[1]])\nx &lt;- x[2:(nrow(x) - 1), c(1:5, 8:9)]\nfor (i in 2:7) {\n  x[, i] &lt;- as.integer(gsub(\"[^0-9]\", \"\", x[, i]))\n}\nnames(x) &lt;- c(\n  \"StateName\",\n  \"PopularBush\",\n  \"PopularMixBush\",\n  \"PopularGore\",\n  \"PopularMixGore\",\n  \"ElectoralBush\",\n  \"ElectoralGore\"\n)\nx$ElectoralVotes &lt;- ifelse(\n  test = is.na(x$ElectoralBush),\n  yes = x$ElectoralGore,\n  no = x$ElectoralBush\n)\nx$Winner &lt;- ifelse(\n  test = is.na(x$ElectoralBush),\n  yes = \"Gore\",\n  no = \"Bush\"\n)\nx$StateName &lt;- ifelse(\n  test = x$StateName == \"DC\",\n  yes = \"District of Columbia\",\n  no = x$StateName\n)\nstateResults &lt;- x"
-  },
-  {
-    "objectID": "posts/leaflet-election-2000/index.html#combine-data",
-    "href": "posts/leaflet-election-2000/index.html#combine-data",
-    "title": "Leaflet by Example: Election 2000",
-    "section": "Combine Data",
-    "text": "Combine Data\nWhile it’s possible to reference disjoint data within leaflet, it’s much easier to reference a single data frame with all of your information. If you’ve inspected the stateMap object so far, you’ve probably noticed that its structure appears to be complex. Fortunately, we don’t need to worry too much about that. However, it’s important to know that this structure is sort of like a list where each immediate element is a “state”. In fact, by running length(stateMap), you’ll see that it has 52 elements, which is 1 more than the number of observations in our election result data (50 states plus the District of Columbia). This additional element belongs to Puerto Rico, which is a U.S. territory and does not have voting representation in congress nor is entitled to electoral votes for president. We can use the base function subset() to remove Puerto Rico from our shape data and then dplyr::inner_join() to join our election data to the data object in stateMap.\n\nx &lt;- subset(stateMap, stateMap$NAME %in% stateResults$StateName)\nx$StateName &lt;- as.character(x$NAME)\nx@data &lt;- x@data %&gt;%\n  inner_join(stateResults, \"StateName\")"
-  },
-  {
-    "objectID": "posts/leaflet-election-2000/index.html#color-conscious",
-    "href": "posts/leaflet-election-2000/index.html#color-conscious",
-    "title": "Leaflet by Example: Election 2000",
-    "section": "Color Conscious",
-    "text": "Color Conscious\nAt this point, all of the data needed for our plot is stored inside the object x. Since we’d like to color each state by its winner, we’ll need to create a function for mapping each candidate to a color. Leaflet has some nice color mapping functions specifically for this purpose, so we’ll use leaflet::colorFactor() to map, in traditional partisan fashion, red to Governor Bush and blue to Vice President Gore.\n\npal &lt;- colorFactor(\n  palette = c(\"Red\", \"Blue\"),\n  domain = c(\"Bush\", \"Gore\")\n)"
-  },
-  {
-    "objectID": "posts/leaflet-election-2000/index.html#map-creation",
-    "href": "posts/leaflet-election-2000/index.html#map-creation",
-    "title": "Leaflet by Example: Election 2000",
-    "section": "Map Creation",
-    "text": "Map Creation\nFinally, we are ready to create our map using leaflet::leaflet(). Like many packages, leaflet imports the forward pipe operator (%&gt;%) from the magrittr package. This allows you to construct a logical pipeline of features while avoiding nesting functions, which could quickly become difficult to code, read and troubleshoot. One of the first things you’ll want to do with any leaflet map is call addTiles() or addProviderTiles(). This adds a basemap layer. By calling addTiles() with no arguments, you’ll get OpenStreetMap tiles which look great and suffice for many applications. For our map, though, since we’re going to overlay a lot of color, I want to use simple black and white tiles (see here for the complete set of available tiles). Next, we set the initial center coordinates and zoom level for our viewing window. Remember, these are interactive maps and you’ll be able to zoom in and out and drag all around. The options specified below result in a well centered view of the continental United States. Now we can add our shape data, which we do using addPolygons(). For this, we point to our shape data object (x) and can then make attached references to the columns in x@data using = ~. Our state borders will be colored white with a weight of 2, while the interior of the states will be colored according to our palette function and the value of the x@data$Winner field for that particular state. Another great feature of leaflet maps is the ability to add pop-ups, which can be constructed inside addPolygons() (among other add*() functions). Here, we’ll paste together some of the information from our data and use a little HTML to make it render nicely. Lastly, we’ll add a legend to let users know which color goes with which candidate.\n\nleaflet(width = \"100%\") %&gt;%\n  addProviderTiles(\"CartoDB.Positron\") %&gt;%\n  setView(\n    lng = -98.35,\n    lat = 39.50,\n    zoom = 4\n  ) %&gt;%\n  addPolygons(\n    data = x,\n    color = \"#FFFFFF\",\n    weight = 2,\n    fillColor = ~ pal(Winner),\n    fillOpacity = 1,\n    popup = ~ paste(\n      sprintf(\"&lt;b&gt;%s&lt;/b&gt;(%s)\", NAME, STUSPS),\n      sprintf(\"Winner: &lt;b&gt;%s&lt;/b&gt;\", Winner),\n      sprintf(\"Electoral Votes: &lt;b&gt;%s&lt;/b&gt;\", ElectoralVotes),\n      sprintf(\"Popular # (Bush): &lt;b&gt;%s&lt;/b&gt;\", format(PopularBush, big.mark = \",\")),\n      sprintf(\"Popular %s (Bush): &lt;b&gt;%s%s&lt;/b&gt;\", \"%\", PopularMixBush, \"%\"),\n      sprintf(\"Popular # (Gore): &lt;b&gt;%s&lt;/b&gt;\", format(PopularGore, big.mark = \",\")),\n      sprintf(\"Popular %s (Gore): &lt;b&gt;%s%s&lt;/b&gt;\", \"%\", PopularMixGore, \"%\"),\n      sep = \"&lt;br&gt;\"\n    )\n  ) %&gt;%\n  addLegend(\n    position = \"bottomleft\",\n    pal = pal,\n    values = c(\"Bush\", \"Gore\"),\n    opacity = 1\n  )"
-  },
-  {
-    "objectID": "posts/leaflet-election-2000/index.html#election-results",
-    "href": "posts/leaflet-election-2000/index.html#election-results",
-    "title": "Leaflet by Example: Election 2000",
-    "section": "Election Results",
-    "text": "Election Results\nDespite the election occurring on November 7, the margin of victory in Florida was so small that it triggered a mandatory recount. This led to litigation which ultimately reached the United States Supreme Court. Finally, on December 12, the court’s decision in Bush v. Gore ended the recounts, effectively awarding Florida to Bush and giving him the 270 electoral votes needed to win the election. This was only the fourth presidential election in U.S. history where the winner failed to win a plurality of the popular vote. The final tally was as follows:\n\n\n\n\n\n\nGeorge W. Bush\n\n\nElectoral votes: 271 (50.5%)\n\n\nPopular votes: 50,456,002 (47.9%)\n\n\n\n\n\n\n\n\n\n\nAl Gore\n\n\nElectoral votes: 266 (49.5%)\n\n\nPopular votes: 50,999,897 (48.4%)"
-  },
-  {
     "objectID": "projects.html",
     "href": "projects.html",
     "title": "Projects",
@@ -196,10 +168,38 @@
     "text": "Shiny\nI love bringing data to life through interactive web applications! When Shiny was first introduced years ago, I knew that it would become indispensable in my toolkit. I spent a lot of time early on learning the basics and trying my best to understand reactive programming, all while being fairly new to the principles of web development. Over time, I grew much more comfortable with Shiny, learning more advanced topics while also strengthening my R programming skills, becoming more familiar with data visualization packages and improving my software development abilities. In 2019, I built an app to track my family’s weekly picks for the NFL regular season. This app won me a spot on the System76 Superfan 3: Mission to Thelio (my proudest moment as an open-source data geek and an experience that I will never forget)! Be sure to check out System76 if you’re not already familiar - they are an awesome company, with great people, building amazing technology! But before you do that, check out some of the apps I have built and are hosting on shinyapps.io:\nNFL Weekly Picks"
   },
   {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "Over the years I have developed a consistent approach to tackling data science problems, which centers around four key components and emphasizes reproducibility:\n\nGetting data (querying an API or database, scraping a website, importing flat files, etc.)\nCleaning data (scrubbing, keying, joining, filtering, etc.)\nAnalyzing data (exploring, aggregating, modeling, visualizing, etc.)\nPublishing results (knitting a report, updating a dashboard, emailing a summary, etc.)"
+  },
+  {
     "objectID": "about.html#approach",
     "href": "about.html#approach",
     "title": "About",
     "section": "",
     "text": "Over the years I have developed a consistent approach to tackling data science problems, which centers around four key components and emphasizes reproducibility:\n\nGetting data (querying an API or database, scraping a website, importing flat files, etc.)\nCleaning data (scrubbing, keying, joining, filtering, etc.)\nAnalyzing data (exploring, aggregating, modeling, visualizing, etc.)\nPublishing results (knitting a report, updating a dashboard, emailing a summary, etc.)"
+  },
+  {
+    "objectID": "about.html#experience",
+    "href": "about.html#experience",
+    "title": "About",
+    "section": "Experience",
+    "text": "Experience\nMarketBridge - Bethesda, MD\n\nDirector, Analytics\nApril 2021 - present\n\nHyland Software - Westlake, OH\n\nTeam Lead, Marketing Intelligence\nMarch 2019 - April 2021\nData Scientist IV\nNovember 2017 - March 2019\n\nPrecision Dialogue (now RRD) - Westlake, OH\n\nDirector, Analytics and Data Science\nJanuary 2015 - November 2017\nSenior Analytics Consultant\nJune 2011 - December 2014\nAnalytics Consultant\nJuly 2009 - June 2011\n\nNational City Bank (now PNC) - Cleveland, OH\n\nSenior Risk Analyst\nJuly 2008 - July 2009\n\nAmerican Greetings - Cleveland, OH\n\nStatistician I\nJuly 2007 - June 2008"
+  },
+  {
+    "objectID": "about.html#education",
+    "href": "about.html#education",
+    "title": "About",
+    "section": "Education",
+    "text": "Education\nOhio University - Athens, OH\n\nM.S. Mathematics\nMarch 2007\nB.S.Ed. Integrated Mathematics\nJune 2005"
+  },
+  {
+    "objectID": "about.html#personal",
+    "href": "about.html#personal",
+    "title": "About",
+    "section": "Personal",
+    "text": "Personal\nWhen not conversing about data science, you may find me opining about sports, video games, science fiction and popular culture. I am also a proud husband, father, animal lover and vegetarian. Here are a few of my favorite things:"
   }
 ]

@@ -9,7 +9,7 @@ Authors@R: c(
     email = "dnegrey@gmail.com"
   )
 )
-URL: https://dnegrey.github.io/
+URL: https://dnegrey.com/
 Imports:
   quarto
 Encoding: UTF-8
