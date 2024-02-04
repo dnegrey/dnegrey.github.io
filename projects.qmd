@@ -14,17 +14,22 @@ learning the basics and trying my best to understand reactive programming, all
 while being fairly new to the principles of web development. Over time, I grew
 much more comfortable with Shiny, learning more advanced topics while also
 strengthening my R programming skills, becoming more familiar with data
-visualization packages and improving my software development abilities. In 2019,
-I built an app to track my family's weekly picks for the NFL regular season.
-This app won me a spot on the [System76 Superfan 3: Mission to
+visualization packages and improving my software development abilities. Check
+out some of the apps I have built, hosted on [shinyapps.io](https://www.shinyapps.io/):
+
+### NFL Weekly Picks
+
+In 2019, I built an app to track my family's weekly picks for the NFL regular
+season. This app won me a spot on the [System76 Superfan 3: Mission to
 Thelio](https://blog.system76.com/post/188835953849/winners-of-superfan-3-mission-to-thelio)
 (my proudest moment as an open-source data geek and an
 [experience](https://t.co/Cz50iQLTi6?amp=1) that I will never forget)! Be sure
 to check out [System76](https://system76.com/) if you're not already familiar -
-they are an awesome company, with great people, building amazing technology! But
-before you do that, check out some of the apps I have built and are hosting on [shinyapps.io](https://www.shinyapps.io/):
+they are an awesome company, with great people, building amazing tech! It has
+been years since that contest and the weekly football picks continues to thrive,
+now including extended family and friends and a much better UI!
 
-<a href="https://dnegrey.shinyapps.io/nfl-weekly-picks/" target="_blank">NFL
-Weekly Picks</a>
+<a href="https://dnegrey.shinyapps.io/nfl-weekly-picks/" target="_blank"><img src="www/screenshot-nfl-weekly-picks.png" alt="NFL
+Weekly Picks" class="projects-screenshot"></a>
 
 
