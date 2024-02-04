@@ -15,7 +15,8 @@ while being fairly new to the principles of web development. Over time, I grew
 much more comfortable with Shiny, learning more advanced topics while also
 strengthening my R programming skills, becoming more familiar with data
 visualization packages and improving my software development abilities. Check
-out some of the apps I have built, hosted on [shinyapps.io](https://www.shinyapps.io/):
+out some of the apps I have built, which are hosted on
+[shinyapps.io](https://www.shinyapps.io/):
 
 ### NFL Weekly Picks
 
@@ -32,7 +33,15 @@ now including extended family and friends and a much better UI!
 <a href="https://dnegrey.shinyapps.io/nfl-weekly-picks/" target="_blank"><img src="www/screenshot-nfl-weekly-picks.png" alt="NFL
 Weekly Picks" class="projects-screenshot"></a>
 
+### Marine Vessels
 
+I have a lot of respect for the team at [Appsilon](https://appsilon.com/), and
+the work they've done to advance adoption of R and Shiny. A few years back I
+started exploring their [shiny.semantic](https://appsilon.github.io/shiny.semantic/)
+package and built the follow application which uses it to visualize data around
+marine vessel movement.
+
+<a href="https://dnegrey.shinyapps.io/marine-vessels/" target="_blank"><img src="www/screenshot-marine-vessels.png" alt="Marine Vessels" class="projects-screenshot"></a>
 
 ## Professional development
 

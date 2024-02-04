@@ -65,4 +65,9 @@
 .projects-screenshot {
   width: 100%;
   border: 1px solid var(--bs-body-color);
+  box-shadow: 0 2px 15px rgba(0,0,0,.15), 0 2px 6px rgba(0,0,0,.1);
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+.projects-screenshot:hover {
+    box-shadow: 0 3px 30px rgba(0,0,0,.2), 0 3px 15px rgba(0,0,0,.25);
 }
