@@ -14,17 +14,103 @@ learning the basics and trying my best to understand reactive programming, all
 while being fairly new to the principles of web development. Over time, I grew
 much more comfortable with Shiny, learning more advanced topics while also
 strengthening my R programming skills, becoming more familiar with data
-visualization packages and improving my software development abilities. In 2019,
-I built an app to track my family's weekly picks for the NFL regular season.
-This app won me a spot on the [System76 Superfan 3: Mission to
+visualization packages and improving my software development abilities. Check
+out some of the apps I have built, which are hosted on
+[shinyapps.io](https://www.shinyapps.io/):
+
+### NFL Weekly Picks
+
+In 2019, I built an app to track my family's weekly picks for the NFL regular
+season. This app won me a spot on the [System76 Superfan 3: Mission to
 Thelio](https://blog.system76.com/post/188835953849/winners-of-superfan-3-mission-to-thelio)
 (my proudest moment as an open-source data geek and an
 [experience](https://t.co/Cz50iQLTi6?amp=1) that I will never forget)! Be sure
 to check out [System76](https://system76.com/) if you're not already familiar -
-they are an awesome company, with great people, building amazing technology! But
-before you do that, check out some of the apps I have built and are hosting on [shinyapps.io](https://www.shinyapps.io/):
+they are an awesome company, with great people, building amazing tech! It has
+been years since that contest and the weekly football picks continues to thrive,
+now including extended family and friends and a much better UI!
 
-<a href="https://dnegrey.shinyapps.io/nfl-weekly-picks/" target="_blank">NFL
-Weekly Picks</a>
+<a href="https://dnegrey.shinyapps.io/nfl-weekly-picks/" target="_blank"><img src="www/screenshot-nfl-weekly-picks.png" alt="NFL
+Weekly Picks" class="projects-screenshot"></a>
 
+### Marine Vessels
 
+I have a lot of respect for the team at [Appsilon](https://appsilon.com/), and
+the work they've done to advance the adoption of R and Shiny. A few years back I
+started exploring their [shiny.semantic](https://appsilon.github.io/shiny.semantic/)
+package and built the follow application which uses it to visualize data around
+marine vessel movement.
+
+<a href="https://dnegrey.shinyapps.io/marine-vessels/" target="_blank"><img src="www/screenshot-marine-vessels.png" alt="Marine Vessels" class="projects-screenshot"></a>
+
+### MLB Dashboard
+
+Since it first came out, I've been a big fan of using [flexdashboard](https://pkgs.rstudio.com/flexdashboard/)
+for both static HTML output and with the Shiny run-time setting. Here is an
+example of the latter, leveraging data from the [Lahman R package](https://cran.r-project.org/package=Lahman) to show standings/results
+from every Major League Baseball season going back to 1903. Special thanks to
+[Sean Lahman](http://seanlahman.com/) for creating such an amazing baseball
+database and making it open-source!
+
+<a href="https://dnegrey.shinyapps.io/mlb-dashboard/" target="_blank"><img src="www/screenshot-mlb-dashboard.png" alt="MLB Dashboard" class="projects-screenshot"></a>
+
+## Professional development
+
+**[Coursera](https://www.coursera.org/)**
+
+I am an advocate for massive open online courses
+([MOOCs](https://www.mooc.org/)), and in particular, I have had great
+experiences with Coursera. Below are some of the courses I've taken and projects
+I've completed as part of those courses. This training was instrumental in
+helping me learn R, Shiny and the fundamentals of reproducible data science.
+
+* <a href="https://www.coursera.org/specializations/jhu-data-science" target="_blank">Data Science Specialization offered by Johns Hopkins University</a>
+    * Regression Models (<a href="https://www.coursera.org/learn/regression-models" target="_blank">course</a> | <a href="https://s3.amazonaws.com/coursera-uploads/user-c6cf595c99876d33669f141e/973762/asst-4/0d9ca7c0880211e4b2a3c70a976aa8ad.pdf" target="_blank">project</a>)
+    * Practical Machine Learning (<a href="https://www.coursera.org/learn/practical-machine-learning" target="_blank">course</a> | <a href="https://dnegrey.com/PML_CourseProject/writeup.html" target="_blank">project</a>)
+    * Developing Data Products (<a href="https://www.coursera.org/learn/data-products" target="_blank">course</a> | <a href="https://dnegrey.shinyapps.io/courseProject/" target="_blank">project</a>)
+    * Reproducible Research (<a href="https://www.coursera.org/learn/reproducible-research" target="_blank">course</a> | <a href="https://rpubs.com/dnegrey/45114" target="_blank">project</a>)
+* <a href="https://www.coursera.org/specializations/data-science" target="_blank">Data Science at Scale Specialization offered by The University of Washington</a>
+    * Data Manipulation at Scale: Systems and Algorithms (<a href="https://www.coursera.org/learn/data-manipulation" target="_blank">course</a>)
+
+**[SAS Global Certification](https://www.sas.com/en_us/certification.html)**
+
+Growth in the early part of my career was heavily dependent on learning the SAS
+programming language. Besides career advancement, though, I was very intrigued
+by making analytic processes more efficient - both in terms of reducing the time
+required for jobs to run as well as consolidating the code bases to be more
+concise. For each of these areas, mastering the SAS macro and SQL pass-through
+facilities was critical, and it started me down a path of data science software
+engineering that has persisted throughout my career and is a key component of my
+professional approach.
+
+* <a href="https://www.youracclaim.com/badges/45a7f69e-7463-4755-96d3-a16cae7a1b3b/public_url" target="_blank">SAS Certified Advanced Programmer for SAS 9</a>
+* <a href="https://www.youracclaim.com/badges/d5bd42b0-ffc5-48ec-b1be-b3e2fcabaee5/public_url" target="_blank">SAS Certified Base Programmer for SAS 9</a>
+
+**[MongoDB University](https://university.mongodb.com/)**
+
+Some of the most eye-opening moments in my career have come while learning
+about paradigm shifting technology. Indeed, this was the case when I was first
+introduced to NoSQL databases like [MongoDB](https://www.mongodb.com/) and
+[Neo4j](https://neo4j.com/). Each offers a community version of their product
+and a wealth of free training opportunities.
+
+* <a href="https://university.mongodb.com/courses/M101P/about" target="_blank">M101P: MongoDB for Developers</a>
+
+#### Other articles and presentations
+
+**[Data Days CLE](https://www.datadayscle.org/)**
+
+I was very fortunate to be invited to speak at the inaugural Data Days Cleveland
+conference in 2017. Data Days CLE is the region’s only conference focused on
+accessible data and civic technology for community impact. I gave a
+<a href="https://dnegrey.com/dataDaysCLE/main.html" target="_blank">presentation introducing R</a>
+and <a href="https://youtu.be/Ls7WpDdzV18" target="_blank">spoke to attendees</a>
+about how open-source data science tools like R have become critical for data
+accessibility and community impact.
+
+**[LinkedIn](https://linkedin.com/in/dnegrey/)**
+
+You're never too old to revisit the basics! This is an
+<a href="https://www.linkedin.com/pulse/describing-your-data-understanding-distributions-dan-negrey" target="_blank">article I wrote back in 2015</a>
+that illustrates the fundamentals of using data distributions and summary
+statistics.
