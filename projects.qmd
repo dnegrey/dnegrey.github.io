@@ -36,12 +36,23 @@ Weekly Picks" class="projects-screenshot"></a>
 ### Marine Vessels
 
 I have a lot of respect for the team at [Appsilon](https://appsilon.com/), and
-the work they've done to advance adoption of R and Shiny. A few years back I
+the work they've done to advance the adoption of R and Shiny. A few years back I
 started exploring their [shiny.semantic](https://appsilon.github.io/shiny.semantic/)
 package and built the follow application which uses it to visualize data around
 marine vessel movement.
 
 <a href="https://dnegrey.shinyapps.io/marine-vessels/" target="_blank"><img src="www/screenshot-marine-vessels.png" alt="Marine Vessels" class="projects-screenshot"></a>
+
+### MLB Dashboard
+
+Since it first came out, I've been a big fan of using [flexdashboard](https://pkgs.rstudio.com/flexdashboard/)
+for both static HTML output and with the Shiny run-time setting. Here is an
+example of the latter, leveraging data from the [Lahman R package](https://cran.r-project.org/package=Lahman) to show standings/results
+from every Major League Baseball season going back to 1903. Special thanks to
+[Sean Lahman](http://seanlahman.com/) for creating such an amazing baseball
+database and making it open-source!
+
+<a href="https://dnegrey.shinyapps.io/mlb-dashboard/" target="_blank"><img src="www/screenshot-mlb-dashboard.png" alt="MLB Dashboard" class="projects-screenshot"></a>
 
 ## Professional development
 
