@@ -11,5 +11,6 @@ Authors@R: c(
 )
 URL: https://dnegrey.com/
 Imports:
-  quarto
+  plotly (>= 4.10.4),
+  quarto (>= 1.3)
 Encoding: UTF-8

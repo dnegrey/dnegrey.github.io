@@ -1,0 +1,38 @@
+---
+title: "Plotly Time Series Plots"
+date: "2024-02-05"
+description: "This post demonstrates how to visualize time-series data using Plotly."
+categories: [visualization, time-series]
+draft: true
+---
+
+One of the most versatile visualization libraries you can learn as a data
+scientist is [Plotly](https://plotly.com/graphing-libraries/). Besides being
+capable of producing a ton of different *types of data visualizations*, Plotly
+can be used across *multiple languages* including R, Python and JavaScript. In
+R, it falls under a category of packages known as  [htmlwidgets](https://www.htmlwidgets.org/)
+(framework for bringing interactive JavaScript visualizations to R). If you've
+worked with me at all, you know that I love using these packages because they
+can be embedded into R Markdown/Quarto (this blog!) documents and Shiny
+applications. For this post, we're going to
+explore using Plotly in R for visualizing time-series data. It's worth noting
+here that in R there are many options available for dealing with time-series
+data in a formal sense (looking at you, [xts](https://cran.r-project.org/web/packages/xts/index.html)). In this
+post, however, we're going to focus more on creating nice visuals so we won't
+worry about the rigor around formal time-series expression. Instead, we'll
+simply obtain a data frame that is unique by date and use that in our plots.
+
+## Necessary Packages
+
+To get started, you'll want to load the `plotly` package. If you don't already
+have it installed, you can easily install it with `install.packages()` or
+`renv::install()` if you're in a [renv](https://rstudio.github.io/renv/index.html)
+initialized project.
+
+```{r}
+#| message: false
+#| warning: false
+library(plotly)
+```
+
+
